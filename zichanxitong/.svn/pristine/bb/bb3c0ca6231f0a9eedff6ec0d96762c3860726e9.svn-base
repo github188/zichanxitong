@@ -1,0 +1,124 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:2:1-43:12
+	xmlns:android
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:2:11-69
+	package
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:3:5-32
+		INJECTED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:5:5-66
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:5:22-64
+application
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:7:5-41:19
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+MERGED from [meal:library:unspecified] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/meal/library/unspecified/AndroidManifest.xml:11:5-20
+MERGED from [com.android.support:support-v4:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
+	android:supportsRtl
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:12:9-35
+	android:label
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:11:9-29
+	android:allowBackup
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:9:9-35
+	android:icon
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:10:9-43
+	android:theme
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:13:9-40
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:8:9-47
+activity#com.szcomtop.meal.activity.TransparentActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:14:9-23:20
+	android:label
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:16:13-45
+	android:theme
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:17:13-56
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:15:13-57
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:18:13-22:29
+action#android.intent.action.MAIN
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:19:17-69
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:19:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:21:17-77
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:21:27-74
+activity#com.szcomtop.meal.activity.MyApplysActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:25:9-72
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:25:19-60
+activity#com.szcomtop.meal.activity.ApplyDetailActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:26:9-75
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:26:19-63
+activity#com.szcomtop.meal.activity.NewApplyActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:27:9-72
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:27:19-60
+activity#com.szcomtop.meal.activity.StatisticsActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:28:9-74
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:28:19-62
+activity#com.szcomtop.meal.activity.StatisticsDetailActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:29:9-80
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:29:19-68
+activity#com.szcomtop.meal.activity.ApproveDetailActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:30:9-77
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:30:19-65
+activity#com.szcomtop.meal.activity.CanteenListActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:31:9-75
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:31:19-63
+activity#com.szcomtop.meal.activity.TogetherPeopleActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:32:9-78
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:32:19-66
+activity#com.szcomtop.meal.activity.CaldroidSampleActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:34:9-78
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:34:19-66
+activity#com.szcomtop.meal.activity.ChargerListActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:35:9-75
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:35:19-63
+activity#com.szcomtop.meal.activity.MyApproveApplysActivity
+ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:36:9-79
+	android:name
+		ADDED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml:36:19-67
+uses-sdk
+INJECTED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:design:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+MERGED from [com.zhy:okhttputils:2.3.8] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.zhy/okhttputils/2.3.8/AndroidManifest.xml:7:5-9:41
+MERGED from [meal:library:unspecified] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/meal/library/unspecified/AndroidManifest.xml:7:5-9:40
+MERGED from [meal:caldroid:unspecified] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/meal/caldroid/unspecified/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:support-v4:23.1.1] /Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:20:5-43
+	android:targetSdkVersion
+		INJECTED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/AndroidManifest.xml

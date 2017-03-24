@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.szcomtop.meal.views.HeadView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.szcomtop.meal.views.HeadView>
+
+    <TextView
+
+        android:id="@+id/power_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:textColor="#666666"
+        android:textSize="15sp"
+
+        android:text="当前功率：12dBM"/>
+
+    <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+
+        android:id="@+id/power_seekbar"
+
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dsb_min="0"
+        app:dsb_max="33"
+        app:dsb_trackHeight="3dp"
+        app:dsb_thumbSize="16dp"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:textColor="#666666"
+
+            android:layout_alignParentLeft="true"
+            android:text="0dBM"/>
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:textColor="#666666"
+            android:layout_alignParentRight="true"
+            android:text="33dBM"/>
+    </RelativeLayout>
+
+</LinearLayout>

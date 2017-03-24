@@ -1,0 +1,588 @@
+package com.szcomtop.meal.fragment;
+
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.activity.ApproveDetailActivity;
+import com.szcomtop.meal.activity.BaseActivity;
+import com.szcomtop.meal.activity.MyApproveApplysActivity;
+import com.szcomtop.meal.common.CommonAdapter;
+import com.szcomtop.meal.common.Consts;
+import com.szcomtop.meal.common.OverAllStorage;
+import com.szcomtop.meal.common.ViewHolder;
+import com.szcomtop.meal.model.ApplyInfo;
+import com.szcomtop.meal.model.Response;
+import com.szcomtop.meal.views.CommonDialog;
+import com.szcomtop.meal.views.SearchBar;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import okhttp3.Call;
+
+/**
+ * Created by wuming on 16/3/25.
+ */
+public class MyApprovesFragment extends BaseFragment implements AdapterView.OnItemClickListener, TextWatcher {
+
+    private static final String PAGE_SIZE = "10";
+    private SearchBar mApprovedApplysSearchBar;
+    private PullToRefreshListView mApprovedApplysListview;
+
+    private List<ApplyInfo> waitToApproved = new ArrayList<>();
+
+    private List<ApplyInfo> hadApproved = new ArrayList<>();
+    private List<ApplyInfo> hadApprovedBk = new ArrayList<>();
+    private BaseAdapter baseAdapter;
+    private boolean isShowApproved = false;
+    private int pager = 0;
+    private GetApprovedDataTask getApprovedDataTask;
+    private ArrayList<ApplyInfo> searched;
+    private CommonDialog commonDialog;
+    private  boolean isSearch = false;
+
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View inflate = inflater.inflate(R.layout.fragment_my_approved_applys, null);
+        assignViews(inflate);
+        initView();
+        return inflate;
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (!isSearch){
+
+            pager = 0 ;
+            waitToApproved.clear();
+            hadApproved.clear();
+            isShowApproved =false ;
+
+
+
+            getTodoTask();
+            mApprovedApplysListview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        }
+
+
+    }
+
+    private void initView() {
+
+
+        mApprovedApplysSearchBar.addTextChangedListener(this);
+
+        mApprovedApplysListview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+        mApprovedApplysListview.getRefreshableView().setOnItemClickListener(this);
+        mApprovedApplysListview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                pager = 0 ;
+                waitToApproved.clear();
+                hadApproved.clear();
+                isShowApproved =false ;
+
+
+
+                getTodoTask();
+                mApprovedApplysListview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+                new GetApprovedDataTask().execute();
+
+
+            }
+        });
+
+        if (commonDialog == null){
+
+            commonDialog = new CommonDialog(getActivity());
+            commonDialog.setText("更新数据");
+        }
+        commonDialog.show();
+        getTodoTask();
+    }
+
+    private void getTodoTask() {
+        String url = Consts.SERVER_PREFIX +"/mealbook/api/booking/todo_task?keyword=";
+        OkHttpUtils
+                .post()
+                .addParams("pageNumber", "0")
+                .addParams("pageSize", "65536")
+                .addParams("userId", OverAllStorage.getInstance().get("openId").toString())
+                .url(url)
+                .build()
+                .execute(new StringCallback() {
+
+                    @Override
+                    public void onError(Call call, Exception e) {
+
+
+                        if (commonDialog != null && commonDialog.isShowing()){
+                            commonDialog.dismiss();
+                        }
+
+                        showToast("获取数据失败");
+
+
+                        Log.i("wuming", "response:" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+
+
+
+                        if (commonDialog != null && commonDialog.isShowing()){
+                            commonDialog.dismiss();
+                        }
+                        // Call onRefreshComplete when the list has been refreshed.
+                        mApprovedApplysListview.onRefreshComplete();
+
+                        try {
+                            Gson gson = new Gson();
+                            Response<ApplyInfo> res = gson.fromJson(response, new TypeToken<Response<ApplyInfo>>() {
+                            }.getType());
+                            int state = res.getState();
+                            if (state == 0) {
+                                //成功
+                                List<ApplyInfo> data = res.getData();
+                                waitToApproved = data;
+                                MyApproveApplysActivity activity = (MyApproveApplysActivity) getActivity();
+                                activity.setRedDot(data.size()+"");
+                                doSu1cceed(data);
+                            } else {
+                                //失败
+                                showToast("获取数据失败");
+
+                            }
+                            Log.i("wuming", "response:" + response);
+
+                        }catch (Exception e){
+
+                            //失败
+                            showToast("获取数据失败");
+
+
+                            Log.i("wuming", "response:falied"  );
+
+                        }
+
+
+                        baseAdapter.notifyDataSetChanged();
+
+
+
+                    }
+                });
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int before, int count) {
+
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        mApprovedApplysListview.setMode(PullToRefreshBase.Mode.DISABLED);
+
+        String aa = s.toString();
+        if(TextUtils.isEmpty(aa)){
+
+            isSearch = false ;
+            mApprovedApplysListview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+
+            // mApprovedApplysListview.invalidate();
+            if (baseAdapter != null){
+                mApprovedApplysListview.setAdapter(baseAdapter);
+
+            }
+            return;
+        }
+        isSearch = true ;
+        Pattern p = Pattern.compile(aa);
+        searched = new ArrayList<ApplyInfo>();
+        List<ApplyInfo> allData = new ArrayList<ApplyInfo>();
+        allData.addAll(waitToApproved);
+        allData.addAll(hadApprovedBk);
+
+        for (int i = 0; i < allData.size(); i++) {
+            ApplyInfo applyInfo = allData.get(i);
+            Matcher matcher = p.matcher(applyInfo.getName()+applyInfo.getReason());
+            if (matcher.find()) {
+                searched.add(applyInfo);
+                if (waitToApproved.contains(applyInfo)){
+                    applyInfo.setApproved(false);
+                }else {
+                    applyInfo.setApproved(true);
+                }
+            }
+        }
+
+
+        MySearchAdapter mySearchAdapter = new MySearchAdapter();
+
+
+        mApprovedApplysListview.getRefreshableView().setAdapter(mySearchAdapter);
+
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
+    }
+
+
+    private class GetApprovedDataTask extends AsyncTask<Void, Void, List<ApplyInfo>> {
+
+
+
+
+        @Override
+        protected List<ApplyInfo> doInBackground(Void... params) {
+            // Simulates a background job.
+            try {
+                String url = Consts.SERVER_PREFIX +"/mealbook/api/booking/finish_task?keyword=";
+                okhttp3.Response response = OkHttpUtils
+                        .post()
+                        .addParams("pageNumber", pager + "")
+                        .addParams("pageSize", PAGE_SIZE)
+                        .addParams("userId",OverAllStorage.getInstance().get("openId").toString())
+                        .url(url)
+                        .build()
+                        .execute();
+
+                Thread.sleep(1000);
+
+                if (response.code() == 200) {
+                    //接口成功
+                    String responseStr = response.body().string();
+                    Log.i("wuming","responseStr:"+responseStr);
+                    Gson gson = new Gson();
+                    Response<ApplyInfo> res = gson.fromJson(responseStr, new TypeToken<Response<ApplyInfo>>() {
+                    }.getType());
+                    int state = res.getState();
+                    if (state == 0) {
+                        //成功获取到数据
+                        pager++;
+                        List<ApplyInfo> data = res.getData();
+                        if (data == null || data.size() == 0){
+
+                            showToast("没有更多数据了");
+                        }
+
+                        hadApproved.addAll(data);
+
+                        hadApprovedBk.clear();
+                        hadApprovedBk.addAll(hadApproved);
+
+                        return hadApproved;
+                    } else {
+                        //失败
+                        showToast("获取数据失败");
+                        return hadApproved;
+                    }
+
+                } else {
+                    //接口失败
+                    showToast("获取数据失败");
+                }
+
+            } catch (Exception e) {
+
+                Log.e("wuming",e.toString());
+                showToast("获取数据失败");
+
+            }
+
+            hadApprovedBk.clear();
+            hadApprovedBk.addAll(hadApproved);
+            return hadApproved;
+        }
+
+        @Override
+        protected void onPostExecute(List<ApplyInfo> result) {
+
+            if (commonDialog != null && commonDialog.isShowing()){
+                commonDialog.dismiss();
+            }
+            mApprovedApplysListview.onRefreshComplete();
+
+            baseAdapter.notifyDataSetChanged();
+
+            // Call onRefreshComplete when the list has been refreshed.
+            mApprovedApplysListview.setMode(PullToRefreshBase.Mode.BOTH);
+        }
+    }
+
+
+
+    public class MySearchAdapter  extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return searched == null ? 0 :searched.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return i;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View convertView, ViewGroup viewGroup) {
+
+
+            ViewHolder viewHolder = null;
+            if (null == convertView ) {
+                //没有或不是item类型
+                viewHolder = new ViewHolder();
+                LayoutInflater mInflater = LayoutInflater.from(getContext());
+                convertView = mInflater.inflate(R.layout.apply_item, null);
+
+                viewHolder.avatar = (ImageView) convertView.findViewById(R.id.apply_item_avatar);
+                viewHolder.stateTv = (TextView) convertView
+                        .findViewById(R.id.apply_item_state_tv);
+                viewHolder.name = (TextView) convertView
+                        .findViewById(R.id.apply_item_name);
+                viewHolder.time = (TextView) convertView
+                        .findViewById(R.id.apply_item_time);
+                viewHolder.stateImg = (ImageView) convertView
+                        .findViewById(R.id.apply_item_state_img);
+
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+            ApplyInfo applyInfo = searched.get(i);
+
+
+            if (null != applyInfo) {
+                viewHolder.applyInfo = applyInfo;
+                ImageLoader.getInstance().displayImage(applyInfo.getAvatar(), viewHolder.avatar);
+                viewHolder.name.setText(applyInfo.getName()+"的申请");
+                viewHolder.time.setText((String) DateFormat.format("yyyy-MM-dd HH:mm", applyInfo.getCreateTime()));
+                TextView statusTv = viewHolder.stateTv;
+                ImageView statusIv = viewHolder.stateImg;
+                setStatus(applyInfo.getState(), statusTv, statusIv);
+            }
+
+            return convertView;
+        }
+    }
+
+
+
+
+
+    private void doSu1cceed(List<ApplyInfo> data) {
+
+
+        baseAdapter = new BaseAdapter() {
+
+            @Override
+            public int getCount() {
+                return waitToApproved.size() + hadApproved.size() + 1;
+            }
+
+            @Override
+            public Object getItem(int i) {
+                return i;
+            }
+
+            @Override
+            public long getItemId(int i) {
+                return i;
+            }
+
+            @Override
+            public View getView(int i, View convertView, ViewGroup viewGroup) {
+
+                if (i == waitToApproved.size()) {
+                    //加载历史
+                    View v = View.inflate(getContext(), R.layout.list_show_history_view, null);
+                    TextView showHistoryTv = (TextView) v.findViewById(R.id.item_show_history_tv);
+                    ImageView showHistoryIv = (ImageView) v.findViewById(R.id.item_show_history_iv);
+                    if (isShowApproved){
+                        showHistoryIv.setImageResource(R.drawable.date_btn_upward);
+                        showHistoryTv.setText("点击隐藏历史记录");
+                    }else {
+                        showHistoryIv.setImageResource(R.drawable.date_btn_downward);
+                        showHistoryTv.setText("点击显示历史记录");
+                    }
+
+                    v.setEnabled(false);
+                    return v;
+                } else {
+
+                    ViewHolder viewHolder = null;
+                    if (null == convertView || convertView.findViewById(R.id.apply_item_avatar) == null) {
+                        //没有或不是item类型
+                        viewHolder = new ViewHolder();
+                        LayoutInflater mInflater = LayoutInflater.from(getContext());
+                        convertView = mInflater.inflate(R.layout.apply_item, null);
+
+                        viewHolder.avatar = (ImageView) convertView.findViewById(R.id.apply_item_avatar);
+                        viewHolder.stateTv = (TextView) convertView
+                                .findViewById(R.id.apply_item_state_tv);
+                        viewHolder.name = (TextView) convertView
+                                .findViewById(R.id.apply_item_name);
+                        viewHolder.time = (TextView) convertView
+                                .findViewById(R.id.apply_item_time);
+                        viewHolder.stateImg = (ImageView) convertView
+                                .findViewById(R.id.apply_item_state_img);
+
+                        convertView.setTag(viewHolder);
+                    } else {
+                        viewHolder = (ViewHolder) convertView.getTag();
+                    }
+
+                    // set item values to the viewHolder:
+                    ApplyInfo applyInfo = null;
+                    if (i < waitToApproved.size()) {
+                        applyInfo = waitToApproved.get(i);
+                        if (applyInfo != null){
+
+                            applyInfo.setApproved(false);
+                        }
+
+                    } else if (i > waitToApproved.size()) {
+                        applyInfo = hadApproved.get(i - waitToApproved.size() - 1);
+                        if (applyInfo != null){
+
+                            applyInfo.setApproved(true);
+                        }
+
+                    }
+
+                    if (null != applyInfo) {
+                        viewHolder.applyInfo = applyInfo;
+                        ImageLoader.getInstance().displayImage(applyInfo.getAvatar(), viewHolder.avatar);
+                        viewHolder.name.setText(applyInfo.getName()+"的申请");
+                        viewHolder.time.setText((String) DateFormat.format("yyyy-MM-dd HH:mm", applyInfo.getCreateTime()));
+                        TextView statusTv = viewHolder.stateTv;
+                        ImageView statusIv = viewHolder.stateImg;
+                        setStatus(applyInfo.getState(), statusTv, statusIv);
+                    }
+
+                    return convertView;
+
+                }
+
+            }
+        };
+
+        mApprovedApplysListview.getRefreshableView().setAdapter(baseAdapter);
+
+    }
+
+
+    private void assignViews(View inflate) {
+        mApprovedApplysSearchBar = (SearchBar) inflate.findViewById(R.id.approved_applys_search_bar);
+        mApprovedApplysListview = (PullToRefreshListView) inflate.findViewById(R.id.approved_applys_listview);
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if (view.findViewById(R.id.apply_item_avatar) == null) {
+
+            TextView showHistoryTv = (TextView) view.findViewById(R.id.item_show_history_tv);
+            ImageView showHistoryIv = (ImageView) view.findViewById(R.id.item_show_history_iv);
+
+            if (!isShowApproved) {
+                //如果没有加载历史，加载
+                pager = 0;
+                mApprovedApplysListview.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+                mApprovedApplysListview.invalidate();
+
+                mApprovedApplysListview.setRefreshing();
+                showHistoryIv.setImageResource(R.drawable.date_btn_upward);
+                showHistoryTv.setText("点击隐藏历史记录");
+               // mApprovedApplysListview.setMode(PullToRefreshBase.Mode.BOTH);
+
+
+                isShowApproved = true;
+            } else {
+                //如果已加载，remove
+                isShowApproved = false;
+                hadApproved.clear();
+                baseAdapter.notifyDataSetChanged();
+                mApprovedApplysListview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                mApprovedApplysListview.invalidate();
+                showHistoryIv.setImageResource(R.drawable.date_btn_downward);
+                showHistoryTv.setText("点击显示历史记录");
+
+
+            }
+
+        } else {
+            Intent intent = new Intent(getActivity(), ApproveDetailActivity.class);
+            ViewHolder holder = (ViewHolder) view.getTag();
+            ApplyInfo applyInfo = holder.applyInfo;
+//
+            intent.putExtra("isShowBtn",!applyInfo.isApproved());
+            intent.putExtra("applyInfo", applyInfo);
+            startActivity(intent);
+
+        }
+
+    }
+
+
+    public class ViewHolder {
+
+        public ImageView avatar;
+        public TextView name;
+        public TextView stateTv;
+        public TextView time;
+        public ImageView stateImg;
+        public ApplyInfo applyInfo;
+    }
+}

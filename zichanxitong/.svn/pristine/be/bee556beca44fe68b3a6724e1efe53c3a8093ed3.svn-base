@@ -1,0 +1,1032 @@
+package com.szcomtop.meal.activity;
+
+import android.animation.Animator;
+import android.animation.ValueAnimator;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
+import com.roomorama.caldroid.CalendarHelper;
+import com.roomorama.caldroid.CellView;
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.common.Consts;
+import com.szcomtop.meal.common.MyAnimatorListenerAdapter;
+import com.szcomtop.meal.common.OverAllStorage;
+import com.szcomtop.meal.model.ApplyApply;
+import com.szcomtop.meal.model.Carteen;
+import com.szcomtop.meal.model.QixinUser;
+import com.szcomtop.meal.model.UserInfo;
+import com.szcomtop.meal.utils.ViewUtils;
+import com.szcomtop.meal.views.CircleImageView;
+import com.szcomtop.meal.views.CommonDialog;
+import com.szcomtop.meal.views.DateWheelView;
+import com.szcomtop.meal.views.HeadView;
+import com.szcomtop.meal.views.OptionItemView;
+import com.szcomtop.meal.views.SlidingFromTopView;
+import com.szcomtop.meal.views.SwitchView;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
+import hirondelle.date4j.DateTime;
+import okhttp3.Call;
+
+/**
+ * Created by wuming on 16/3/24.
+ */
+public class NewApplyActivity extends FragmentActivity implements View.OnClickListener, HeadView.OnHeadInitListener, HeadView.OnHeadClickListener, SwitchView.OnStateChangedListener {
+
+    private static final int HAVE_CANTEEN = 11;
+    private static final int STOP_CANTEEN = 22;
+    private static final int TOGETHER_PEOPLE = 33;
+    private static final int CHARGER = 44;
+
+
+    private CaldroidFragment caldroidFragment;
+    private View shadow;
+    private View mcurrentCell;
+    //  private TextView mNewApplyCalendaCancel;
+    //   private TextView mNewApplyCalendaOk;
+    private boolean isSelectStartDate;
+    //   private TextView mNewApplyCalendaTv;
+
+
+    private HeadView mNewApplyTitle;
+    private OptionItemView mNewApplyEntourage;
+    private OptionItemView mNewApplyHaveCanteen;
+    private OptionItemView mNewApplyStopCanteen;
+    private OptionItemView mNewApplyLunchDate;
+    private OptionItemView mNewApplyLunchDays;
+    private SwitchView mWhetherDinnerSwitch;
+    private OptionItemView mNewApplyDinnerDate;
+    private OptionItemView mNewApplyDinnerDays;
+    private TextView mNewApplyReason;
+    private EditText mNewApplyReasonEt;
+    private CircleImageView mNewApplyApproverAvatar;
+    private TextView mNewApplyApproverName;
+    private LinearLayout carlendaArea;
+    private TextView mNewApplyCarlendaTv;
+    private FrameLayout mCalendar;
+    private TextView mNewApplyCarlendaCancelBtn;
+    private TextView mNewApplyCarlendaOkBtn;
+    private Date mcurrentDate;
+    private Date mStartDate;
+    private Date mEndDate;
+    private boolean isLunch;
+    private Carteen.RoomListBean mApproveBean;
+    private TextView commitBtn;
+    private String togetherPeople;
+    private RelativeLayout chargerItem;
+    private TextView chargerName;
+    private int mcurrentYear;
+    private int mcurrentMonth;
+    private ArrayList<DateTime> selectedDates;
+    private String dinnerNum;
+    private List<QixinUser> qixinUsersss;
+    private UserInfo selectCharger;
+    private String otherPeople = "";
+    private Carteen.RoomListBean stopCarteen;
+
+
+    private void assignViews() {
+
+
+        mNewApplyTitle = (HeadView) findViewById(R.id.new_apply_title);
+        mNewApplyEntourage = (OptionItemView) findViewById(R.id.new_apply_entourage);
+        mNewApplyHaveCanteen = (OptionItemView) findViewById(R.id.new_apply_have_canteen);
+        mNewApplyStopCanteen = (OptionItemView) findViewById(R.id.new_apply_stop_canteen);
+        mNewApplyLunchDate = (OptionItemView) findViewById(R.id.new_apply_lunch_date);
+        mNewApplyLunchDays = (OptionItemView) findViewById(R.id.new_apply_lunch_days);
+        mWhetherDinnerSwitch = (SwitchView) findViewById(R.id.whether_dinner_switch);
+        mNewApplyDinnerDate = (OptionItemView) findViewById(R.id.new_apply_dinner_date);
+        mNewApplyDinnerDays = (OptionItemView) findViewById(R.id.new_apply_dinner_days);
+        mNewApplyReason = (TextView) findViewById(R.id.new_apply_reason);
+        mNewApplyReasonEt = (EditText) findViewById(R.id.new_apply_reason_et);
+        mNewApplyApproverName = (TextView) findViewById(R.id.new_apply_approver_name);
+        mNewApplyApproverAvatar = (CircleImageView) findViewById(R.id.new_apply_approver_avatar);
+        mNewApplyApproverName = (TextView) findViewById(R.id.new_apply_approver_name);
+        shadow = findViewById(R.id.new_apply_shadow);
+        carlendaArea = (LinearLayout) findViewById(R.id.new_apply_carlenda_area);
+        mNewApplyCarlendaTv = (TextView) findViewById(R.id.new_apply_carlenda_tv);
+        mCalendar = (FrameLayout) findViewById(R.id.calendar);
+        mNewApplyCarlendaCancelBtn = (TextView) findViewById(R.id.new_apply_carlenda_cancel_btn);
+        mNewApplyCarlendaOkBtn = (TextView) findViewById(R.id.new_apply_carlenda_ok_btn);
+
+        commitBtn = (TextView) findViewById(R.id.new_apply_commit_btn);
+
+        chargerItem = (RelativeLayout) findViewById(R.id.new_apply_charger_item);
+
+        chargerName = (TextView) findViewById(R.id.new_apply_charger_name);
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mCalendar.isShown()) {
+            dismissCalendar();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_new_apply);
+        assignViews();
+        initView();
+        getTimeScope();
+    }
+
+    private void initView() {
+        mNewApplyTitle.setHeadParams(HeadView.TYPE_LEFTONLY, this);
+        mNewApplyTitle.setOnHeadClick(this);
+        mNewApplyEntourage.setOnClickListener(this);
+        mNewApplyHaveCanteen.setOnClickListener(this);
+        mNewApplyStopCanteen.setOnClickListener(this);
+
+        mNewApplyCarlendaCancelBtn.setOnClickListener(this);
+        mNewApplyCarlendaOkBtn.setOnClickListener(this);
+
+
+        mNewApplyLunchDate.setOnClickListener(this);
+        mNewApplyDinnerDate.setOnClickListener(this);
+        mWhetherDinnerSwitch.setOnStateChangedListener(this);
+
+        chargerItem.setOnClickListener(this);
+
+
+        commitBtn.setOnClickListener(this);
+
+
+        shadow.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (!ViewUtils.isTouchInView(motionEvent, carlendaArea)) {
+                    dismissCalendar();
+
+                }
+                return true;
+            }
+        });
+
+        initCaladerFragment();
+
+    }
+
+    private void initCaladerFragment() {
+        final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+
+        caldroidFragment = new CaldroidFragment();
+        Bundle args = new Bundle();
+        Calendar cal = Calendar.getInstance();
+        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+        args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
+        args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
+        caldroidFragment.setMinDate(new Date());
+
+
+        caldroidFragment.setArguments(args);
+
+        // setCustomResourceForDates();
+
+        // Attach to the activity
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.calendar, caldroidFragment);
+        t.commit();
+
+
+        final CaldroidListener listener = new CaldroidListener() {
+
+            @Override
+            public void onSelectDate(Date date, View view) {
+
+
+                if (isLunch){
+                    if (isSelectStartDate) {
+
+
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(date);
+
+                        if(cal.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY||cal.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY)
+                        {
+                            return;
+                        }
+
+
+                        if (mEndDate != null) {
+
+                            int daysOfTwo = daysOfTwo(date, mEndDate);
+                            if (daysOfTwo <= 0) {
+                                caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.cell_bg), mEndDate);
+                                mEndDate = null;
+                            }
+
+
+                        }
+
+                        if (mStartDate != null && mStartDate != date) {
+
+                            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.cell_bg), mStartDate);
+                            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.blue_round_bg), date);
+
+                            mStartDate = date;
+
+                        } else if (mStartDate == date) {
+                            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.cell_bg), mStartDate);
+                            mStartDate = null;
+                        } else {
+
+                            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.blue_round_bg), date);
+                            mStartDate = date;
+
+                        }
+
+                        caldroidFragment.refreshView();
+
+                    } else {
+
+
+                        if (mStartDate != null) {
+                            if (daysOfTwo(mStartDate, date) < 0) {
+                                Toast.makeText(getApplicationContext(), "结束时间必须大于开始时间", 0).show();
+                                return;
+                            }
+                        }
+
+
+                        if (mEndDate != null && mEndDate != date) {
+
+                            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.cell_bg), mEndDate);
+                            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.red_round_bg), date);
+
+                            mEndDate = date;
+
+                        } else if (mEndDate == date) {
+                            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.cell_bg), mEndDate);
+                            mEndDate = null;
+                        } else {
+
+                            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.red_round_bg), date);
+                            mEndDate = date;
+
+                        }
+
+                        caldroidFragment.refreshView();
+                    }
+                }else {
+                    //如果是晚餐
+                    ArrayList<DateTime> selectedDates = caldroidFragment.getSelectedDates();
+                    DateTime dateTime = CalendarHelper.convertDateToDateTime(date);
+                    if (selectedDates.contains(dateTime)){
+
+                        caldroidFragment.clearSelectedDate(date);
+                        caldroidFragment.refreshView();
+                    }else {
+                        caldroidFragment.setSelectedDate(date);
+                        caldroidFragment.refreshView();
+                    }
+
+
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onChangeMonth(int month, int year) {
+
+
+
+
+            }
+
+            @Override
+            public void onLongClickDate(Date date, View view) {
+
+            }
+
+            @Override
+            public void onCaldroidViewCreated() {
+
+            }
+
+        };
+
+        // Setup Caldroid
+        caldroidFragment.setCaldroidListener(listener);
+
+        caldroidFragment.refreshView();
+    }
+
+
+
+
+    public static int  getDatesCount(Date dBegin, Date dEnd) {
+        List<Date> lDate = new ArrayList();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dBegin);
+        if (calendar.get(Calendar.DAY_OF_WEEK )== Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_WEEK )== Calendar.SUNDAY){
+        }else {
+            lDate.add(dBegin);
+
+        }
+
+        Calendar calBegin = Calendar.getInstance();
+        // 使用给定的 Date 设置此 Calendar 的时间
+        calBegin.setTime(dBegin);
+        Calendar calEnd = Calendar.getInstance();
+        // 使用给定的 Date 设置此 Calendar 的时间
+        calEnd.setTime(dEnd);
+        // 测试此日期是否在指定日期之后
+        while (dEnd.after(calBegin.getTime())) {
+            // 根据日历的规则，为给定的日历字段添加或减去指定的时间量
+            calBegin.add(Calendar.DAY_OF_MONTH, 1);
+            if (calBegin.get(Calendar.DAY_OF_WEEK )== Calendar.SATURDAY || calBegin.get(Calendar.DAY_OF_WEEK )== Calendar.SUNDAY){
+            }else {
+                lDate.add(dBegin);
+            }
+
+        }
+        return lDate.size();
+    }
+
+
+    public static int daysOfTwo(Date fDate, Date oDate) {
+
+        Calendar aCalendar = Calendar.getInstance();
+
+        aCalendar.setTime(fDate);
+
+        int day1 = aCalendar.get(Calendar.DAY_OF_YEAR);
+
+        aCalendar.setTime(oDate);
+
+        int day2 = aCalendar.get(Calendar.DAY_OF_YEAR);
+
+        return day2 - day1;
+
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.new_apply_lunch_date:
+
+
+                isLunch = true;
+
+                resetCalendaFragment();
+
+                if (mStartDate != null){
+
+                    caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.blue_round_bg), mStartDate);
+                }
+                if (mEndDate != null){
+
+                    caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.red_round_bg), mEndDate);
+                }
+                caldroidFragment.clearSelectedDates();
+
+
+                String dayScope = (String) OverAllStorage.getInstance().get("dayScope");
+                Integer dayScopeI = Integer.valueOf(dayScope)+1;
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DAY_OF_MONTH,dayScopeI);
+                caldroidFragment.setMinDate(calendar.getTime());
+
+                caldroidFragment.refreshView();
+                showCalendar();
+
+
+
+                break;
+
+            case R.id.new_apply_dinner_date:
+
+                if (mStartDate == null || mEndDate == null){
+                    Toast.makeText(this,"请先选择午餐时间",0).show();
+                    return;
+                }
+
+                isLunch = false;
+
+
+                resetCalendaFragment();
+                if (selectedDates == null  || selectedDates.size() == 0){
+
+                    caldroidFragment.clearSelectedDates();
+                    caldroidFragment.setSelectedDates(mStartDate,mEndDate);
+                }else {
+
+                    caldroidFragment.clearSelectedDates();
+
+                    for (int i= 0 ;i<selectedDates.size();i++){
+                        caldroidFragment.setSelectedDate(CalendarHelper.convertDateTimeToDate(selectedDates.get(i)));
+                    }
+
+                }
+
+
+                caldroidFragment.setMinDate(mStartDate);
+                caldroidFragment.setMaxDate(mEndDate);
+                caldroidFragment.refreshView();
+
+                showCalendar();
+                break;
+
+
+            case R.id.new_apply_have_canteen:
+
+                Intent intent1 = new Intent(this, CanteenListActivity.class);
+                intent1.putExtra("showWu",false);
+                startActivityForResult(intent1, HAVE_CANTEEN);
+                break;
+
+            case R.id.new_apply_stop_canteen:
+
+                startActivityForResult(new Intent(this, CanteenListActivity.class), STOP_CANTEEN);
+                break;
+
+            case R.id.new_apply_entourage:
+                startActivityForResult(new Intent(this, TogetherPeopleActivity.class), TOGETHER_PEOPLE);
+                break;
+
+            case R.id.new_apply_shadow:
+                // dismissCalendar();
+                break;
+
+            case R.id.new_apply_carlenda_cancel_btn:
+                if (isLunch){
+                    if (isSelectStartDate) {
+
+                        dismissCalendar();
+                    } else {
+                        isSelectStartDate = true;
+                        mNewApplyCarlendaTv.setText("请选择开始时间");
+                        mNewApplyCarlendaCancelBtn.setText("取消");
+                        mNewApplyCarlendaOkBtn.setText("下一步");
+
+                        if (mStartDate != null){
+
+                            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.blue_round_bg), mStartDate);
+                            caldroidFragment.refreshView();
+                        }
+
+
+                    }
+                }else {
+                    dismissCalendar();
+
+                }
+
+                break;
+
+            case R.id.new_apply_carlenda_ok_btn:
+
+                if (isLunch){
+                    if (isSelectStartDate) {
+
+                        //selectedDates = caldroidFragment.getSelectedDates();
+                        isSelectStartDate = false;
+                        mNewApplyCarlendaTv.setText("请选择结束时间");
+
+                        mNewApplyCarlendaCancelBtn.setText("上一步");
+                        mNewApplyCarlendaOkBtn.setText("确定");
+                        if (mEndDate != null){
+
+                            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.red_round_bg), mEndDate);
+                            caldroidFragment.refreshView();
+                        }
+                    } else {
+
+                        if (mEndDate == null) {
+                            Toast.makeText(NewApplyActivity.this, "请选择结束时间", 0).show();
+                            return;
+                        }
+                        dismissCalendar();
+
+                        if (selectedDates != null){
+                            selectedDates.clear();
+                        }
+                        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        String startDateStr = formatter.format(mStartDate);
+                        String endDateStr = formatter.format(mEndDate);
+                        if (isLunch) {
+
+                            mNewApplyLunchDate.setRightText(startDateStr + "至" + endDateStr);
+                            int datesCount = getDatesCount(mStartDate, mEndDate);
+                            mNewApplyLunchDays.setRightText(datesCount + "天");
+
+                            mNewApplyDinnerDate.setRightText(startDateStr + "至" + endDateStr);
+                            mNewApplyDinnerDays.setRightText(datesCount + "天");
+
+                        } else {
+                            mNewApplyDinnerDate.setRightText(startDateStr + "至" + endDateStr);
+                            mNewApplyDinnerDays.setRightText(selectedDates.size() + "天");
+
+                        }
+
+                    }
+                }else {
+
+                    dismissCalendar();
+
+                   // selectedDates = caldroidFragment.getSelectedDates();
+                     if (selectedDates == null){
+                        selectedDates = new ArrayList<>();
+                    }
+                    selectedDates.clear();
+                    selectedDates.addAll(caldroidFragment.getSelectedDates());
+                    Collections.sort(selectedDates, new Comparator<DateTime>() {
+                        @Override
+                        public int compare(DateTime dateTime, DateTime t1) {
+                            Date date = CalendarHelper.convertDateTimeToDate(dateTime);
+                            Date date1 = CalendarHelper.convertDateTimeToDate(t1);
+                            return (int) ((date.getTime() - date1.getTime()) % 65536);
+                        }
+                    });
+                    if (selectedDates == null ||selectedDates.size() ==0){
+                        mNewApplyDinnerDate.setRightText("无");
+                        mNewApplyDinnerDays.setRightText("0天");
+                        return;
+                    }
+                    final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    DateTime startDate = selectedDates.get(0);
+                    DateTime endDate = selectedDates.get(selectedDates.size() - 1);
+                    Date fDate = CalendarHelper.convertDateTimeToDate(startDate);
+                    Date oDate = CalendarHelper.convertDateTimeToDate(endDate);
+                    String startDateStr = formatter.format(fDate);
+                    String endDateStr = formatter.format(oDate);
+                    mNewApplyDinnerDate.setRightText(startDateStr + "至" + endDateStr);
+
+                    mNewApplyDinnerDays.setRightText(selectedDates.size() + "天");
+
+                }
+
+
+
+                break;
+
+            case R.id.new_apply_commit_btn:
+                doCommit();
+
+                break;
+            case R.id.new_apply_charger_item:
+                Intent intent = new Intent(NewApplyActivity.this, ChargerListActivity.class);
+                startActivityForResult(intent, CHARGER);
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    private void doCommit() {
+
+
+
+
+        String url = String.format(Consts.SERVER_PREFIX +"/mealbook/api/booking/start");
+
+        final String dataJson = getDataJson();
+        Log.i("wuming", "dataJson:" + dataJson);
+        if (TextUtils.isEmpty(dataJson)) {
+            return;
+        }
+
+
+        final CommonDialog commonDialog = new CommonDialog(NewApplyActivity.this);
+        commonDialog.setText("处理中...");
+        commonDialog.show();
+
+
+        OkHttpUtils
+                .post()
+                .addParams("data", dataJson)
+                .url(url)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e) {
+
+                        commonDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), e.toString(), 0).show();
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        commonDialog.dismiss();
+                        Log.i("wuming", "  new  response:" + response);
+                        Toast.makeText(getApplicationContext(), "成功", 0).show();
+                        finish();
+                    }
+                });
+
+
+    }
+
+    private String getDataJson() {
+        ApplyApply applyApply = new ApplyApply();
+
+        ArrayList<ApplyApply.DiningPersonBean> diningPersonBeen = new ArrayList<>();
+        ApplyApply.DiningPersonBean diningPersonBean ;
+
+        if (!TextUtils.isEmpty(otherPeople)) {
+
+            diningPersonBean = new ApplyApply.DiningPersonBean() ;
+                diningPersonBean.setUserId("");
+                diningPersonBean.setUserName(otherPeople);
+            diningPersonBeen.add(diningPersonBean);
+
+        }
+
+        if (qixinUsersss != null && qixinUsersss.size() != 0){
+            for (int i = 0; i < qixinUsersss.size(); i++) {
+                QixinUser qixinUser = qixinUsersss.get(i);
+
+                diningPersonBean = new ApplyApply.DiningPersonBean() ;
+
+                diningPersonBean.setUserId(qixinUser.getUserId());
+                diningPersonBean.setUserName(Uri.encode(qixinUser.getUserName()));
+                diningPersonBeen.add(diningPersonBean);
+            }
+        }
+
+
+
+        diningPersonBean = new ApplyApply.DiningPersonBean() ;
+
+        diningPersonBean.setUserId(OverAllStorage.getInstance().get("userId").toString());
+        diningPersonBean.setUserName(Uri.encode(OverAllStorage.getInstance().get("userName").toString()));
+        diningPersonBeen.add(diningPersonBean);
+
+        if (mApproveBean == null ) {
+            Toast.makeText(NewApplyActivity.this, "请选择食堂", 0).show();
+            return "";
+        }
+
+        if (selectCharger == null){
+            Toast.makeText(NewApplyActivity.this, "请选择审批主管", 0).show();
+            return "";
+        }
+        if (mStartDate == null || mEndDate == null) {
+            Toast.makeText(NewApplyActivity.this, "请选择时间", 0).show();
+            return "";
+        }
+
+
+        applyApply.setDiningPerson(diningPersonBeen);
+        applyApply.setBookingPerson(OverAllStorage.getInstance().get("openId").toString());
+        applyApply.setStepFirst(mApproveBean.getOperator().getId());
+        applyApply.setStepSecond(selectCharger.getId());
+        applyApply.setDiningRoomId(mApproveBean.getId());
+        if (stopCarteen != null){
+            applyApply.setStopDiningRoomId(stopCarteen.getId());
+        }
+        final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        applyApply.setStartTime(formatter.format(mStartDate));
+        applyApply.setEndTime(formatter.format(mEndDate));
+        applyApply.setDays(mNewApplyLunchDays.getRightText().toString().replace("天", ""));
+        applyApply.setDineNumber(dinnerNum);
+
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (selectedDates != null){
+            for (int i = 0; i < selectedDates.size(); i++) {
+
+                DateTime dateTime = selectedDates.get(i);
+                Date date = CalendarHelper.convertDateTimeToDate(dateTime);
+                String format = formatter.format(date);
+                if (i == 0){
+                    stringBuilder.append(format);
+                }else {
+                    stringBuilder.append(","+format);
+                }
+
+
+            }
+        }
+
+
+
+        applyApply.setDinner(stringBuilder.toString());
+        applyApply.setReason(Uri.encode(mNewApplyReasonEt.getText().toString()));
+
+        Gson gson = new Gson();
+        String json = gson.toJson(applyApply);
+        return json;
+
+    }
+
+    private void resetCalendaFragment() {
+        if (mStartDate != null) {
+            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.cell_bg), mStartDate);
+
+        }
+
+        if (isLunch){
+            mNewApplyCarlendaCancelBtn.setText("取消");
+            mNewApplyCarlendaOkBtn.setText("下一步");
+            mNewApplyCarlendaTv.setText("请选择开始时间");
+            mNewApplyCarlendaCancelBtn.setEnabled(true);
+            mNewApplyCarlendaOkBtn.setEnabled(true);
+        }else {
+            mNewApplyCarlendaCancelBtn.setText("取消");
+            mNewApplyCarlendaOkBtn.setText("确定");
+            mNewApplyCarlendaTv.setText("请选择晚餐时间");
+            mNewApplyCarlendaCancelBtn.setEnabled(true);
+            mNewApplyCarlendaOkBtn.setEnabled(true);
+        }
+
+      //  caldroidFragment.clearSelectedDates();
+        caldroidFragment.setMinDate(new Date());
+        caldroidFragment.setMaxDate(null);
+
+
+        if (mEndDate != null) {
+            caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.cell_bg), mEndDate);
+
+        }
+
+        isSelectStartDate = true;
+        Date today = new Date();
+      //  mStartDate = today;
+       // caldroidFragment.setBackgroundDrawableForDate(getResources().getDrawable(R.drawable.blue_round_bg), today);
+
+        caldroidFragment.refreshView();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (data == null) {
+            return;
+        }
+        if (requestCode == HAVE_CANTEEN) {
+            Carteen.RoomListBean roomListBean = (Carteen.RoomListBean) data.getSerializableExtra("selectCarteen");
+            if (roomListBean != null) {
+                mApproveBean = roomListBean;
+                mNewApplyHaveCanteen.setRightText(roomListBean.getRegional().getName() + "." + roomListBean.getRoomName());
+                mNewApplyApproverName.setText(roomListBean.getOperator().getName());
+            } else {
+                mApproveBean = null;
+
+                mNewApplyHaveCanteen.setRightText("无");
+
+            }
+        } else if (requestCode == STOP_CANTEEN) {
+            stopCarteen = (Carteen.RoomListBean) data.getSerializableExtra("selectCarteen");
+            if (stopCarteen != null) {
+
+                mNewApplyStopCanteen.setRightText(stopCarteen.getRegional().getName() + "." + stopCarteen.getRoomName());
+            } else {
+                mNewApplyStopCanteen.setRightText("无");
+
+            }
+        } else if (requestCode == TOGETHER_PEOPLE) {
+
+            togetherPeople = data.getStringExtra("togetherPeople");
+            dinnerNum = data.getStringExtra("dinnerNum");
+           otherPeople = data.getStringExtra("otherPeople");
+            String qixinUsers = data.getStringExtra("qixinUsers");
+            qixinUsersss = (List<QixinUser>) OverAllStorage.getInstance().get(qixinUsers);
+            if (TextUtils.isEmpty(togetherPeople)) {
+
+                mNewApplyEntourage.setRightText("无");
+            } else {
+                int size = 0;
+                if (qixinUsersss != null){
+                    size = qixinUsersss.size();
+                }
+                int num = size + Integer.valueOf(dinnerNum);
+                mNewApplyEntourage.setRightText(togetherPeople+" 共"+num+"人");
+
+            }
+
+        } else if (requestCode == CHARGER) {
+            selectCharger = (UserInfo) data.getSerializableExtra("charger");
+            if (selectCharger != null) {
+                chargerName.setText(selectCharger.getName());
+            }
+
+        }
+
+
+    }
+
+    public void showCalendar() {
+
+        if (isLunch){
+            if (isSelectStartDate) {
+                mNewApplyCarlendaTv.setText("请选择开始时间");
+            } else {
+                mNewApplyCarlendaTv.setText("请选择结束时间");
+
+            }
+        }
+
+
+        carlendaArea.setVisibility(View.VISIBLE);
+        shadow.setVisibility(View.VISIBLE);
+        carlendaArea.measure(0, 0);
+        final int height = -carlendaArea.getMeasuredHeight();
+        ValueAnimator va = ValueAnimator.ofFloat(height, 0);
+        va.setDuration(300);
+        va.setInterpolator(new AccelerateDecelerateInterpolator());
+        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                Float animatedValue = (Float) valueAnimator.getAnimatedValue();
+                carlendaArea.setTranslationY(animatedValue);
+                shadow.setBackgroundColor(Color.argb((int) ((0.6f - Math.abs(animatedValue / height) * 0.6f) * 255), 0, 0, 0));
+            }
+        });
+        va.start();
+
+    }
+
+
+    public void dismissCalendar() {
+        final int height = -carlendaArea.getMeasuredHeight();
+        ValueAnimator va = ValueAnimator.ofFloat(0, height);
+        va.setDuration(300);
+        va.setInterpolator(new AccelerateDecelerateInterpolator());
+        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                Float animatedValue = (Float) valueAnimator.getAnimatedValue();
+                carlendaArea.setTranslationY(animatedValue);
+                shadow.setBackgroundColor(Color.argb((int) ((0.6f - Math.abs(animatedValue / height) * 0.6f) * 255), 0, 0, 0));
+
+
+            }
+        });
+        va.addListener(new MyAnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                carlendaArea.setVisibility(View.INVISIBLE);
+                shadow.setVisibility(View.INVISIBLE);
+            }
+        });
+        va.start();
+    }
+
+
+
+    public  void getTimeScope(){
+        String url =String.format( Consts.SERVER_PREFIX +"/mealbook/api/booking/time_scope");
+
+        OkHttpUtils
+                .post()
+                .url(url)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        JSONObject jsonObject = null;
+                        try {
+
+                            jsonObject = new JSONObject(response);
+
+                            int state = (int) jsonObject.get("state");
+                            if (state == 0){
+
+                               // Toast.makeText(ApproveDetailActivity.this,"审批成功",0).show();
+                                JSONObject data = (JSONObject) jsonObject.get("data");
+                                if (data != null){
+                                    String scope = (String) data.get("cval");
+                                    OverAllStorage.getInstance().put("dayScope",scope);
+                                }
+
+                            }else {
+
+                                //获取间隔时间失败
+
+                            }
+
+                        } catch (JSONException e) {
+
+                            //获取间隔时间失败
+
+                        }
+
+
+                    }
+                });
+
+    }
+
+
+
+
+
+
+
+
+    @Override
+    public void initCenterTv(TextView cTv) {
+        cTv.setText("新建申请");
+    }
+
+    @Override
+    public void initLeftBtn(ImageButton lBtn) {
+
+    }
+
+    @Override
+    public void initRightBtn(Button rBtn) {
+
+    }
+
+    @Override
+    public void initRightIBtn(ImageButton ibtn) {
+
+    }
+
+    @Override
+    public void OnCenterTVClick(View v) {
+
+    }
+
+    @Override
+    public void OnLeftBtnClick(View v) {
+        onBackPressed();
+    }
+
+    @Override
+    public void OnRightBtnClick(View v) {
+
+
+    }
+
+    @Override
+    public void OnRightIBtnClick(View v) {
+
+    }
+
+    @Override
+    public void toggleToOn(View view) {
+        mNewApplyDinnerDate.setVisibility(View.VISIBLE);
+        mNewApplyDinnerDays.setVisibility(View.VISIBLE);
+        mWhetherDinnerSwitch.setOpened(true);
+    }
+
+    @Override
+    public void toggleToOff(View view) {
+        mWhetherDinnerSwitch.setOpened(false);
+
+        mNewApplyDinnerDate.setVisibility(View.GONE);
+        mNewApplyDinnerDays.setVisibility(View.GONE);
+    }
+}

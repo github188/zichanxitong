@@ -1,0 +1,76 @@
+package com.szcomtop.meal.fragment;
+
+import android.graphics.Color;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.szcomtop.meal.R;
+
+import java.util.Calendar;
+
+/**
+ * Created by wuming on 16/3/25.
+ */
+public class BaseFragment extends Fragment {
+
+    public void setStatus(int status, TextView statusTv, ImageView statusIv) {
+
+        Log.i("wuming","status:"+status);
+
+        switch (status) {
+            case 1:
+
+                statusTv.setText("[审批中]");
+                statusTv.setTextColor(Color.parseColor("#ff6009"));
+
+                statusIv.setVisibility(View.INVISIBLE);
+
+                break;
+
+            case 2:
+                statusTv.setText("已审批(通过)");
+                statusTv.setTextColor(Color.parseColor("#b3b3b3"));
+                statusIv.setImageResource(R.drawable.btn_approve_icon);
+                statusIv.setVisibility(View.VISIBLE);
+                break;
+
+            case 3:
+                statusTv.setText("已审批(驳回)");
+                statusTv.setTextColor(Color.parseColor("#b3b3b3"));
+
+                statusIv.setImageResource(R.drawable.btn_reject_icon);
+                statusIv.setVisibility(View.VISIBLE);
+
+                break;
+            case 4:
+                statusTv.setText("未审批(已过期)");
+                statusTv.setTextColor(Color.parseColor("#b3b3b3"));
+                statusIv.setVisibility(View.INVISIBLE);
+                break;
+
+
+            default:
+//                statusTv.setText("[审批中]");
+//                statusIv.setVisibility(View.INVISIBLE);
+
+                break;
+
+        }
+
+    }
+
+    public void showToast(final String str){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(),str,0).show();
+            }
+        });
+    }
+
+
+}

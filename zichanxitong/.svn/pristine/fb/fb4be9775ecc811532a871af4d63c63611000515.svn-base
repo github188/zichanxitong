@@ -1,0 +1,274 @@
+package com.szcomtop.meal.activity;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.common.CommonAdapter;
+import com.szcomtop.meal.common.Consts;
+import com.szcomtop.meal.common.OverAllStorage;
+import com.szcomtop.meal.common.ViewHolder;
+import com.szcomtop.meal.model.ApplyInfo;
+import com.szcomtop.meal.model.CarteenStastatic1;
+import com.szcomtop.meal.model.Response;
+import com.szcomtop.meal.views.CommonDialog;
+import com.szcomtop.meal.views.DateWheelView;
+import com.szcomtop.meal.views.HeadView;
+import com.szcomtop.meal.views.SlidingFromTopView;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import okhttp3.Call;
+
+/**
+ * Created by wuming on 16/3/25.
+ */
+public class StatisticsActivity  extends  BaseActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+
+    private HeadView mStatisticTitle;
+    private ImageView mStatisticArrowUp;
+    private TextView mStatisticDateTv;
+    private ImageView mStatisticArrowDown;
+    private TextView mStatisticCanteenTv;
+    private ListView mStatisticListview;
+    private SlidingFromTopView slidingFromTopView;
+    private List<CarteenStastatic1> carteenStastatic1s;
+    private CommonDialog commonDialog;
+    private String startTime = "";
+    private String endTime= "";
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_statistic);
+        assignViews();
+        initView();
+
+                Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+      mStatisticDateTv.setText(String.format("%d年%2d月至%d年%2d月",year,month+1,year,month+1));
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        getStatistics(dateFormat.format(calendar.getTime()),dateFormat.format(calendar.getTime()));
+    }
+
+    private void initView() {
+        mStatisticTitle.setHeadParams(HeadView.TYPE_LEFTONLY, this);
+        mStatisticTitle.setOnHeadClick(this);
+        mStatisticArrowDown.setOnClickListener(this);
+
+
+    }
+
+    private void assignViews() {
+        mStatisticTitle = (HeadView) findViewById(R.id.statistic_title);
+        mStatisticDateTv = (TextView) findViewById(R.id.statistic_date_tv);
+        mStatisticArrowDown = (ImageView) findViewById(R.id.statistic_arrow_down);
+        mStatisticListview = (ListView) findViewById(R.id.statistic_listview);
+
+
+
+    }
+
+
+    @Override
+    public void initCenterTv(TextView cTv) {
+        super.initCenterTv(cTv);
+        cTv.setText("用餐统计");
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        Intent intent = new Intent(this, StatisticsDetailActivity.class);
+        intent.putExtra("dineRoomId",carteenStastatic1s.get(i).getDineRoomId());
+        intent.putExtra("dineRoomName",carteenStastatic1s.get(i).getDineRoomName());
+        intent.putExtra("startTime",startTime);
+        intent.putExtra("endTime",endTime);
+        startActivity(intent);
+    }
+
+
+    public void getStatistics(String startTime ,String endTime) {
+
+        if (commonDialog == null){
+
+            commonDialog = new CommonDialog(this);
+            commonDialog.setText("更新数据");
+        }
+        commonDialog.show();
+
+        String url = String.format(Consts.SERVER_PREFIX +"/mealbook/api/statistical/dine_room");
+
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.add(Calendar.MONTH,-3);
+//        Date startTime = calendar.getTime();
+//
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+
+        OkHttpUtils
+                .post()
+                .url(url)
+                .addParams("startTime", startTime )
+                .addParams("endTime",endTime )
+                // .addParams("type","all")
+                .addParams("userId", OverAllStorage.getInstance().get("openId").toString())
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e) {
+
+                        // commonDialog.dismiss();
+
+
+                        if (commonDialog != null && commonDialog.isShowing()){
+                            commonDialog.dismiss();
+                        }
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+
+
+                        if (commonDialog != null && commonDialog.isShowing()){
+                            commonDialog.dismiss();
+                        }
+
+                        try {
+
+                            Gson gson = new Gson();
+                            Response<CarteenStastatic1> res = gson.fromJson(response, new TypeToken<Response<CarteenStastatic1>>() {
+                            }.getType());
+
+                            int state = res.getState();
+                            if (state == 0){
+                                //成功
+                                carteenStastatic1s = res.getData();
+                                if (carteenStastatic1s == null||carteenStastatic1s.size() == 0){
+
+                                    //为空的情况
+
+
+                                }else {
+
+                                    CommonAdapter<CarteenStastatic1> commonAdapter = new CommonAdapter<CarteenStastatic1>(StatisticsActivity.this, carteenStastatic1s, R.layout.statistics_list_item) {
+
+
+                                        @Override
+                                        public void convert(ViewHolder holder, CarteenStastatic1 carteenStastatic1) {
+
+                                            holder.setText(R.id.statistic_list_item_name,carteenStastatic1.getDineRoomName())
+                                                    .setText(R.id.statistic_list_item_addNum,carteenStastatic1.getAddNum()+"")
+                                                    .setText(R.id.statistic_list_item_reduceNum,carteenStastatic1.getReduceNum()+"")
+                                                    .setText(R.id.statistic_list_item_count,carteenStastatic1.getCount()+"");
+
+
+                                        }
+                                    };
+                                    mStatisticListview.setAdapter(commonAdapter);
+                                    mStatisticListview.setOnItemClickListener(StatisticsActivity.this);
+
+                                }
+
+
+
+                            }else {
+                                //失败
+                                Toast.makeText(StatisticsActivity.this,"获取数据失败",0).show();
+                            }
+
+
+                        }catch (Exception e){
+                            //失败
+                            Toast.makeText(StatisticsActivity.this,"获取数据失败",0).show();
+
+
+                        }
+
+                    }
+                });
+
+    }
+
+
+
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.statistic_arrow_down:
+
+                if (slidingFromTopView == null){
+                    slidingFromTopView = new SlidingFromTopView(this);
+                    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
+                    float dimension = getResources().getDimension(R.dimen.title_height);
+                    params.topMargin = (int) dimension;
+                    addContentView(slidingFromTopView,params);
+                    final DateWheelView dateWheelView = new DateWheelView(this);
+                    dateWheelView.findViewById(R.id.date_wheel_view_cancel_btn).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            slidingFromTopView.dismiss();
+                        }
+                    });
+                    dateWheelView.findViewById(R.id.date_wheel_view_ok_btn).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                           startTime = dateWheelView.getStartTime();
+                           endTime = dateWheelView.getEndTime();
+
+                            Log.i("wuming","startTime:"+startTime);
+                            Log.i("wuming","endTime:"+endTime);
+
+                            int i = startTime.compareTo(endTime);
+                            if (i > 0){
+                                Toast.makeText(StatisticsActivity.this,"开始日期不能大于结束日期",0).show();
+                            }else {
+
+                                slidingFromTopView.dismiss();
+                                String[] startSplit = startTime.split("-");
+                                String[] endSplit = endTime.split("-");
+                                mStatisticDateTv.setText(String.format("%s年%s月至%s年%s月",startSplit[0],startSplit[1],endSplit[0],endSplit[1]));
+
+
+                                getStatistics(startTime,endTime);
+
+
+                            }
+
+                        }
+                    });
+                    slidingFromTopView.setView(dateWheelView);
+                }
+
+                slidingFromTopView.show();
+
+                break;
+        }
+    }
+}

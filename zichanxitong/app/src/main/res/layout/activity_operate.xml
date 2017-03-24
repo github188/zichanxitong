@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+              android:background="@color/ui_white_bg"
+    >
+
+    <com.szcomtop.meal.views.HeadView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.szcomtop.meal.views.HeadView>
+
+    <!--<ListView-->
+        <!--android:id="@+id/operate_listview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+    <!--</ListView>-->
+
+    <GridView
+
+        android:id="@+id/operate_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3"
+        android:listSelector="@color/transparent"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:horizontalSpacing="20dp"
+        android:verticalSpacing="20dp"
+
+        ></GridView>
+
+</LinearLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:gravity="center"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <ProgressBar
+        android:id="@+id/reg_req_code_gif_view"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:indeterminateBehavior="repeat"
+        android:indeterminateDrawable="@drawable/loading_anim" />
+    
+    <TextView 
+        android:id="@+id/dialog_tv"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="正在登入"/>
+
+</LinearLayout>

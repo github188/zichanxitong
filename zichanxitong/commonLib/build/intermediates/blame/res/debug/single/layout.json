@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\mywork\\zichanxitong\\commonLib\\build\\intermediates\\res\\merged\\debug\\layout\\bottom_nav_right_menu_item.xml",
+        "source": "D:\\mywork\\zichanxitong\\commonLib\\src\\main\\res\\layout\\bottom_nav_right_menu_item.xml"
+    },
+    {
+        "merged": "D:\\mywork\\zichanxitong\\commonLib\\build\\intermediates\\res\\merged\\debug\\layout\\bottom_nav.xml",
+        "source": "D:\\mywork\\zichanxitong\\commonLib\\src\\main\\res\\layout\\bottom_nav.xml"
+    },
+    {
+        "merged": "D:\\mywork\\zichanxitong\\commonLib\\build\\intermediates\\res\\merged\\debug\\layout\\bottom_nav_right_menu.xml",
+        "source": "D:\\mywork\\zichanxitong\\commonLib\\src\\main\\res\\layout\\bottom_nav_right_menu.xml"
+    }
+]

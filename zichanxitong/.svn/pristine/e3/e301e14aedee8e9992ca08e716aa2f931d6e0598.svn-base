@@ -1,0 +1,9 @@
+package com.szcomtop.meal.common;
+
+/**
+ * Created by wuming on 16/5/5.
+ */
+public class Consts {
+
+    public static final  String SERVER_PREFIX = "http://eim2.szcomtop.com:6888" ;
+}

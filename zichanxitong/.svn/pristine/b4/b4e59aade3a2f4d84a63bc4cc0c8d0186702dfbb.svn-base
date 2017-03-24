@@ -1,0 +1,107 @@
+package com.szcomtop.meal.views;
+
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.common.MyAnimatorListenerAdapter;
+
+
+public class SearchBar extends FrameLayout  {
+
+	private ImageView searchImg;
+	private EditText searchEdt;
+	private TextView searchTv;
+	private View searchArea;
+
+	public SearchBar(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		init();
+	}
+
+	public SearchBar(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		init();
+	}
+
+	public SearchBar(Context context) {
+		super(context);
+		init();
+	}
+	public void reset(){
+		this.removeAllViews();
+		init();
+//		searchEdt.setText("");
+		Log.i("wuming","reset");
+	}
+
+	
+	
+	public void init(){
+	FrameLayout inflate = (FrameLayout) View.inflate(getContext(), R.layout.search_bar, null);
+	this.addView(inflate);
+	
+	searchImg = (ImageView) inflate.findViewById(R.id.search_bar_img);
+		searchArea = inflate.findViewById(R.id.search_bar_area);
+	searchEdt = (EditText) inflate.findViewById(R.id.edt_searchkey);
+		searchTv = (TextView) findViewById(R.id.search_bar_tv);
+	searchEdt.setOnFocusChangeListener(new OnFocusChangeListener() {
+		
+		@Override
+		public void onFocusChange(View v, boolean hasFocus) {
+			// TODO Auto-generated method stub
+			if(hasFocus){
+				if(searchImg.isShown()){
+					startAnimate();
+				}
+			}
+		}
+	});
+		
+	}
+
+	protected void startAnimate() {
+		// TODO Auto-generated method stub
+		ObjectAnimator  oa = ObjectAnimator.ofFloat(searchArea, "translationX", -searchArea.getLeft());
+		oa.setDuration(300);
+		oa.setInterpolator(new AccelerateDecelerateInterpolator());
+		oa.addListener(new MyAnimatorListenerAdapter(){
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				
+				searchEdt.setCompoundDrawablePadding((int) getResources().getDimension(R.dimen.padding_m));
+				Drawable drawable = getResources().getDrawable(R.drawable.bg_search_edit);
+
+				 drawable.setBounds(0, 0, getHeight()-searchEdt.getCompoundDrawablePadding(), getHeight()-searchEdt.getCompoundDrawablePadding());//必须设置图片大小，否则不显示
+				searchEdt.setCompoundDrawables(drawable, null, null, null);
+				searchImg.setVisibility(View.GONE);
+				searchTv.setVisibility(View.GONE);
+				SearchBar.this.setOnClickListener(null);
+				
+			}
+		});
+		oa.start();
+	}
+	
+	
+	public void addTextChangedListener(TextWatcher watcher){
+		searchEdt.addTextChangedListener(watcher);
+	}
+	
+	
+	
+	
+	
+
+}

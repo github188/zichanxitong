@@ -1,0 +1,202 @@
+package com.szcomtop.meal.model;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * Created by wuming on 16/4/18.
+ */
+public class Carteen {
+
+
+    /**
+     * id : 00015409888ce301
+     * roomList : [{"createDate":"2016-04-12 17:01:55","updateDate":"2016-04-12 17:01:55","id":"00015409b4a97900","regional":{"createDate":"2016-04-12 16:13:44","updateDate":"2016-04-12 16:13:44","id":"00015409888ce301","name":"三水供电局","sort":2},"roomName":"食堂二","state":"1","sort":2,"operator":{"createDate":"2016-04-11 15:04:25","updateDate":"2016-04-19 17:31:07","id":"473b6b5a30284c4caa22370528347a9d","name":"郑新华","account":"zhengxh","email":"zhengxinhua@szcomtop.com","phone":"15220072731","gender":"0","pinyin":"ZHENGXINHUA","pinyinSim":"ZXH"}}]
+     * name : 三水供电局
+     */
+
+    private String id;
+    private String name;
+    /**
+     * createDate : 2016-04-12 17:01:55
+     * updateDate : 2016-04-12 17:01:55
+     * id : 00015409b4a97900
+     * regional : {"createDate":"2016-04-12 16:13:44","updateDate":"2016-04-12 16:13:44","id":"00015409888ce301","name":"三水供电局","sort":2}
+     * roomName : 食堂二
+     * state : 1
+     * sort : 2
+     * operator : {"createDate":"2016-04-11 15:04:25","updateDate":"2016-04-19 17:31:07","id":"473b6b5a30284c4caa22370528347a9d","name":"郑新华","account":"zhengxh","email":"zhengxinhua@szcomtop.com","phone":"15220072731","gender":"0","pinyin":"ZHENGXINHUA","pinyinSim":"ZXH"}
+     */
+
+    private List<RoomListBean> roomList;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<RoomListBean> getRoomList() {
+        return roomList;
+    }
+
+    public void setRoomList(List<RoomListBean> roomList) {
+        this.roomList = roomList;
+    }
+
+    public static class RoomListBean implements Serializable {
+        private String createDate;
+        private String updateDate;
+        private String id;
+        /**
+         * createDate : 2016-04-12 16:13:44
+         * updateDate : 2016-04-12 16:13:44
+         * id : 00015409888ce301
+         * name : 三水供电局
+         * sort : 2
+         */
+
+        private RegionalBean regional;
+        private String roomName;
+        private String state;
+        private int sort;
+        /**
+         * createDate : 2016-04-11 15:04:25
+         * updateDate : 2016-04-19 17:31:07
+         * id : 473b6b5a30284c4caa22370528347a9d
+         * name : 郑新华
+         * account : zhengxh
+         * email : zhengxinhua@szcomtop.com
+         * phone : 15220072731
+         * gender : 0
+         * pinyin : ZHENGXINHUA
+         * pinyinSim : ZXH
+         */
+
+        private UserInfo operator;
+
+        public String getCreateDate() {
+            return createDate;
+        }
+
+        public void setCreateDate(String createDate) {
+            this.createDate = createDate;
+        }
+
+        public String getUpdateDate() {
+            return updateDate;
+        }
+
+        public void setUpdateDate(String updateDate) {
+            this.updateDate = updateDate;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public RegionalBean getRegional() {
+            return regional;
+        }
+
+        public void setRegional(RegionalBean regional) {
+            this.regional = regional;
+        }
+
+        public String getRoomName() {
+            return roomName;
+        }
+
+        public void setRoomName(String roomName) {
+            this.roomName = roomName;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public int getSort() {
+            return sort;
+        }
+
+        public void setSort(int sort) {
+            this.sort = sort;
+        }
+
+        public UserInfo getOperator() {
+            return operator;
+        }
+
+        public void setOperator(UserInfo operator) {
+            this.operator = operator;
+        }
+
+        public static class RegionalBean  implements Serializable{
+            private String createDate;
+            private String updateDate;
+            private String id;
+            private String name;
+            private int sort;
+
+            public String getCreateDate() {
+                return createDate;
+            }
+
+            public void setCreateDate(String createDate) {
+                this.createDate = createDate;
+            }
+
+            public String getUpdateDate() {
+                return updateDate;
+            }
+
+            public void setUpdateDate(String updateDate) {
+                this.updateDate = updateDate;
+            }
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public int getSort() {
+                return sort;
+            }
+
+            public void setSort(int sort) {
+                this.sort = sort;
+            }
+        }
+
+
+    }
+}

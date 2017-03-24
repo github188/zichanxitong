@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="arm64-v8a,armeabi-v7a,armeabi"
+    api-level="21"
+    density="xxhdpi"
+    format="7"
+    timestamp="1462406671205231000"
+    verifier="COMPATIBLE" >
+
+    <task
+        name="javac"
+        duration="482" />
+    <task
+        name="instant-run-dex"
+        duration="1131" />
+    <task
+        name="instant-run-transform"
+        duration="35" />
+    <task
+        name="verifier"
+        duration="2" />
+
+    <artifact
+        location="/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/reload-dex/debug/classes.dex"
+        type="RELOAD_DEX" />
+
+    <build timestamp="1462393927194485000" >
+        <artifact
+            location="/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/outputs/apk/app-debug.apk"
+            type="MAIN" />
+    </build>
+    <build timestamp="1462405049682332000" >
+        <artifact
+            location="/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/resources-debug.ap_"
+            type="RESOURCES" />
+        <artifact
+            location="/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_4/classes.dex"
+            type="DEX" />
+        <artifact
+            location="/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_1/classes.dex"
+            type="DEX" />
+        <artifact
+            location="/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7/classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="1462405916834099000"
+        verifier="FIELD_ADDED" >
+        <artifact
+            location="/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_3/classes.dex"
+            type="DEX" />
+        <artifact
+            location="/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_8/classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="1462406093730389000"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/builds/debug/1462406093730389000/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="1462406531887055000"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/builds/debug/1462406531887055000/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="1462406671205231000"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/reload-dex/debug/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+
+</instant-run>

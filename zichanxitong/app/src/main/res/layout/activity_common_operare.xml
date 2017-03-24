@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical"
+    >
+
+    <com.szcomtop.meal.views.HeadView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.szcomtop.meal.views.HeadView>
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <include
+            android:id="@+id/empty_view"
+            layout="@layout/listview_empty_layout"/>
+
+
+        <ListView
+
+            android:id="@+id/common_operate_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+        </ListView>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_weight="0"
+        android:orientation="horizontal"
+        android:padding="5dp"
+
+        >
+
+        <TextView
+
+            android:id="@+id/common_operate_start_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/commit_btn_selector"
+            android:gravity="center"
+
+            android:padding="12dp"
+            android:text="开始"
+
+            android:textColor="@color/white"/>
+
+        <TextView
+
+            android:id="@+id/common_operate_ok_btn"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/commit_btn_selector"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="确认"
+
+
+            android:textColor="@color/white"/>
+
+        <TextView
+
+            android:id="@+id/common_operate_clear_btn"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/commit_btn_selector"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="清空"
+
+
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

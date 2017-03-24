@@ -1,0 +1,186 @@
+package com.szcomtop.meal.activity;
+
+import android.content.ComponentName;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.common.OverAllStorage;
+import com.szcomtop.meal.model.QixinUser;
+import com.szcomtop.meal.views.HeadView;
+import com.szcomtop.meal.views.OptionItemView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+/**
+ * Created by wuming on 2016/4/18.
+ */
+public class TogetherPeopleActivity  extends BaseActivity implements View.OnClickListener {
+
+
+    private HeadView mTogetherPeopleTitle;
+    private OptionItemView mTogetherPeopleTogetherItem;
+    private TextView mTv2;
+    private EditText mTogetherPeopleOtherEt;
+    private EditText mTogetherPeopleTogetherNumOfDinner;
+    private StringBuilder peopleStringBuilder;
+    private long l;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_together_people);
+
+        assignViews();
+
+        initView();
+
+    }
+
+    private void initView() {
+        mTogetherPeopleTitle.setHeadParams(HeadView.TYPE_LRIGHTBTN,this);
+        mTogetherPeopleTitle.setOnHeadClick(this);
+
+        mTogetherPeopleTogetherItem.setOnClickListener(this);
+    }
+
+
+    private void assignViews() {
+        mTogetherPeopleTitle = (HeadView) findViewById(R.id.together_people_title);
+        mTogetherPeopleTogetherItem = (OptionItemView) findViewById(R.id.together_people_together_item);
+        mTv2 = (TextView) findViewById(R.id.tv2);
+        mTogetherPeopleOtherEt = (EditText) findViewById(R.id.together_people_other_et);
+        mTogetherPeopleTogetherNumOfDinner = (EditText) findViewById(R.id.together_people_together_num_of_dinner);
+    }
+
+
+    @Override
+    public void initCenterTv(TextView cTv) {
+        super.initCenterTv(cTv);
+        cTv.setText("随行人员");
+    }
+
+
+    @Override
+    public void initRightBtn(Button rBtn) {
+        super.initRightBtn(rBtn);
+        rBtn.setText("完成");
+    }
+
+    @Override
+    public void OnLeftBtnClick(View v) {
+        super.OnLeftBtnClick(v);
+        onBackPressed();
+    }
+
+    @Override
+    public void OnRightBtnClick(View v) {
+        super.OnRightBtnClick(v);
+        onBackPressed();
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent();
+        String s = mTogetherPeopleOtherEt.getText().toString();
+
+        if (!TextUtils.isEmpty(s)){
+            if (peopleStringBuilder == null){
+                peopleStringBuilder = new StringBuilder();
+                peopleStringBuilder.append(s);
+            }else {
+
+                peopleStringBuilder.append(","+s);
+            }
+        }
+
+        if (peopleStringBuilder == null){
+            peopleStringBuilder = new StringBuilder();
+        }
+
+        intent.putExtra("togetherPeople",peopleStringBuilder.toString());
+        intent.putExtra("otherPeople",s);
+        String value = mTogetherPeopleTogetherNumOfDinner.getText().toString();
+        boolean empty = TextUtils.isEmpty(value);
+        intent.putExtra("dinnerNum", empty? "0":value);
+        intent.putExtra("qixinUsers",l+"");
+        setResult(0,intent);
+
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.together_people_together_item:
+                ComponentName componentName = new ComponentName("com.comtop.eim", "com.comtop.eim.share.ReceiveShareContentActivity");
+                Intent intent = new Intent();
+                intent.setComponent(componentName);
+                intent.putExtra("_eimmessage_appName","邮箱");
+                intent.putExtra("_eimmessage_appPackage","com.comtop.mail");
+                intent.putExtra("_eimapi_command_type",6);
+              //  intent.putExtra("userId","000148168cf99bacb");
+                intent.putExtra("userId", OverAllStorage.getInstance().get("userId").toString());
+                startActivityForResult(intent,100);
+
+
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(data == null){
+            mTogetherPeopleTogetherItem.setRightText("无");
+            return;
+        }
+        peopleStringBuilder = new StringBuilder();
+        try {
+            String selectedusers = data.getStringExtra("selectedusers");
+            if (TextUtils.isEmpty(selectedusers)){
+                mTogetherPeopleTogetherItem.setRightText("无");
+                return;
+
+            }
+            JSONArray jsonArray = new JSONArray(new JSONObject(selectedusers).get("selectedusers") + "");
+            ArrayList<QixinUser> qixinUsers = new ArrayList<>();
+            for (int i = 0 ;i<jsonArray.length();i++){
+                JSONObject opt = (JSONObject) jsonArray.opt(i);
+                String username = opt.getString("username");
+                String userId = opt.getString("userId");
+
+                QixinUser qixinUser = new QixinUser(userId, username);
+                qixinUsers.add(qixinUser);
+
+                if (i == 0) {
+                    peopleStringBuilder.append(username);
+
+                }else {
+                    peopleStringBuilder.append(","+username);
+                }
+            }
+            l = System.currentTimeMillis();
+            OverAllStorage.getInstance().put(l+"",qixinUsers);
+            mTogetherPeopleTogetherItem.setRightText(peopleStringBuilder.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+}

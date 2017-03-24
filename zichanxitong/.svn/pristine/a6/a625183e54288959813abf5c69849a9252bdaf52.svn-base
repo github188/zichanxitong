@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/build/intermediates/res/merged/debug/drawable-hdpi-v4/calendar_next_arrow.png",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/src/main/res/drawable-hdpi/calendar_next_arrow.png"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/build/intermediates/res/merged/debug/drawable-hdpi-v4/calendar_prev_arrow.png",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/src/main/res/drawable-hdpi/calendar_prev_arrow.png"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/build/intermediates/res/merged/debug/drawable-hdpi-v4/date_btn_left.png",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/src/main/res/drawable-hdpi/date_btn_left.png"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/build/intermediates/res/merged/debug/drawable-hdpi-v4/date_btn_right.png",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/src/main/res/drawable-hdpi/date_btn_right.png"
+    }
+]

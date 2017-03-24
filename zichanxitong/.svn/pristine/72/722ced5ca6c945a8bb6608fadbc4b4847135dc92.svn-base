@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:optionItem="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.szcomtop.meal.views.HeadView
+        android:id="@+id/together_people_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.szcomtop.meal.views.OptionItemView
+        android:id="@+id/together_people_together_item"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        optionItem:textLeft="随行人员"
+        optionItem:textRight=""
+        optionItem:showXing="false"
+        android:layout_marginTop="10dp"
+
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+
+
+            android:id="@+id/tv2"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="*"
+            android:layout_marginRight="5dp"
+            android:textColor="#ff554c"
+            android:textSize="16sp"
+            android:visibility="invisible"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="外来人员"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <LinearLayout
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+
+
+
+
+            <EditText
+
+                android:id="@+id/together_people_other_et"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:textSize="16sp"
+                android:hint="请输入就餐人姓名"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+
+
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="*"
+            android:layout_marginRight="5dp"
+            android:textColor="#ff554c"
+            android:textSize="16sp"
+            android:visibility="invisible"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="就餐人数"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <LinearLayout
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+
+
+
+
+            <EditText
+
+                android:id="@+id/together_people_together_num_of_dinner"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:textSize="16sp"
+                android:phoneNumber="true"
+                android:hint="共0人"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

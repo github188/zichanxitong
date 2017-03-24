@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">meal</string>
+    <string name="action_settings">Settings</string>
+
+    <array name="operate_list">
+
+        <item>新增</item>
+        <item>出库</item>
+        <item>领用</item>
+        <item>调拨</item>
+        <item>报废</item>
+        <item>借用</item>
+        <item>报损</item>
+        <item>退还</item>
+        <item>盘点</item>
+
+    </array>
+</resources>

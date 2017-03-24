@@ -1,0 +1,24 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- 标题栏 -->
+    <dimen name="title_height">50dp</dimen>
+    <dimen name="title_back_btn_width">60dp</dimen>
+    <dimen name="title_back_btn_height">34dp</dimen>
+    <dimen name="title_button_marginRight">5dp</dimen>
+    <dimen name="title_button_marginLeft">7dp</dimen>
+    <dimen name="title_imageBtn_width">51dp</dimen>
+    <dimen name="title_layout_height">50dp</dimen>
+    <dimen name="title_layout_padding">6dp</dimen>
+    <dimen name="title_layout_btnwidth">67dp</dimen>
+    <dimen name="title_layout_ibtnwidth">38dp</dimen>
+    <dimen name="title_centertv_maxwidth">320dp</dimen>
+    <dimen name="title_centertv_marginLeft">25dp</dimen>
+    <dimen name="title_centertv_marginRight">25dp</dimen>
+    <dimen name="padding_m">5dp</dimen>
+
+
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.szcomtop.meal" >
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:name=".common.MealApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="佛山订餐"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".activity.TransparentActivity"
+            android:label="佛山订餐"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activity.MyApplysActivity"></activity>
+        <activity android:name=".activity.ApplyDetailActivity"></activity>
+        <activity android:name=".activity.NewApplyActivity"></activity>
+        <activity android:name=".activity.StatisticsActivity"></activity>
+        <activity android:name=".activity.StatisticsDetailActivity"></activity>
+        <activity android:name=".activity.ApproveDetailActivity"></activity>
+        <activity android:name=".activity.CanteenListActivity"></activity>
+        <activity android:name=".activity.TogetherPeopleActivity"></activity>
+
+        <activity android:name=".activity.CaldroidSampleActivity"></activity>
+        <activity android:name=".activity.ChargerListActivity"></activity>
+        <activity android:name=".activity.MyApproveApplysActivity"></activity>
+
+
+
+
+    </application>
+
+</manifest>

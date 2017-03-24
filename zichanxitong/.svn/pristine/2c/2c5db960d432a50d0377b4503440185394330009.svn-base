@@ -1,0 +1,78 @@
+package com.szcomtop.meal.activity;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.views.HeadView;
+import com.szcomtop.meal.views.SlidingFromTopView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Set;
+
+public class MainActivity extends BaseActivity implements View.OnClickListener {
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        initView();
+
+    }
+
+
+
+    private void initView() {
+       HeadView title = (HeadView) findViewById(R.id.main_title);
+        title.setHeadParams(HeadView.TYPE_LRIGHTIBTN,this);
+        title.setOnHeadClick(this);
+
+        findViewById(R.id.main_me_strat_applys).setOnClickListener(this);
+        findViewById(R.id.main_me_check_applys).setOnClickListener(this);
+
+
+
+    }
+
+    @Override
+    public void initLeftBtn(ImageButton lBtn) {
+        super.initLeftBtn(lBtn);
+    }
+
+    @Override
+    public void initCenterTv(TextView cTv) {
+        super.initCenterTv(cTv);
+        cTv.setText("跨区用餐");
+    }
+
+
+    @Override
+    public void OnRightIBtnClick(View v) {
+        super.OnRightIBtnClick(v);
+        startActivity(new Intent(this,NewApplyActivity.class));
+
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.main_me_strat_applys:
+                startActivity(new Intent(this,MyApplysActivity.class));
+                break;
+
+            case R.id.main_me_check_applys:
+                startActivity(new Intent(this,MyApproveApplysActivity.class));
+                break;
+        }
+    }
+}

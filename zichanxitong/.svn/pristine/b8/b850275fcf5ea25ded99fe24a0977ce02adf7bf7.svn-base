@@ -1,0 +1,53 @@
+package com.szcomtop.meal.model;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
+
+/**
+ * Created by wuming on 2016/4/13.
+ */
+public class Response<T> {
+
+
+    /**
+     * state : 0
+     * message : 获取我申请的任务列表成功！
+     * data : [{"diningBookingId":"0001540527c4cc00","account":"36513da67bff4d8a82ccfa2144e3c386","name":"刘文鹏","avatar":"http://eim2.szcomtop.com:6888/avatar/get_avatar?size=s&ownerId=36513da67bff4d8a82ccfa2144e3c386","orgName":"企业部门》我的测试部门","reason":"出差出差出差出差出差出差出差","createTime":1460375373000,"state":null,"repastPersonnel":"郑新华,张岩","peopleNumber":2,"diningRoom":"食堂一","stopDiningRoom":null,"startTime":1460341800000,"endTime":1460701800000,"days":5,"stepList":[{"name":"刘文鹏","avatar":"http://eim2.szcomtop.com:6888/avatar/get_avatar?size=s&ownerId=36513da67bff4d8a82ccfa2144e3c386","updateTime":1460375373000,"state":"2","reason":null},{"name":"曹梁","avatar":"http://eim2.szcomtop.com:6888/avatar/get_avatar?size=s&ownerId=63616F6C69616E67","updateTime":1460375373000,"state":"1","reason":null}]}]
+     */
+
+    private int state;
+    private String message;
+
+
+    private List<T> data;
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public List<T> getData() {
+        return data;
+    }
+
+    public void setData(List<T> data) {
+        this.data = data;
+    }
+
+
+
+
+
+}

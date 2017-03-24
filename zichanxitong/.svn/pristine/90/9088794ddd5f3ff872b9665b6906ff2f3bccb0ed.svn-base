@@ -1,0 +1,129 @@
+package com.szcomtop.meal.views;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.model.CarteenStastatic1;
+
+import java.util.List;
+
+/**
+ * Created by wuming on 16/3/25.
+ */
+public class StatisticCard extends RelativeLayout {
+
+    private LinearLayout mStatisticCardLl;
+    private TextView mStatisticCardTitleLeftTv;
+    private TextView mStatisticCardTitleRightTv;
+
+    private void assignViews() {
+        View inflate = View.inflate(getContext(), R.layout.statistic_card,null);
+        this.addView(inflate,LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+        mStatisticCardLl = (LinearLayout) inflate.findViewById(R.id.statistic_card_ll);
+        mStatisticCardTitleLeftTv = (TextView) inflate.findViewById(R.id.statistic_card_title_left_tv);
+        mStatisticCardTitleRightTv = (TextView) inflate.findViewById(R.id.statistic_card_title_right_tv);
+    }
+
+
+    public StatisticCard(Context context) {
+        super(context);
+        initView();
+    }
+
+    public StatisticCard(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initView();
+
+    }
+
+    public StatisticCard(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView();
+    }
+
+    private void initView() {
+
+        assignViews();
+
+    }
+
+    public  void setTitleLeftText(String text){
+        mStatisticCardTitleLeftTv.setText(text);
+    }
+
+
+    public void setData(String[] leftColumn , int[] rightColumn){
+        if (leftColumn == null || rightColumn == null){
+            return;
+        }
+        for (int i = 0 ;i<leftColumn.length ;i++){
+            View item = View.inflate(getContext(), R.layout.statistic_card_item, null);
+            View letfTv = item.findViewById(R.id.statistic_card_item_left_tv);
+            View rightTv = item.findViewById(R.id.statistic_card_item_right_tv);
+            mStatisticCardLl.addView(item);
+
+        }
+
+        if (leftColumn.length != 0){
+            View item = View.inflate(getContext(), R.layout.statistic_card_item, null);
+            TextView leftTv = (TextView) item.findViewById(R.id.statistic_card_item_left_tv);
+            TextView rightTv = (TextView) item.findViewById(R.id.statistic_card_item_right_tv);
+            leftTv.setText("汇总");
+            leftTv.setTextColor(Color.parseColor("#2b9af7"));
+            rightTv.setText("120");
+            rightTv.setTextColor(Color.parseColor("#2b9af7"));
+            mStatisticCardLl.addView(item);
+        }
+    }
+
+
+    public void setData(List<CarteenStastatic1> source,boolean isSource) {
+
+
+        mStatisticCardLl.removeAllViews();
+
+
+
+        if (source == null ){
+            return;
+        }
+        int sum = 0 ;
+
+        for (int i = 0 ;i<source.size() ;i++){
+            View item = View.inflate(getContext(), R.layout.statistic_card_item, null);
+            TextView letfTv = (TextView) item.findViewById(R.id.statistic_card_item_left_tv);
+            TextView rightTv = (TextView) item.findViewById(R.id.statistic_card_item_right_tv);
+            letfTv.setText(source.get(i).getDineRoomName());
+            if (isSource){
+
+                rightTv.setText(source.get(i).getAddNum()+"");
+                sum+= source.get(i).getAddNum() ;
+            }else {
+                rightTv.setText(source.get(i).getReduceNum()+"");
+                sum+= source.get(i).getReduceNum() ;
+            }
+
+            mStatisticCardLl.addView(item);
+
+        }
+
+        if (source.size() != 0){
+            View item = View.inflate(getContext(), R.layout.statistic_card_item, null);
+            TextView leftTv = (TextView) item.findViewById(R.id.statistic_card_item_left_tv);
+            TextView rightTv = (TextView) item.findViewById(R.id.statistic_card_item_right_tv);
+            leftTv.setText("汇总");
+            leftTv.setTextColor(Color.parseColor("#2b9af7"));
+            rightTv.setText(sum+"");
+            rightTv.setTextColor(Color.parseColor("#2b9af7"));
+            mStatisticCardLl.addView(item);
+        }
+
+    }
+}

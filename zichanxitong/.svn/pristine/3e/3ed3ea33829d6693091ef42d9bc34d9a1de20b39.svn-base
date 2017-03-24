@@ -1,0 +1,253 @@
+package com.szcomtop.meal.model;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * Created by wuming on 2016/4/12.
+ */
+public class ApplyInfo  implements Serializable{
+
+
+    /**
+     * diningBookingId : 0001540527c4cc00
+     * account : 36513da67bff4d8a82ccfa2144e3c386
+     * name : 刘文鹏
+     * avatar : http://eim2.szcomtop.com:6888/avatar/get_avatar?size=s&ownerId=36513da67bff4d8a82ccfa2144e3c386
+     * orgName : 企业部门》我的测试部门
+     * reason : 出差出差出差出差出差出差出差
+     * createTime : 1460375373000
+     * state : null
+     * repastPersonnel : 郑新华,张岩
+     * peopleNumber : 2
+     * diningRoom : 食堂一
+     * stopDiningRoom : null
+     * startTime : 1460341800000
+     * endTime : 1460701800000
+     * days : 5
+     * stepList : [{"name":"刘文鹏","avatar":"http://eim2.szcomtop.com:6888/avatar/get_avatar?size=s&ownerId=36513da67bff4d8a82ccfa2144e3c386","updateTime":1460375373000,"state":"2","reason":null},{"name":"曹梁","avatar":"http://eim2.szcomtop.com:6888/avatar/get_avatar?size=s&ownerId=63616F6C69616E67","updateTime":1460375373000,"state":"1","reason":null}]
+     */
+
+    private String diningBookingId;
+    private String account;
+    private String name;
+    private String avatar;
+    private String orgName;
+    private String reason;
+    private long createTime;
+    private int state;
+    private String repastPersonnel;
+    private int peopleNumber;
+    private String diningRoom;
+    private String stopDiningRoom;
+    private String dinner;
+    private long startTime;
+    private long endTime;
+    private int days;
+    private boolean isApproved;
+
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
+    }
+
+    public String getDinner() {
+        return dinner;
+    }
+
+    public void setDinner(String dinner) {
+        this.dinner = dinner;
+    }
+
+    /**
+     * name : 刘文鹏
+     * avatar : http://eim2.szcomtop.com:6888/avatar/get_avatar?size=s&ownerId=36513da67bff4d8a82ccfa2144e3c386
+     * updateTime : 1460375373000
+     * state : 2
+     * reason : null
+     */
+
+
+
+    private List<StepListEntity> stepList;
+
+    public String getDiningBookingId() {
+        return diningBookingId;
+    }
+
+    public void setDiningBookingId(String diningBookingId) {
+        this.diningBookingId = diningBookingId;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getRepastPersonnel() {
+        return repastPersonnel;
+    }
+
+    public void setRepastPersonnel(String repastPersonnel) {
+        this.repastPersonnel = repastPersonnel;
+    }
+
+    public int getPeopleNumber() {
+        return peopleNumber;
+    }
+
+    public void setPeopleNumber(int peopleNumber) {
+        this.peopleNumber = peopleNumber;
+    }
+
+    public String getDiningRoom() {
+        return diningRoom;
+    }
+
+    public void setDiningRoom(String diningRoom) {
+        this.diningRoom = diningRoom;
+    }
+
+    public String getStopDiningRoom() {
+        return stopDiningRoom;
+    }
+
+    public void setStopDiningRoom(String stopDiningRoom) {
+        this.stopDiningRoom = stopDiningRoom;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
+    }
+
+    public List<StepListEntity> getStepList() {
+        return stepList;
+    }
+
+    public void setStepList(List<StepListEntity> stepList) {
+        this.stepList = stepList;
+    }
+
+    public static class StepListEntity  implements Serializable{
+        private String name;
+        private String avatar;
+        private long updateTime;
+        private int state;
+        private String reason;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        public long getUpdateTime() {
+            return updateTime;
+        }
+
+        public void setUpdateTime(long updateTime) {
+            this.updateTime = updateTime;
+        }
+
+        public int getState() {
+            return state;
+        }
+
+        public void setState(int state) {
+            this.state = state;
+        }
+
+        public String getReason() {
+            return reason;
+        }
+
+        public void setReason(String reason) {
+            this.reason = reason;
+        }
+    }
+}

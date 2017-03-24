@@ -1,0 +1,379 @@
+package com.szcomtop.meal.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.common.Consts;
+import com.szcomtop.meal.common.OverAllStorage;
+import com.szcomtop.meal.model.ApplyInfo;
+import com.szcomtop.meal.views.CommonConfirmDialog;
+import com.szcomtop.meal.views.HeadView;
+import com.szcomtop.meal.views.SlidingFromTopView;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+
+import okhttp3.Call;
+
+/**
+ * Created by wuming on 16/3/24.
+ */
+public class ApproveDetailActivity extends BaseActivity implements View.OnClickListener {
+
+
+    private HeadView mApproveDetailTitle;
+    private ImageView mApproveDetailAvatar;
+    private TextView mApproveDetailApplicantName;
+    private TextView mApproveDetailApplyStatusTv;
+    private TextView mApproveDetailApplicantDepartment;
+    private TextView mApproveDetailApplyPeople;
+    private TextView mApproveDetailApplyNumber;
+    private TextView mApproveDetailEatCanteen;
+    private TextView mApproveDetailStopCanteen;
+    private TextView mApproveDetailStartTime;
+    private TextView mApproveDetailStopTime;
+    private TextView mApproveDetailEatDays;
+    private TextView mApproveDetailReson;
+    private LinearLayout mApproveDetailStatusList;
+    private ApplyInfo applyInfo;
+    private ImageView mApproveDetailApplyStatusIv;
+    private RelativeLayout mApproveDetailAgreeBtn;
+    private RelativeLayout mApproveDetailRejectBtn;
+    private SlidingFromTopView rejectReasonInputDialog;
+    private View mApproveDetailBtnArea;
+    private EditText reasonEt;
+    private TextView mApplyDinnerTime;
+
+    private void assignViews() {
+        mApproveDetailTitle = (HeadView) findViewById(R.id.apply_detail_title);
+        mApproveDetailAvatar = (ImageView) findViewById(R.id.apply_detail_avatar);
+        mApproveDetailApplicantName = (TextView) findViewById(R.id.apply_detail_applicant_name);
+        mApproveDetailApplyStatusTv = (TextView) findViewById(R.id.apply_detail_apply_status_tv);
+        mApproveDetailApplyStatusIv = (ImageView) findViewById(R.id.apply_detail_apply_status_iv);
+        mApproveDetailApplicantDepartment = (TextView) findViewById(R.id.apply_detail_applicant_department);
+        mApproveDetailApplyPeople = (TextView) findViewById(R.id.apply_detail_apply_people);
+        mApproveDetailApplyNumber = (TextView) findViewById(R.id.apply_detail_apply_number);
+        mApproveDetailEatCanteen = (TextView) findViewById(R.id.apply_detail_eat_canteen);
+        mApproveDetailStopCanteen = (TextView) findViewById(R.id.apply_detail_stop_canteen);
+        mApproveDetailStartTime = (TextView) findViewById(R.id.apply_detail_start_time);
+        mApproveDetailStopTime = (TextView) findViewById(R.id.apply_detail_stop_time);
+        mApproveDetailEatDays = (TextView) findViewById(R.id.apply_detail_eat_days);
+        mApproveDetailReson = (TextView) findViewById(R.id.apply_detail_reson);
+        mApproveDetailStatusList = (LinearLayout) findViewById(R.id.apply_detail_status_list);
+        mApproveDetailAgreeBtn = (RelativeLayout) findViewById(R.id.approve_detail_agree_btn);
+        mApproveDetailRejectBtn = (RelativeLayout) findViewById(R.id.approve_detail_reject_btn);
+        mApproveDetailBtnArea =  findViewById(R.id.approve_detail_btn_area);
+        mApplyDinnerTime = (TextView) findViewById(R.id.apply_detail_dinner_time);
+
+
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_approve_detail);
+        Intent intent = getIntent();
+        applyInfo = (ApplyInfo) intent.getSerializableExtra("applyInfo");
+        assignViews();
+        initView();
+
+
+
+    }
+
+    private void initView() {
+
+        mApproveDetailTitle.setHeadParams(HeadView.TYPE_LEFTONLY,this);
+        mApproveDetailTitle.setOnHeadClick(this);
+        mApproveDetailAgreeBtn.setOnClickListener(this);
+        mApproveDetailRejectBtn.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        boolean isShowBtn = intent.getBooleanExtra("isShowBtn", true);
+        if (isShowBtn){
+            mApproveDetailBtnArea.setVisibility(View.VISIBLE);
+        }else {
+            mApproveDetailBtnArea.setVisibility(View.GONE);
+        }
+
+
+        if (applyInfo != null){
+            mApproveDetailApplicantName.setText(applyInfo.getName());
+
+            mApproveDetailApplicantDepartment.setText(applyInfo.getOrgName());
+            mApproveDetailApplyPeople.setText(applyInfo.getRepastPersonnel());
+            mApproveDetailApplyNumber.setText(applyInfo.getPeopleNumber()+"");
+            mApproveDetailEatCanteen.setText(applyInfo.getDiningRoom());
+            String dinner = applyInfo.getDinner();
+            boolean empty = TextUtils.isEmpty(dinner);
+            mApplyDinnerTime.setText(empty ? "无" : dinner);
+
+            mApproveDetailStopCanteen.setText(applyInfo.getStopDiningRoom());
+            mApproveDetailStartTime.setText((String) DateFormat.format("yyyy-MM-dd", applyInfo.getStartTime()));
+            mApproveDetailStopTime.setText((String) DateFormat.format("yyyy-MM-dd", applyInfo.getEndTime()));
+            mApproveDetailEatDays.setText(applyInfo.getDays()+"天");
+            mApproveDetailReson.setText(applyInfo.getReason());
+            setStatus(applyInfo.getState(),mApproveDetailApplyStatusTv,mApproveDetailApplyStatusIv);
+
+            List<ApplyInfo.StepListEntity> stepList = applyInfo.getStepList();
+            mApproveDetailStatusList.removeAllViews();
+            if (stepList == null){
+                return;
+            }
+            for (int i = 0 ; i < stepList.size();i++){
+
+                RelativeLayout statusItem = (RelativeLayout) View.inflate(this, R.layout.app_detail_status_list_item, null);
+                if (i == 0){
+
+                    bindStatusItem(true,statusItem,stepList.get(i));
+
+
+                }else {
+                    bindStatusItem(false,statusItem,stepList.get(i));
+
+                }
+                mApproveDetailStatusList.addView(statusItem);
+
+
+            }
+
+
+        }
+
+    }
+
+    private void bindStatusItem(boolean isFirst, RelativeLayout statusItem, ApplyInfo.StepListEntity stepListEntity) {
+
+       ImageView leftIcon = (ImageView) statusItem.findViewById(R.id.status_list_item_left_icon);
+        TextView itemName = (TextView) statusItem.findViewById(R.id.status_list_item_name);
+        ImageView avatar = (ImageView) statusItem.findViewById(R.id.status_list_item_avatar);
+        TextView statusTv = (TextView) statusItem.findViewById(R.id.status_list_item_status_tv);
+        ImageView statusIv  = (ImageView) statusItem.findViewById(R.id.status_list_item_status_iv);
+        statusIv.setVisibility(View.INVISIBLE);
+        TextView timeTv = (TextView) statusItem.findViewById(R.id.status_list_item_time);
+        View reasonDivide = statusItem.findViewById(R.id.status_list_item_status_reason_divide);
+        TextView reasonTv = (TextView) statusItem.findViewById(R.id.status_list_item_status_reason);
+        ImageLoader.getInstance().displayImage(stepListEntity.getAvatar(), avatar);
+
+        itemName.setText(stepListEntity.getName());
+        long updateTime = stepListEntity.getUpdateTime();
+        boolean today = DateUtils.isToday(updateTime);
+        String strDate ;
+        if (today){
+            strDate =  DateFormat.getTimeFormat(ApproveDetailActivity.this).format(updateTime);
+        }else {
+            strDate =  DateFormat.getDateFormat(ApproveDetailActivity.this).format(updateTime);
+
+        }
+        timeTv.setText(strDate);
+        switch (stepListEntity.getState()){
+            case 1:
+                statusTv.setText("审批中");
+                leftIcon.setImageResource(R.drawable.timer_wait_icon);
+
+                break;
+            case 2:
+                if (isFirst){
+                    statusTv.setText("发起申请");
+                    leftIcon.setImageResource(R.drawable.timer_create_icon);
+                }else {
+
+                    statusTv.setText("已审批(通过)");
+                    leftIcon.setImageResource(R.drawable.list_timer_approve_icon);
+                }
+                break;
+            case 3:
+                statusTv.setText("已审批(驳回)");
+                reasonDivide.setVisibility(View.VISIBLE);
+                reasonTv.setVisibility(View.VISIBLE);
+                reasonTv.setText("驳回理由:"+stepListEntity.getReason());
+                leftIcon.setImageResource(R.drawable.list_timer_reject_icon);
+                break;
+        }
+
+
+
+
+    }
+
+    @Override
+    public void initCenterTv(TextView cTv) {
+        super.initCenterTv(cTv);
+        cTv.setText(applyInfo.getName()+"的申请");
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.approve_detail_agree_btn:
+
+                final CommonConfirmDialog commonConfirmDialog = new CommonConfirmDialog(ApproveDetailActivity.this);
+                commonConfirmDialog.setTitle("请确认");
+                commonConfirmDialog.setContent("确认同意请求?");
+                commonConfirmDialog.setPositiveButtonListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        commonConfirmDialog.dismiss();
+                        doAgree("",applyInfo.getDiningBookingId());
+                        //finish();
+                    }
+                });
+                commonConfirmDialog.show();
+
+                break;
+            case R.id.approve_detail_reject_btn:
+
+                doReject();
+
+                break;
+
+            case R.id.reject_reason_input_cancel_btn:
+                rejectReasonInputDialog.dismiss();
+                break;
+            case R.id.reject_reason_input_ok_btn:
+                String reason = reasonEt.getText().toString();
+                if (TextUtils.isEmpty(reason)){
+                    Toast.makeText(this,"请输入驳回理由",0).show();
+                    return;
+                }
+                rejectReasonInputDialog.dismiss();
+                doActuallyReject(applyInfo.getDiningBookingId(), reason);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+
+    private void doActuallyReject(String bookingId,String reason) {
+
+        String url =String.format( Consts.SERVER_PREFIX +"/mealbook/api/booking/back");
+
+        OkHttpUtils
+                .post()
+                .url(url)
+                .addParams("userId",OverAllStorage.getInstance().get("openId").toString())
+                .addParams("diningBookingId",bookingId)
+                .addParams("reason",reason)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        JSONObject jsonObject = null;
+                        try {
+
+                            jsonObject = new JSONObject(response);
+
+                            int state = (int) jsonObject.get("state");
+                            if (state == 0){
+
+                                Toast.makeText(ApproveDetailActivity.this,"驳回成功",0).show();
+                                finish();
+
+                            }else {
+                                Toast.makeText(ApproveDetailActivity.this,"驳回失败",0).show();
+
+                            }
+
+                        } catch (JSONException e) {
+
+                            Toast.makeText(ApproveDetailActivity.this,"驳回失败",0).show();
+
+                        }
+
+
+                    }
+                });
+
+    }
+
+    private void doAgree(String userId,String bookingId) {
+        String url =String.format( Consts.SERVER_PREFIX +"/mealbook/api/booking/pass");
+
+       OkHttpUtils
+                .post()
+                .url(url)
+               .addParams("userId", OverAllStorage.getInstance().get("openId").toString())
+               .addParams("diningBookingId",bookingId)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e) {
+                        Toast.makeText(ApproveDetailActivity.this,"审批失败",0).show();
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        JSONObject jsonObject = null;
+                        try {
+
+                            jsonObject = new JSONObject(response);
+
+                            int state = (int) jsonObject.get("state");
+                            if (state == 0){
+
+                                Toast.makeText(ApproveDetailActivity.this,"审批成功",0).show();
+                                finish();
+
+                            }else {
+                                Toast.makeText(ApproveDetailActivity.this,"审批失败",0).show();
+
+                            }
+
+                        } catch (JSONException e) {
+
+                            Toast.makeText(ApproveDetailActivity.this,"审批失败",0).show();
+
+                        }
+
+
+                    }
+                });
+
+
+    }
+
+    private void doReject() {
+        if ( rejectReasonInputDialog  == null){
+            rejectReasonInputDialog = new SlidingFromTopView(this);
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+            layoutParams.topMargin = (int) getResources().getDimension(R.dimen.title_layout_height);
+            addContentView(rejectReasonInputDialog,layoutParams);
+            View rejectReasonInput = View.inflate(this, R.layout.reject_reson_input_view, null);
+
+           reasonEt = (EditText) rejectReasonInput.findViewById(R.id.reject_reason_input_et);
+            rejectReasonInput.findViewById(R.id.reject_reason_input_cancel_btn).setOnClickListener(this);
+            rejectReasonInput.findViewById(R.id.reject_reason_input_ok_btn).setOnClickListener(this);
+            rejectReasonInputDialog.setView(rejectReasonInput);
+        }
+        rejectReasonInputDialog.show();
+    }
+}

@@ -1,0 +1,162 @@
+package com.szcomtop.meal.model;
+
+import java.util.List;
+
+/**
+ * Created by wuming on 16/4/21.
+ */
+public class ApplyApply {
+
+
+    /**
+     * diningPerson : [{"userId":"473b6b5a30284c4caa22370528347a9d","userName":"%25e9%2583%2591%25e6%2596%25b0%25e5%258d%258e"},{"userId":"54e681da9bb04c6895e9a1060810f5c2","userName":"%25e5%25bc%25a0%25e5%25b2%25a9"}]
+     * bookingPerson : 36513da67bff4d8a82ccfa2144e3c386
+     * stepFirst : 63616F6C69616E67
+     * stepSecond : 6C697961736F6E67
+     * diningRoomId : 1
+     * stopDiningRoomId :
+     * startTime : 2016-04-11 10:30
+     * endTime : 2016-04-15 14:30
+     * days : 5
+     * dinner : 2016-4-25,2016-4-26,2016-4-27
+     * reason : %25e5%2587%25ba%25e5%25b7%25ae%25e5%2587%25ba%25e5%25b7%25ae%25e5%2587%25ba%25e5%25b7%25ae%25e5%2587%25ba%25e5%25b7%25ae%25e5%2587%25ba%25e5%25b7%25ae%25e5%2587%25ba%25e5%25b7%25ae%25e5%2587%25ba%25e5%25b7%25ae
+     */
+
+    private String bookingPerson;
+    private String stepFirst;
+    private String stepSecond;
+    private String diningRoomId;
+    private String stopDiningRoomId;
+    private String startTime;
+    private String endTime;
+    private String days;
+    private String dinner;
+    private String reason;
+    private String dineNumber;
+
+    public String getDineNumber() {
+        return dineNumber;
+    }
+
+    public void setDineNumber(String dineNumber) {
+        this.dineNumber = dineNumber;
+    }
+
+    /**
+     * userId : 473b6b5a30284c4caa22370528347a9d
+     * userName : %25e9%2583%2591%25e6%2596%25b0%25e5%258d%258e
+     */
+
+
+
+    private List<DiningPersonBean> diningPerson;
+
+    public String getBookingPerson() {
+        return bookingPerson;
+    }
+
+    public void setBookingPerson(String bookingPerson) {
+        this.bookingPerson = bookingPerson;
+    }
+
+    public String getStepFirst() {
+        return stepFirst;
+    }
+
+    public void setStepFirst(String stepFirst) {
+        this.stepFirst = stepFirst;
+    }
+
+    public String getStepSecond() {
+        return stepSecond;
+    }
+
+    public void setStepSecond(String stepSecond) {
+        this.stepSecond = stepSecond;
+    }
+
+    public String getDiningRoomId() {
+        return diningRoomId;
+    }
+
+    public void setDiningRoomId(String diningRoomId) {
+        this.diningRoomId = diningRoomId;
+    }
+
+    public String getStopDiningRoomId() {
+        return stopDiningRoomId;
+    }
+
+    public void setStopDiningRoomId(String stopDiningRoomId) {
+        this.stopDiningRoomId = stopDiningRoomId;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getDays() {
+        return days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
+    }
+
+    public String getDinner() {
+        return dinner;
+    }
+
+    public void setDinner(String dinner) {
+        this.dinner = dinner;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public List<DiningPersonBean> getDiningPerson() {
+        return diningPerson;
+    }
+
+    public void setDiningPerson(List<DiningPersonBean> diningPerson) {
+        this.diningPerson = diningPerson;
+    }
+
+    public static class DiningPersonBean {
+        private String userId;
+        private String userName;
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+    }
+}

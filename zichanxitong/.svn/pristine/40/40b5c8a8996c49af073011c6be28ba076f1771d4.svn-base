@@ -1,0 +1,346 @@
+[
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/normal_date_cell.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/meal/caldroid/unspecified/res/layout/normal_date_cell.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/select_dialog_item_material.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_item_material.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/carteen_list_parent.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/carteen_list_parent.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_screen_toolbar.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/statistic_card_item.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/statistic_card_item.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_screen_simple_overlay_action_mode.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/design_navigation_item_header.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item_header.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/weekday_textview.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/meal/caldroid/unspecified/res/layout/weekday_textview.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_apply_detail.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_apply_detail.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_screen_simple.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_simple.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/select_dialog_multichoice_material.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/design_navigation_menu_item.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_menu_item.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/test.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/test.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/design_layout_tab_icon.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_tab_icon.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/design_navigation_item_separator.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item_separator.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/design_layout_snackbar_include.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_snackbar_include.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/date_wheel_view.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/date_wheel_view.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_layout.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view_list_item.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/search_bar.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/search_bar.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_charger_list.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_charger_list.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/notification_template_lines.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_lines.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_search_dropdown_item_icons_2line.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_statistic.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_statistic.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_expanded_menu_layout.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/option_item.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/option_item.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/calendar_view.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/meal/caldroid/unspecified/res/layout/calendar_view.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/common_dialog.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/common_dialog.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/design_navigation_item_subheader.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item_subheader.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/statistic_card.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/statistic_card.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_button_bar_material.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_caldroid_sample.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_caldroid_sample.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_select_dialog_material.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_action_bar_up_container.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/carteen_list_child.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/carteen_list_child.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/pull_to_refresh_header_vertical.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/meal/library/unspecified/res/layout/pull_to_refresh_header_vertical.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_popup_menu_item_layout.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_main.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/notification_template_big_media.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_big_media.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_approve.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_approve.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/notification_template_media.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_media.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_together_people.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_together_people.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/statistics_list_item.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/statistics_list_item.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/design_navigation_item.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/notification_media_cancel_action.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_action_bar_title_item.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/pull_to_refresh_header_horizontal.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/meal/library/unspecified/res/layout/pull_to_refresh_header_horizontal.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/support_simple_spinner_dropdown_item.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/apply_item.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/apply_item.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/design_navigation_menu.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_menu.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/date_grid_fragment.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/meal/caldroid/unspecified/res/layout/date_grid_fragment.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_carteen_list.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_carteen_list.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_action_menu_layout.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_statistics_detail.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_statistics_detail.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/design_layout_tab_text.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_tab_text.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_dialog_title_material.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/fragment_my_approved_applys.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/fragment_my_approved_applys.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_action_bar_view_list_nav_layout.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/charger_list_item.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/charger_list_item.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_screen_content_include.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_content_include.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/date_select_view.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/date_select_view.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/phone_confirm_dialog.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/phone_confirm_dialog.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_radio.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_action_mode_close_item_material.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/select_dialog_singlechoice_material.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/square_date_cell.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/meal/caldroid/unspecified/res/layout/square_date_cell.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_my_applys.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_my_applys.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/notification_media_action.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/notification_media_action.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/reject_reson_input_view.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/reject_reson_input_view.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_action_mode_bar.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/design_menu_item_action_area.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_menu_item_action_area.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/app_detail_status_list_item.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/app_detail_status_list_item.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_approve_detail.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_approve_detail.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/list_show_history_view.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/list_show_history_view.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/design_layout_snackbar.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_layout_snackbar.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/activity_new_apply.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/activity_new_apply.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_material.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_search_view.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_search_view.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/layout_headview.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/src/main/res/layout/layout_headview.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_checkbox.xml"
+    }
+]

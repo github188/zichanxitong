@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/build/intermediates/res/merged/debug/color/cell_text_color_dark.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/src/main/res/color/cell_text_color_dark.xml"
+    },
+    {
+        "merged": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/build/intermediates/res/merged/debug/color/cell_text_color.xml",
+        "source": "/Users/wuming/studioProject/comtopProject/meal_project/meal/caldroid/src/main/res/color/cell_text_color.xml"
+    }
+]

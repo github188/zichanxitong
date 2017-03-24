@@ -1,0 +1,205 @@
+package com.szcomtop.meal.views;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.views.wheelView.FrameView;
+import com.szcomtop.meal.views.wheelView.LoopView;
+import com.szcomtop.meal.views.wheelView.OnItemSelectedListener;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Created by wuming on 16/4/5.
+ */
+public class DateWheelView extends RelativeLayout {
+
+    private FrameView framview;
+    private int firstLineY;
+    private int secondLineY;
+
+
+    private LinearLayout rootview;
+    private LoopView loopview1;
+    private LoopView loopview2;
+    private LoopView loopview3;
+    private LoopView loopview4;
+    private String mStartYear;
+    private String mStartMonth;
+    private String mEndYear;
+    private String mEndMonth;
+
+    private void assignViews(View dateWheelView) {
+        rootview = (LinearLayout) dateWheelView.findViewById(R.id.rootview);
+        loopview1 = (LoopView) dateWheelView.findViewById(R.id.loopview1);
+        loopview2 = (LoopView) dateWheelView.findViewById(R.id.loopview2);
+        loopview3 = (LoopView) dateWheelView.findViewById(R.id.loopview3);
+        loopview4 = (LoopView) dateWheelView.findViewById(R.id.loopview4);
+        framview = (FrameView) dateWheelView.findViewById(R.id.frameView);
+    }
+
+    public DateWheelView(Context context) {
+        super(context);
+        initView();
+    }
+
+    public DateWheelView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initView();
+
+    }
+
+    public DateWheelView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView();
+
+    }
+
+
+    public static List<Date> findDates(Date dBegin, Date dEnd) {
+        List lDate = new ArrayList();
+        lDate.add(dBegin);
+        Calendar calBegin = Calendar.getInstance();
+        // 使用给定的 Date 设置此 Calendar 的时间
+        calBegin.setTime(dBegin);
+        Calendar calEnd = Calendar.getInstance();
+        // 使用给定的 Date 设置此 Calendar 的时间
+        calEnd.setTime(dEnd);
+        // 测试此日期是否在指定日期之后
+        while (dEnd.after(calBegin.getTime())) {
+            // 根据日历的规则，为给定的日历字段添加或减去指定的时间量
+            calBegin.add(Calendar.DAY_OF_MONTH, 1);
+            lDate.add(calBegin.getTime());
+        }
+        return lDate;
+    }
+
+
+    public void initView(){
+
+       View dateWheelView =  View.inflate(getContext(),R.layout.date_wheel_view,null);
+        addView(dateWheelView,LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+        assignViews(dateWheelView);
+
+
+        final ArrayList<String> year = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            year.add( (2010+i)+"年");
+        }
+
+        final ArrayList<String> month = new ArrayList<>();
+        for (int i = 1; i < 13; i++) {
+            month.add(i+"");
+        }
+
+
+        Calendar calendar = Calendar.getInstance();
+        int yearnum = calendar.get(Calendar.YEAR);
+        int yearDis = yearnum - 2010;
+        int monthNum = calendar.get(Calendar.MONTH);
+
+
+        //设置原始数据
+        loopview1.setItems(year);
+        //设置初始位置
+        loopview1.setInitPosition(yearDis);
+
+        mStartYear = year.get(yearDis);
+
+        //设置字体大小
+        loopview1.setTextSize(18);
+        loopview1.measure(0,0);
+        firstLineY = loopview1.getFirstLineY();
+        secondLineY = loopview1.getSecondLineY();
+
+        loopview1.setListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+
+
+                mStartYear = year.get(index);
+
+            }
+        });
+
+
+
+        loopview2.setItems(month);
+        loopview2.setInitPosition(monthNum);
+        mStartMonth = month.get(monthNum);
+        loopview2.setTextSize(18);
+
+        loopview2.setListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+
+                mStartMonth = month.get(index);
+
+            }
+        });
+
+        //设置原始数据
+        loopview3.setItems(year);
+        //设置初始位置
+        loopview3.setInitPosition(yearDis);
+        mEndYear = year.get(yearDis);
+        //设置字体大小
+        loopview3.setTextSize(18);
+
+        loopview3.setListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+
+                mEndYear = year.get(index);
+
+            }
+        });
+
+
+        loopview4.setItems(month);
+        loopview4.setInitPosition(monthNum);
+        mEndMonth = month.get(monthNum);
+        loopview4.setTextSize(18);
+
+
+        loopview4.setListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+
+                mEndMonth = month.get(index);
+            }
+        });
+
+
+
+        framview.set(firstLineY,secondLineY);
+    }
+
+
+    public  String  getStartTime(){
+        String year = mStartYear.replace("年", "");
+        java.text.DecimalFormat format = new java.text.DecimalFormat("00");
+        String format1 = format.format(Integer.valueOf(mStartMonth));
+        String res = String.format("%4s-%s-01", year, format1);
+        return  res;
+    }
+
+
+    public  String  getEndTime(){
+        String year = mEndYear.replace("年", "");
+        java.text.DecimalFormat format = new java.text.DecimalFormat("00");
+
+        String format1 = format.format(Integer.valueOf(mEndMonth));
+        String res = String.format("%4s-%s-01", year, format1);
+        return  res;
+    }
+
+
+}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f5f7"
+    >
+
+
+    <com.szcomtop.meal.views.HeadView
+        android:id="@+id/statistic_detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.szcomtop.meal.views.HeadView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:background="#ffffff"
+
+            >
+
+
+            <LinearLayout
+                android:id="@+id/statistic_detail_date_area"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/statistic_detail_date_tv"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2015年3月 至 2016年3月"/>
+
+                <ImageView
+                    android:id="@+id/statistic_detail_arrow_down"
+
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/date_btn_downward"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line" />
+
+    <com.szcomtop.meal.views.StatisticCard
+        android:id="@+id/statistic_detail_stop"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        />
+
+
+    <com.szcomtop.meal.views.StatisticCard
+        android:id="@+id/statistic_detail_have"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"/>
+
+    </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

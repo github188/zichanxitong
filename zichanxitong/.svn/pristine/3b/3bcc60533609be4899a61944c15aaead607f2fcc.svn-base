@@ -1,0 +1,113 @@
+package com.szcomtop.meal.model;
+
+import java.io.Serializable;
+
+/**
+ * Created by wuming on 2016/4/12.
+ */
+public class UserInfo  implements Serializable {
+
+    /**
+     * createDate : 2016-04-06 17:53:53
+     * updateDate : 2016-04-06 17:53:53
+     * id : 0001463bb81e402c
+     * name : 方锋2
+     * account : fangfeng2
+     * email : chendazhou@szcomtop.com
+     * phone : 18665065765
+     * gender : 0
+     * pinyin : FANGFENG2
+     * pinyinSim : FF2
+     */
+
+    private String createDate;
+    private String updateDate;
+    private String id;
+    private String name;
+    private String account;
+    private String email;
+    private String phone;
+    private String gender;
+    private String pinyin;
+    private String pinyinSim;
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPinyin() {
+        return pinyin;
+    }
+
+    public void setPinyin(String pinyin) {
+        this.pinyin = pinyin;
+    }
+
+    public String getPinyinSim() {
+        return pinyinSim;
+    }
+
+    public void setPinyinSim(String pinyinSim) {
+        this.pinyinSim = pinyinSim;
+    }
+}

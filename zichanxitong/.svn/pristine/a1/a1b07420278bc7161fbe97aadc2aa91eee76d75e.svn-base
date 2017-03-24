@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_weight="5">
+            <TextView
+
+
+                android:id="@+id/statistic_list_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="市局第一食堂"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+
+            android:layout_weight="4">
+            <TextView
+
+
+                android:id="@+id/statistic_list_item_addNum"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="300"/>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+
+            android:layout_weight="4">
+            <TextView
+
+
+                android:id="@+id/statistic_list_item_reduceNum"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="251"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+
+            android:layout_weight="4">
+            <TextView
+
+
+                android:id="@+id/statistic_list_item_count"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="49"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/all_list_arrow_icon"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+

@@ -1,0 +1,61 @@
+package com.szcomtop.meal.model;
+
+/**
+ * Created by wuming on 16/5/4.
+ */
+public class CarteenStastatic1 {
+
+    /**
+     * dineRoomId : 0001543d5ba9cf50b
+     * dineRoomName : 食堂一
+     * addNum : 84
+     * reduceNum : 28
+     * count : 56
+     */
+
+    private String dineRoomId;
+    private String dineRoomName;
+    private int addNum;
+    private int reduceNum;
+    private int count;
+
+    public String getDineRoomId() {
+        return dineRoomId;
+    }
+
+    public void setDineRoomId(String dineRoomId) {
+        this.dineRoomId = dineRoomId;
+    }
+
+    public String getDineRoomName() {
+        return dineRoomName;
+    }
+
+    public void setDineRoomName(String dineRoomName) {
+        this.dineRoomName = dineRoomName;
+    }
+
+    public int getAddNum() {
+        return addNum;
+    }
+
+    public void setAddNum(int addNum) {
+        this.addNum = addNum;
+    }
+
+    public int getReduceNum() {
+        return reduceNum;
+    }
+
+    public void setReduceNum(int reduceNum) {
+        this.reduceNum = reduceNum;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+}

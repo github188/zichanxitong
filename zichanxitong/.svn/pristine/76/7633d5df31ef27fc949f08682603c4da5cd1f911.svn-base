@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="260dp"
+    android:layout_height="match_parent" 
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:paddingTop="25dp"
+    android:orientation="vertical">
+    
+    <TextView
+        android:id="@+id/phone_confirm_dialog_title"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:text="请确认"/>
+    
+    <TextView 
+        android:id="@+id/phone_confirm_dialog_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="#aaaaaa"
+        android:text="我们将向以下号码发送验证码：+86\n15361443710"/>
+    
+     <View android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+  
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <Button 
+            android:id="@+id/phone_confirm_dialog_btn_cancle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="36dp"
+            android:background="@drawable/item_selector"
+            android:textColor="#3d95ff"
+            android:gravity="center"
+            android:text="取消"/>
+        <View android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/line"/>
+        <Button 
+            android:id="@+id/phone_confirm_dialog_btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/item_selector"
+            android:textColor="#3d95ff"
+            android:text="好的"/>
+    </LinearLayout>
+    
+    
+    
+
+</LinearLayout>

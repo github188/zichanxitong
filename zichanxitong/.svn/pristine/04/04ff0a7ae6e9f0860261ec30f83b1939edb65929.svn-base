@@ -1,0 +1,146 @@
+package com.szcomtop.meal.views;
+
+import android.animation.Animator;
+import android.animation.ValueAnimator;
+import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.common.MyAnimatorListenerAdapter;
+import com.szcomtop.meal.utils.ViewUtils;
+
+/**
+ * Created by wuming on 16/3/25.
+ */
+public class SlidingFromTopView extends RelativeLayout {
+    private View mView;
+    private View inflate;
+
+    public SlidingFromTopView(Context context) {
+        super(context);
+        initView();
+    }
+
+
+
+    public SlidingFromTopView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initView();
+
+    }
+
+    public SlidingFromTopView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView();
+
+    }
+
+
+    private void initView() {
+      inflate = View.inflate(getContext(), R.layout.test, null);
+        this.addView(inflate);
+    }
+
+
+    public void setView(View view){
+        mView = view ;
+        this.addView(view,LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+
+    }
+
+    public  void setFragment(FragmentTransaction t , Fragment fragment){
+
+
+        t.add(R.id.test,fragment);
+        t.commit();
+        mView = inflate ;
+    }
+
+
+    public void setView(View view,LayoutParams params){
+        mView = view ;
+        this.addView(view,params);
+
+    }
+
+
+    public void startShowAnimate(){
+        if (mView == null){
+            return;
+        }
+        mView.measure(0,0);
+        final int height = -mView.getMeasuredHeight();
+        ValueAnimator va = ValueAnimator.ofFloat(height,0);
+        va.setDuration(300);
+        va.setInterpolator( new AccelerateDecelerateInterpolator());
+        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                Float animatedValue = (Float) valueAnimator.getAnimatedValue();
+                mView.setTranslationY(animatedValue);
+
+
+
+                SlidingFromTopView.this.setBackgroundColor(Color.argb((int) ((0.6f- Math.abs(animatedValue/height)*0.6f)*255),0,0,0));
+            }
+        });
+        va.start();
+    }
+
+    public void startDismissAnimate(){
+
+        if (mView == null){
+            return;
+        }
+        mView.measure(0,0);
+        final int height = -mView.getMeasuredHeight();
+        ValueAnimator va = ValueAnimator.ofFloat(0,height);
+        va.setDuration(300);
+        va.setInterpolator(new AccelerateDecelerateInterpolator());
+        va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                Float animatedValue = (Float) valueAnimator.getAnimatedValue();
+                mView.setTranslationY(animatedValue);
+                SlidingFromTopView.this.setBackgroundColor(Color.argb((int) ((0.6f-Math.abs(animatedValue/height)*0.6f)*255),0,0,0));
+
+
+            }
+        });
+        va.addListener(new MyAnimatorListenerAdapter(){
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                SlidingFromTopView.this.setVisibility(GONE);
+            }
+        });
+        va.start();
+    }
+
+     public void show(){
+         setVisibility(VISIBLE);
+         startShowAnimate();
+     }
+
+    public void dismiss(){
+        startDismissAnimate();
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        if (!ViewUtils.isTouchInView(event,mView)){
+            dismiss();
+        }
+
+        return true;
+    }
+}

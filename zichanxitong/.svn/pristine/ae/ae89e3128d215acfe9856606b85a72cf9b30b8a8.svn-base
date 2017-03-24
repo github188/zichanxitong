@@ -1,0 +1,63 @@
+package com.szcomtop.meal.views.wheelView;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+
+/**
+ * Created by wuming on 16/3/30.
+ */
+public class FrameView extends View {
+
+    private float firstLineY;
+    private float secondLineY;
+
+    public FrameView(Context context) {
+        super(context);
+    }
+
+    public FrameView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public FrameView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+
+    public void set(float firstLineY ,float secondLineY){
+        this.firstLineY = firstLineY ;
+        this.secondLineY = secondLineY ;
+        //requestLayout();
+        invalidate();
+    }
+
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec((int) (secondLineY - firstLineY)+300,MeasureSpec.EXACTLY);
+        super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Paint paintIndicator = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paintIndicator.setColor(Color.BLACK);
+        paintIndicator.setStyle(Paint.Style.STROKE);
+        paintIndicator.setStrokeWidth(2.0f);
+
+        Path path = new Path();
+        path.moveTo(0,firstLineY);
+        path.lineTo(getMeasuredWidth(),firstLineY);
+        path.lineTo(getMeasuredWidth(),secondLineY);
+        path.lineTo(0,secondLineY);
+        path.close();
+        canvas.drawPath(path , paintIndicator);
+
+    }
+}

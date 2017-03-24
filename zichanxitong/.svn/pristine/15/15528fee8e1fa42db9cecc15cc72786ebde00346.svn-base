@@ -1,0 +1,77 @@
+package com.szcomtop.meal.views;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.szcomtop.meal.R;
+
+
+public class CommonConfirmDialog extends Dialog {
+
+	private final TextView titleTv;
+	private TextView contentTv;
+	private Button btnCancle;
+	private Button btnOk;
+
+	public CommonConfirmDialog(Context context) {
+		super(context, R.style.dialog);
+		this.setContentView(R.layout.phone_confirm_dialog);
+		titleTv = (TextView) findViewById(R.id.phone_confirm_dialog_title);
+		contentTv = (TextView) findViewById(R.id.phone_confirm_dialog_content);
+		btnCancle = (Button)findViewById(R.id.phone_confirm_dialog_btn_cancle);
+		btnOk = (Button)findViewById(R.id.phone_confirm_dialog_btn_ok);
+		
+		btnCancle.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(isShowing()){
+					dismiss();
+				}
+			}
+		});
+		
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public CommonConfirmDialog(Context context, String content){
+		this(context);
+		setContent(content);
+		
+	}
+
+
+	public CommonConfirmDialog(Context context, String title, String content, String positiveStr , String negativeStr){
+		this(context);
+
+		titleTv.setText(title);
+		setContent(content);
+		btnOk.setText(positiveStr);
+		btnCancle.setText(negativeStr);
+
+	}
+
+	
+
+	public CommonConfirmDialog setContent(String content) {
+		contentTv.setText(content);
+		return this;
+	}
+
+	
+
+	
+	
+	public CommonConfirmDialog setPositiveButtonListener(View.OnClickListener l){
+		btnOk.setOnClickListener(l);
+		return this;
+	}
+	
+	
+	
+}

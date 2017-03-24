@@ -1,0 +1,163 @@
+package com.szcomtop.meal.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.common.CommonAdapter;
+import com.szcomtop.meal.common.Consts;
+import com.szcomtop.meal.common.ViewHolder;
+import com.szcomtop.meal.model.ApplyInfo;
+import com.szcomtop.meal.model.Response;
+import com.szcomtop.meal.model.UserInfo;
+import com.szcomtop.meal.views.HeadView;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.List;
+
+import okhttp3.Call;
+
+
+
+/**
+ * Created by wuming on 16/4/22.
+ */
+public class ChargerListActivity  extends BaseActivity implements AdapterView.OnItemClickListener {
+
+
+    private HeadView mChergerListTitle;
+    private ListView mChergerListListview;
+    private List<UserInfo> data;
+    private UserInfo mSelectCharger;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_charger_list);
+
+        assignViews();
+        initView();
+        feachData();
+    }
+
+
+
+    private void assignViews() {
+        mChergerListTitle = (HeadView) findViewById(R.id.cherger_list_title);
+        mChergerListListview = (ListView) findViewById(R.id.cherger_list_listview);
+    }
+
+
+    private void initView() {
+
+        mChergerListTitle.setHeadParams(HeadView.TYPE_LEFTONLY,this);
+        mChergerListTitle.setOnHeadClick(this);
+
+    }
+
+
+    private  void  feachData(){
+
+        String url =String.format( Consts.SERVER_PREFIX +"/mealbook/api/user/get_director");
+
+       OkHttpUtils
+                .post()
+               // .addParams("pageNumber", pager + "")
+              //  .addParams("pageSize", PAGE_SIZE)
+                .url(url)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+
+
+                        try {
+
+                            Gson gson = new Gson();
+                            Response<UserInfo> res = gson.fromJson(response, new TypeToken<Response<UserInfo>>() {
+                            }.getType());
+                            int state = res.getState();
+                            if (state == 0) {
+
+                               data = res.getData();
+                                if (data != null || data.size() != 0){
+
+                                    CommonAdapter<UserInfo> commonAdapter = new CommonAdapter<UserInfo>(ChargerListActivity.this, data, R.layout.charger_list_item) {
+
+                                        @Override
+                                        public void convert(ViewHolder holder, UserInfo userInfo) {
+
+                                            holder.setText(R.id.charger_list_item_name,userInfo.getName());
+
+                                        }
+                                    };
+                                    mChergerListListview.setAdapter(commonAdapter);
+                                    mChergerListListview.setOnItemClickListener(ChargerListActivity.this);
+
+
+                                }else {
+                                    //失败
+                                }
+
+
+                            }
+
+                        }catch (Exception e){
+                         //失败
+
+
+                        }
+
+
+
+                    }
+                });
+
+    }
+
+
+    @Override
+    public void initCenterTv(TextView cTv) {
+        super.initCenterTv(cTv);
+        cTv.setText("选择审批主管");
+    }
+
+    @Override
+    public void OnLeftBtnClick(View v) {
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = getIntent();
+        intent.putExtra("charger",mSelectCharger);
+        setResult(0,intent);
+
+        super.onBackPressed();
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        mSelectCharger = data.get(i);
+        onBackPressed();
+
+    }
+}

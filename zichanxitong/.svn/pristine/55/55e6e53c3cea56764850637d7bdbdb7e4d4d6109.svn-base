@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="15dp"
+    android:background="@drawable/option_item_selector"
+    android:gravity="center_vertical"
+     >
+
+    <TextView
+        android:id="@+id/option_item_tv_must_need"
+
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="*"
+        android:layout_marginRight="5dp"
+        android:textColor="#ff554c"
+        android:textSize="16sp"
+         />
+
+    <TextView
+        android:id="@+id/option_item_tv_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="随行人员"
+        android:textColor="#000000"
+        android:textSize="16sp"
+
+        android:layout_alignTop="@+id/option_item_right_area"
+        android:layout_toRightOf="@id/option_item_tv_must_need"
+        android:layout_toEndOf="@id/option_item_tv_must_need" />
+
+
+    <TextView
+
+        android:id="@+id/option_item_tv_center"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:visibility="invisible"
+        android:layout_marginLeft="24dp"
+        android:layout_toRightOf="@+id/option_item_tv_left"
+        android:layout_toEndOf="@+id/option_item_tv_left" />
+    
+    <LinearLayout
+
+        android:id="@+id/option_item_right_area"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        
+
+        
+        <TextView
+            android:id="@+id/option_item_tv_right"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+
+
+            android:textColor="#b3b3b3"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:maxWidth="180dp"
+            android:text="请选择(必填)"
+           />
+        
+        <ImageView
+            android:id="@+id/option_item_arrow"
+
+            android:layout_width="12dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/all_list_arrow_icon"/>
+        
+    </LinearLayout>
+
+
+</RelativeLayout>

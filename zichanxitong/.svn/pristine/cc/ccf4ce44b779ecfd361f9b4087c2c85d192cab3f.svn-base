@@ -1,0 +1,196 @@
+package com.szcomtop.meal.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.roomorama.caldroid.CalendarHelper;
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.model.ApplyInfo;
+import com.szcomtop.meal.utils.DateUtil;
+import com.szcomtop.meal.views.HeadView;
+
+import java.util.Calendar;
+import java.util.List;
+
+import hirondelle.date4j.DateTime;
+
+/**
+ * Created by wuming on 16/3/24.
+ */
+public class ApplyDetailActivity extends BaseActivity {
+
+
+    private HeadView mApplyDetailTitle;
+    private ImageView mApplyDetailAvatar;
+    private TextView mApplyDetailApplicantName;
+    private TextView mApplyDetailApplyStatusTv;
+    private TextView mApplyDetailApplicantDepartment;
+    private TextView mApplyDetailApplyPeople;
+    private TextView mApplyDetailApplyNumber;
+    private TextView mApplyDetailEatCanteen;
+    private TextView mApplyDetailStopCanteen;
+    private TextView mApplyDetailStartTime;
+    private TextView mApplyDetailStopTime;
+    private TextView mApplyDetailEatDays;
+    private TextView mApplyDetailReson;
+    private LinearLayout mApplyDetailStatusList;
+    private ApplyInfo applyInfo;
+    private ImageView mApplyDetailApplyStatusIv;
+    private TextView mApplyDinnerTime;
+
+    private void assignViews() {
+        mApplyDetailTitle = (HeadView) findViewById(R.id.apply_detail_title);
+        mApplyDetailAvatar = (ImageView) findViewById(R.id.apply_detail_avatar);
+        mApplyDetailApplicantName = (TextView) findViewById(R.id.apply_detail_applicant_name);
+        mApplyDetailApplyStatusTv = (TextView) findViewById(R.id.apply_detail_apply_status_tv);
+        mApplyDetailApplyStatusIv = (ImageView) findViewById(R.id.apply_detail_apply_status_iv);
+        mApplyDetailApplicantDepartment = (TextView) findViewById(R.id.apply_detail_applicant_department);
+        mApplyDetailApplyPeople = (TextView) findViewById(R.id.apply_detail_apply_people);
+        mApplyDetailApplyNumber = (TextView) findViewById(R.id.apply_detail_apply_number);
+        mApplyDetailEatCanteen = (TextView) findViewById(R.id.apply_detail_eat_canteen);
+        mApplyDetailStopCanteen = (TextView) findViewById(R.id.apply_detail_stop_canteen);
+        mApplyDetailStartTime = (TextView) findViewById(R.id.apply_detail_start_time);
+        mApplyDetailStopTime = (TextView) findViewById(R.id.apply_detail_stop_time);
+        mApplyDetailEatDays = (TextView) findViewById(R.id.apply_detail_eat_days);
+        mApplyDetailReson = (TextView) findViewById(R.id.apply_detail_reson);
+        mApplyDinnerTime = (TextView) findViewById(R.id.apply_detail_dinner_time);
+        mApplyDetailStatusList = (LinearLayout) findViewById(R.id.apply_detail_status_list);
+
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_apply_detail);
+        Intent intent = getIntent();
+        applyInfo = (ApplyInfo) intent.getSerializableExtra("applyInfo");
+        assignViews();
+        initView();
+
+    }
+
+    private void initView() {
+
+        mApplyDetailTitle.setHeadParams(HeadView.TYPE_LEFTONLY,this);
+        mApplyDetailTitle.setOnHeadClick(this);
+
+        if (applyInfo != null){
+            mApplyDetailApplicantName.setText(applyInfo.getName());
+
+            mApplyDetailApplicantDepartment.setText(applyInfo.getOrgName());
+            mApplyDetailApplyPeople.setText(applyInfo.getRepastPersonnel());
+            mApplyDetailApplyNumber.setText(applyInfo.getPeopleNumber()+"");
+            mApplyDetailEatCanteen.setText(applyInfo.getDiningRoom());
+
+            mApplyDinnerTime.setText(applyInfo.getDinner());
+            String stopDiningRoom = applyInfo.getStopDiningRoom();
+            boolean empty = TextUtils.isEmpty(stopDiningRoom);
+
+            mApplyDetailStopCanteen.setText(empty ? "无":stopDiningRoom);
+            mApplyDetailStartTime.setText((String) DateFormat.format("yyyy-MM-dd", applyInfo.getStartTime()));
+            mApplyDetailStopTime.setText((String) DateFormat.format("yyyy-MM-dd", applyInfo.getEndTime()));
+            mApplyDetailEatDays.setText(applyInfo.getDays()+"天");
+            mApplyDetailReson.setText(applyInfo.getReason());
+            setStatus(applyInfo.getState(),mApplyDetailApplyStatusTv,mApplyDetailApplyStatusIv);
+
+            List<ApplyInfo.StepListEntity> stepList = applyInfo.getStepList();
+            mApplyDetailStatusList.removeAllViews();
+            if (stepList == null){
+                return;
+            }
+            for (int i = 0 ; i < stepList.size();i++){
+
+                RelativeLayout statusItem = (RelativeLayout) View.inflate(this, R.layout.app_detail_status_list_item, null);
+                if (i == 0){
+
+                    bindStatusItem(true ,statusItem,stepList.get(i));
+                }else {
+                    bindStatusItem(false ,statusItem,stepList.get(i));
+
+                }
+
+                mApplyDetailStatusList.addView(statusItem);
+
+
+            }
+
+
+        }
+
+    }
+
+    private void bindStatusItem(boolean isFirst, RelativeLayout statusItem, ApplyInfo.StepListEntity stepListEntity) {
+
+        ImageView leftIcon = (ImageView) statusItem.findViewById(R.id.status_list_item_left_icon);
+        TextView itemName = (TextView) statusItem.findViewById(R.id.status_list_item_name);
+        ImageView avatar = (ImageView) statusItem.findViewById(R.id.status_list_item_avatar);
+        TextView statusTv = (TextView) statusItem.findViewById(R.id.status_list_item_status_tv);
+        ImageView statusIv  = (ImageView) statusItem.findViewById(R.id.status_list_item_status_iv);
+        View reasonDivide = statusItem.findViewById(R.id.status_list_item_status_reason_divide);
+        TextView reasonTv = (TextView) statusItem.findViewById(R.id.status_list_item_status_reason);
+
+        statusIv.setVisibility(View.INVISIBLE);
+        TextView timeTv = (TextView) statusItem.findViewById(R.id.status_list_item_time);
+        ImageLoader.getInstance().displayImage(stepListEntity.getAvatar(), avatar);
+
+        itemName.setText(stepListEntity.getName());
+
+        long updateTime = stepListEntity.getUpdateTime();
+        boolean today = DateUtils.isToday(updateTime);
+        String strDate ;
+        if (today){
+            strDate =  DateFormat.getTimeFormat(ApplyDetailActivity.this).format(updateTime);
+        }else {
+            strDate =  DateFormat.getDateFormat(ApplyDetailActivity.this).format(updateTime);
+
+        }
+        timeTv.setText(strDate);
+        switch (stepListEntity.getState()){
+            case 1:
+                statusTv.setText("审批中");
+                leftIcon.setImageResource(R.drawable.timer_wait_icon);
+
+                break;
+            case 2:
+                if (isFirst){
+                    statusTv.setText("发起申请");
+                    leftIcon.setImageResource(R.drawable.timer_create_icon);
+                }else {
+
+                    statusTv.setText("已审批(通过)");
+                    leftIcon.setImageResource(R.drawable.list_timer_approve_icon);
+                }
+                break;
+            case 3:
+                statusTv.setText("已审批(驳回)");
+                reasonDivide.setVisibility(View.VISIBLE);
+                reasonTv.setVisibility(View.VISIBLE);
+                reasonTv.setText("驳回理由:"+stepListEntity.getReason());
+                leftIcon.setImageResource(R.drawable.list_timer_reject_icon);
+                break;
+        }
+
+
+
+
+    }
+
+    @Override
+    public void initCenterTv(TextView cTv) {
+        super.initCenterTv(cTv);
+        cTv.setText(applyInfo.getName()+"的申请");
+    }
+
+
+
+}

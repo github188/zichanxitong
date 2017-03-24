@@ -1,0 +1,90 @@
+package com.szcomtop.meal.views;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.util.AttributeSet;
+import android.widget.FrameLayout;
+
+import com.roomorama.caldroid.CaldroidFragment;
+import com.szcomtop.meal.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+/**
+ * Created by wuming on 16/4/18.
+ */
+public class DatePickerView  extends FrameLayout {
+
+    private CaldroidFragment caldroidFragment;
+
+    private FragmentTransaction t;
+
+    public DatePickerView(Context context,FragmentTransaction t) {
+        super(context);
+
+        this.t = t ;
+        initView();
+    }
+
+    private void setCustomResourceForDates() {
+        Calendar cal = Calendar.getInstance();
+
+        // Min date is last 7 days
+        cal.add(Calendar.DATE, -7);
+        Date blueDate = cal.getTime();
+
+        // Max date is next 7 days
+        cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 7);
+        Date greenDate = cal.getTime();
+
+        if (caldroidFragment != null) {
+            // ColorDrawable blue = new ColorDrawable(getResources().getColor(R.color.blue));
+            ColorDrawable green = new ColorDrawable(Color.GREEN);
+            //caldroidFragment.setBackgroundDrawableForDate(blue, blueDate);
+            caldroidFragment.setBackgroundDrawableForDate(green, greenDate);
+            caldroidFragment.setTextColorForDate(R.color.white, blueDate);
+            caldroidFragment.setTextColorForDate(R.color.white, greenDate);
+        }
+    }
+
+    private void initView() {
+
+        final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+
+        // Setup caldroid fragment
+        // **** If you want normal CaldroidFragment, use below line ****
+        caldroidFragment = new CaldroidFragment();
+
+        Bundle args = new Bundle();
+        Calendar cal = Calendar.getInstance();
+        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+        args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
+        args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
+
+        // Uncomment this to customize startDayOfWeek
+        // args.putInt(CaldroidFragment.START_DAY_OF_WEEK,
+        // CaldroidFragment.TUESDAY); // Tuesday
+
+        // Uncomment this line to use Caldroid in compact mode
+        // args.putBoolean(CaldroidFragment.SQUARE_TEXT_VIEW_CELL, false);
+
+        // Uncomment this line to use dark theme
+//            args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
+
+        caldroidFragment.setArguments(args);
+
+        setCustomResourceForDates();
+
+        // Attach to the activity
+        t.replace(R.id.calendar1, caldroidFragment);
+        t.commit();
+
+    }
+}

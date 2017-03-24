@@ -1,0 +1,109 @@
+package com.szcomtop.meal.views;
+
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.szcomtop.meal.R;
+
+/**
+ * 个人中心item view
+ * @author Cloudly
+ */
+
+public class OptionItemView extends LinearLayout{
+
+
+	private TextView leftTv;
+	private TextView rightTv;
+	private TextView centerTv;
+	private TextView xingTv;
+
+	public OptionItemView(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public OptionItemView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		
+		
+		initView(context, attrs);
+		
+	}
+	
+	
+	/**
+	 * 初始化界面
+	 * @param context
+	 * @param attrs
+	 */
+	private void initView(Context context, AttributeSet attrs){
+		
+		View view = LayoutInflater.from(context).inflate(R.layout.option_item, this, true);
+		leftTv = (TextView)view.findViewById(R.id.option_item_tv_left);
+		rightTv = (TextView)view.findViewById(R.id.option_item_tv_right);
+		centerTv = (TextView)view.findViewById(R.id.option_item_tv_center);
+		xingTv = (TextView)view.findViewById(R.id.option_item_tv_must_need);
+		View arrow = findViewById(R.id.option_item_arrow);
+		View rightArea = view.findViewById(R.id.option_item_right_area);
+
+
+		TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.OptionItemView);
+		CharSequence leftText = typeArray.getText(R.styleable.OptionItemView_textLeft);
+		CharSequence rightText = typeArray.getText(R.styleable.OptionItemView_textRight);
+		CharSequence centerText = typeArray.getText(R.styleable.OptionItemView_textCenter);
+		boolean showCenterTv = typeArray.getBoolean(R.styleable.OptionItemView_showCenterTv, true);
+		boolean showRight = typeArray.getBoolean(R.styleable.OptionItemView_showRight, true);
+		boolean showXing = typeArray.getBoolean(R.styleable.OptionItemView_showXing, true);
+		boolean showArrow = typeArray.getBoolean(R.styleable.OptionItemView_showArrow, true);
+
+
+		if (leftText != null){
+
+			leftTv.setText(leftText);
+		}
+		if (rightText != null){
+			rightTv.setText(rightText);
+		}
+
+		if (centerText != null){
+			centerTv.setText(centerText);
+		}
+
+		centerTv.setVisibility(showCenterTv == true ? VISIBLE :INVISIBLE);
+		rightArea.setVisibility(showRight == true ? VISIBLE :INVISIBLE);
+
+		xingTv.setVisibility(showXing == true ? VISIBLE :INVISIBLE);
+		arrow.setVisibility(showArrow == true ? VISIBLE :INVISIBLE);
+
+		typeArray.recycle();
+		
+	}
+	
+
+
+	public void setLeftText(String leftText){
+		if (leftText != null){
+			leftTv.setText(leftText);
+		}
+	}
+
+	public void setRightText(String rightText){
+		if (rightText != null){
+			rightTv.setText(rightText);
+		}
+	}
+
+
+	public  String getRightText(){
+		return  rightTv.getText().toString();
+	}
+
+
+}

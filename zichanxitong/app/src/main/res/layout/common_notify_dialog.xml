@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="275dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/charge_white_round_corner_bg"
+    android:gravity="center_horizontal"
+    android:paddingTop="38dp"
+    android:orientation="vertical">
+    
+    <TextView
+        android:id="@+id/common_notify_dialog_title"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:text="您有一个订单未支付"/>
+    
+    <TextView 
+        android:id="@+id/common_notify_dialog_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="36dp"
+        android:layout_marginRight="29dp"
+        android:layout_marginLeft="29dp"
+        android:lineSpacingExtra="5dp"
+        android:textColor="#aaaaaa"
+        android:text="订单支付后,才能再一次进行充电，请尽快完成支付。"/>
+    
+     <View android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"/>
+  
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button 
+            android:id="@+id/common_notify_dialog_btn_ok"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/charge_bottom_white_round_corner_bg"
+            android:textColor="#3d95ff"
+            android:text="确定"/>
+    </LinearLayout>
+    
+    
+    
+
+</LinearLayout>
+<!-- From: file:/Users/wuming/soontake_android2/app/src/main/res/layout/phone_confirm_dialog.xml -->

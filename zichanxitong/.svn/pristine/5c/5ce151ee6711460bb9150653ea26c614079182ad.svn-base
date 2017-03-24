@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:optionItem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <com.szcomtop.meal.views.HeadView
+        android:id="@+id/new_apply_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <com.szcomtop.meal.views.OptionItemView
+                android:id="@+id/new_apply_entourage"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                optionItem:textLeft="随行人员"
+                optionItem:textRight="请选择"
+                optionItem:showXing="false"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <com.szcomtop.meal.views.OptionItemView
+                android:id="@+id/new_apply_have_canteen"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                optionItem:textLeft="就餐食堂"
+                optionItem:textRight="请选择"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <com.szcomtop.meal.views.OptionItemView
+                android:id="@+id/new_apply_stop_canteen"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                optionItem:textLeft="停餐食堂"
+                optionItem:textRight="请选择"/>
+
+            <com.szcomtop.meal.views.OptionItemView
+
+                android:id="@+id/new_apply_lunch_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                optionItem:textLeft="中餐日期"
+                optionItem:textRight="请选择"
+                />
+
+            <com.szcomtop.meal.views.OptionItemView
+                android:id="@+id/new_apply_lunch_days"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                optionItem:textLeft="用餐天数"
+                optionItem:textRight="无"
+                optionItem:showArrow="false"
+
+                optionItem:showXing="false"
+                />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+
+               >
+
+
+                <TextView
+
+                    android:id="@+id/tv1"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="*"
+                    android:layout_marginRight="5dp"
+                    android:textColor="#ff554c"
+                    android:textSize="16sp"
+                    android:visibility="invisible"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv1"
+                    android:layout_centerVertical="true"
+                    android:textColor="#000000"
+                    android:text="选择晚餐"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.szcomtop.meal.views.SwitchView
+                        android:id="@+id/whether_dinner_switch"
+                        android:layout_width="36dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+
+            <com.szcomtop.meal.views.OptionItemView
+
+                android:id="@+id/new_apply_dinner_date"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                optionItem:textLeft="晚餐日期"
+                optionItem:textRight="请选择"
+                android:visibility="gone"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <com.szcomtop.meal.views.OptionItemView
+                android:id="@+id/new_apply_dinner_days"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                optionItem:textLeft="用餐天数"
+                optionItem:textRight="无"
+                optionItem:showXing="false"
+                optionItem:showArrow="false"
+
+                android:visibility="gone"
+                />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="15dp"
+                android:background="#ffffff"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+
+
+                    android:id="@+id/tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="*"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#ff554c"
+                    android:textSize="16sp"
+                    android:visibility="visible"
+                    />
+
+                <TextView
+                    android:id="@+id/new_apply_reason"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="就餐事由"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@id/tv2"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/new_apply_reason"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+
+
+                    <EditText
+                        android:id="@+id/new_apply_reason_et"
+
+                        android:layout_width="match_parent"
+                        android:gravity="top|left"
+                        android:background="#ffffff"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="8dp"
+                        android:hint="请输入就餐事由"
+                        android:textSize="16sp"
+                        android:layout_height="120dp" />
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="15dp"
+                android:background="#ffffff"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+
+
+                    android:id="@+id/tv3"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="*"
+                    android:layout_marginRight="5dp"
+                    android:textColor="#ff554c"
+                    android:textSize="16sp"
+                    android:visibility="invisible"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="食堂审批员"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@id/tv3"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/new_apply_approver_name"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="16sp" />
+                    <com.szcomtop.meal.views.CircleImageView
+                        android:id="@+id/new_apply_approver_avatar"
+
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/blank_avatar"/>
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/all_list_arrow_icon"
+                        android:visibility="invisible"/>
+
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line"/>
+
+            <RelativeLayout
+                android:id="@+id/new_apply_charger_item"
+
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="15dp"
+                android:background="@drawable/option_item_selector"
+                android:gravity="center_vertical"
+               >
+
+                <TextView
+
+
+                    android:id="@+id/tv4"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="*"
+                    android:layout_marginRight="5dp"
+                    android:textColor="#ff554c"
+                    android:textSize="16sp"
+                    />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="审批主管"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@id/tv4"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/new_apply_charger_name"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+                    <com.szcomtop.meal.views.CircleImageView
+                        android:id="@+id/new_apply_charger_avatar"
+
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/blank_avatar"/>
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/all_list_arrow_icon"
+                        />
+
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+
+            <TextView
+                android:id="@+id/new_apply_commit_btn"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"
+                android:gravity="center"
+                android:background="@drawable/commit_btn_selector"
+                android:clickable="true"
+                android:textColor="#ffffff"
+                android:text="提交"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>
+
+    <View
+
+        android:id="@+id/new_apply_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#55000000"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="invisible"
+        android:clickable="true"/>
+
+    <LinearLayout
+
+        android:id="@+id/new_apply_carlenda_area"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:visibility="invisible"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/new_apply_carlenda_tv"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:background="#ffffff"
+            android:textSize="17sp"
+            android:text="请选择开始时间"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"/>
+
+    <FrameLayout
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+    </FrameLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#cccccc"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/new_apply_carlenda_cancel_btn"
+
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/cancle_btn_selector"
+                android:gravity="center"
+                android:textColor="@color/carlenda_btn_text_color_selector"
+                android:clickable="true"
+                android:text="取消" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+
+                android:background="#cccccc"/>
+
+            <TextView
+                android:id="@+id/new_apply_carlenda_ok_btn"
+
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/cancle_btn_selector"
+                android:gravity="center"
+                android:clickable="true"
+                android:textColor="@color/carlenda_btn_text_color_selector"
+
+
+                android:text="下一步" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

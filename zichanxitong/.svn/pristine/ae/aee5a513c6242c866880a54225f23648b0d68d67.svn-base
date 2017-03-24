@@ -1,0 +1,299 @@
+package com.szcomtop.meal.fragment;
+
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.format.DateFormat;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.szcomtop.meal.R;
+import com.szcomtop.meal.activity.ApplyDetailActivity;
+import com.szcomtop.meal.common.CommonAdapter;
+import com.szcomtop.meal.common.Consts;
+import com.szcomtop.meal.common.OverAllStorage;
+import com.szcomtop.meal.common.ViewHolder;
+import com.szcomtop.meal.model.ApplyInfo;
+import com.szcomtop.meal.model.Response;
+import com.szcomtop.meal.views.CommonDialog;
+import com.szcomtop.meal.views.SearchBar;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Created by wuming on 16/3/25.
+ */
+public class MyApplysFragment extends BaseFragment implements AdapterView.OnItemClickListener, TextWatcher {
+
+    private static final String PAGE_SIZE = "10";
+    private SearchBar mApprovedApplysSearchBar;
+    private PullToRefreshListView mApprovedApplysListview;
+    private List<ApplyInfo> showData = new ArrayList<>();
+    private int pager = 0 ;
+    private CommonAdapter<ApplyInfo> commonAdapter;
+    private List<ApplyInfo> storeDate  = new ArrayList<>();
+    private CommonDialog commonDialog;
+    private boolean isSearch = false ;
+
+
+
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View inflate = inflater.inflate(R.layout.fragment_my_approved_applys, null);
+
+        assignViews(inflate);
+        initView();
+        return inflate;
+
+    }
+
+    @Override
+    public void onResume() {
+
+
+        super.onResume();
+
+        if (!isSearch){
+            pager = 0 ;
+            showData.clear();
+
+            new GetDataTask().execute();
+        }
+
+
+        //  mApprovedApplysSearchBar.reset();
+    }
+
+    private void initView() {
+
+        mApprovedApplysSearchBar.addTextChangedListener(this);
+        mApprovedApplysListview.setMode(PullToRefreshBase.Mode.BOTH);
+        mApprovedApplysListview.getRefreshableView().setOnItemClickListener(this);
+        mApprovedApplysListview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                pager = 0 ;
+                showData.clear();
+                new GetDataTask().execute();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+                new GetDataTask().execute();
+
+            }
+        });
+
+       // mApprovedApplysListview.setRefreshing();
+
+    }
+
+
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        String aa = s.toString();
+        if(TextUtils.isEmpty(aa)){
+            isSearch = false ;
+            showData.clear();
+            showData.addAll(storeDate) ;
+            mApprovedApplysListview.setMode(PullToRefreshBase.Mode.BOTH);
+           // mApprovedApplysListview.invalidate();
+            if (commonAdapter != null){
+
+                commonAdapter.notifyDataSetChanged();
+            }
+            return;
+        }
+        isSearch =true ;
+        Pattern p = Pattern.compile(aa);
+        List<ApplyInfo> searched = new ArrayList<ApplyInfo>();
+        for (int i = 0; i < storeDate.size(); i++) {
+            ApplyInfo applyInfo = storeDate.get(i);
+            Matcher matcher = p.matcher(applyInfo.getName()+applyInfo.getReason());
+            if (matcher.find()) {
+                searched.add(applyInfo);
+            }
+        }
+        showData.clear();
+        showData.addAll(searched);
+        mApprovedApplysListview.setMode(PullToRefreshBase.Mode.DISABLED);
+       // mApprovedApplysListview.invalidate();
+
+        if (commonAdapter != null){
+
+            commonAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
+    }
+
+
+    private class GetDataTask extends AsyncTask<Void, Void, List<ApplyInfo>> {
+
+
+
+        @Override
+        protected List<ApplyInfo> doInBackground(Void... params) {
+            // Simulates a background job.
+
+            Log.i("wuming","==========> 0 ");
+            try {
+                String url =String.format(Consts.SERVER_PREFIX +"/mealbook/api/booking/task?keyword=");
+
+                okhttp3.Response response = OkHttpUtils
+                        .post()
+                        .addParams("pageNumber", pager + "")
+                        .addParams("pageSize", PAGE_SIZE)
+                        .addParams("userId",OverAllStorage.getInstance().get("openId").toString())
+                        .url(url)
+                        .build()
+                        .execute();
+                if (response.code() == 200) {
+                    //接口成功
+                    String responseStr = response.body().string();
+                    Log.i("wuming","responseStr:"+responseStr);
+                    Gson gson = new Gson();
+                    Response<ApplyInfo> res = gson.fromJson(responseStr, new TypeToken<Response<ApplyInfo>>() {
+                    }.getType());
+                    int state = res.getState();
+                    if (state == 0) {
+                        //成功获取到数据
+                        pager++;
+                        List<ApplyInfo> data = res.getData();
+                        if (data == null || data.size() == 0){
+
+                            showToast("没有更多数据了");
+                        }
+                        showData.addAll(data);
+                        storeDate.clear();
+                        storeDate.addAll(showData);
+                        return showData;
+                    } else {
+                        //失败
+                        showToast("获取数据失败");
+                        storeDate.clear();
+                        storeDate.addAll(showData);
+
+                        return showData;
+                    }
+
+                } else {
+                    //接口失败
+                    showToast("获取数据失败");
+                }
+
+                Thread.sleep(1000);
+            } catch (Exception e) {
+
+                Log.e("wuming",e.toString());
+                showToast("获取数据失败");
+
+            }
+            storeDate.clear();
+            storeDate.addAll(showData);
+
+            return showData;
+        }
+
+        @Override
+        protected void onPostExecute(List<ApplyInfo> result) {
+
+            Log.i("wuming","==========> 1 ");
+
+            if (commonDialog != null && commonDialog.isShowing()){
+                commonDialog.dismiss();
+            }
+
+
+            if (commonAdapter == null){
+                doSu1cceed(result);
+            }else {
+
+                commonAdapter.notifyDataSetChanged();
+            }
+
+            // Call onRefreshComplete when the list has been refreshed.
+            mApprovedApplysListview.onRefreshComplete();
+        }
+    }
+
+
+
+
+
+
+
+    private void doSu1cceed(List<ApplyInfo> data) {
+        commonAdapter = new CommonAdapter<ApplyInfo>(getActivity(), data, R.layout.apply_item) {
+
+
+            @Override
+            public void convert(ViewHolder holder, ApplyInfo applyInfo) {
+
+
+                final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+                holder.setText(R.id.apply_item_name, applyInfo.getName()+"的申请")
+                        .setText(R.id.apply_item_time,  formatter.format(applyInfo.getCreateTime()));
+                TextView statusTv = holder.getView(R.id.apply_item_state_tv);
+                ImageView statusIv = holder.getView(R.id.apply_item_state_img);
+                setStatus(applyInfo.getState(), statusTv, statusIv);
+                ImageLoader.getInstance().displayImage(applyInfo.getAvatar(), (ImageView) holder.getView(R.id.apply_item_avatar));
+
+
+            }
+        };
+
+
+        mApprovedApplysListview.getRefreshableView().setAdapter(commonAdapter);
+    }
+
+
+    private void assignViews(View inflate) {
+        mApprovedApplysSearchBar = (SearchBar) inflate.findViewById(R.id.approved_applys_search_bar);
+        mApprovedApplysListview = (PullToRefreshListView) inflate.findViewById(R.id.approved_applys_listview);
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent intent = new Intent(getActivity(), ApplyDetailActivity.class);
+
+        intent.putExtra("applyInfo", showData.get(i-1));
+        startActivity(intent);
+
+    }
+}
