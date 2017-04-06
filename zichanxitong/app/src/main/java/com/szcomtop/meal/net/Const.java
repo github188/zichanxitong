@@ -6,7 +6,7 @@ package com.szcomtop.meal.net;
 public class Const {
 
 
-    public static  final  String HOST_TEST = "asset.upbaiwg.com";
+//    public static  final  String HOST_TEST = "asset.upbaiwg.com";
 
 
 
@@ -37,4 +37,8 @@ public class Const {
 
 
     public static final String GET_ALL_DELETE_AASET = "/public/api/asset/getAllDelAsset";
+
+    //以下为新接口  add by renjianhong  2017-4-6
+    public static  final  String HOST_TEST = "221.131.145.100:8080";
+    public static  final  String NEW_LOGIN_URL = "/service/handset/login";
 }

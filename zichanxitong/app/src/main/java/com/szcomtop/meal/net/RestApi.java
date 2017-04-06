@@ -1,5 +1,7 @@
 package com.szcomtop.meal.net;
 
+import android.util.Log;
+
 import com.iteam.supernfc.UHFApplication;
 import com.szcomtop.meal.activity.CommonOperateActivity;
 import com.szcomtop.meal.utils.MD5Util;
@@ -35,13 +37,17 @@ public class RestApi {
      */
     public static void login(String account, String password, Callback callback){
 
+//        OkHttpUtils.post().url(UHFApplication.getHost()+Const.LOGIN_URL)
+//                .addParams("account",account)
+//                .addParams("password", MD5Util.getMD5(MD5Util.getMD5(password)+Const.LOGIN_SCERET))
+//                .addParams("token", MD5Util.getMD5(account+Const.TOKEN_SCERET))
+//                .build().execute(callback);
 
-        OkHttpUtils.post().url(UHFApplication.getHost()+Const.LOGIN_URL)
-                .addParams("account",account)
-                .addParams("password", MD5Util.getMD5(MD5Util.getMD5(password)+Const.LOGIN_SCERET))
-                .addParams("token", MD5Util.getMD5(account+Const.TOKEN_SCERET))
+        OkHttpUtils.post().url(UHFApplication.getHost()+Const.NEW_LOGIN_URL)
+                .addParams("loginname",account)
+                .addParams("password", password)
                 .build().execute(callback);
-
+        Log.e("RENRENREN","请求参数 url="+UHFApplication.getHost()+Const.NEW_LOGIN_URL+" account "+account+" password "+password);
     }
 
     public static void getUsers(Callback callback){

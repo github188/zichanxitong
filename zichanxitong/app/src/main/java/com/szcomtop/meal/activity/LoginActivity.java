@@ -151,37 +151,35 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
 
             case R.id.login:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-//                String ip = mServer.getText().toString().trim();
-//                String username = mUserName.getText().toString().trim();
-//                String password = mUserPassword.getText().toString().trim();
-//
-//                if (TextUtils.isEmpty(ip)) {
-//                    showToast("请输入服务器地址");
-//                    return;
-//                }
-//
-//                if (TextUtils.isEmpty(username)) {
-//                    showToast("请输入用户名");
-//                    return;
-//                }
-//
-//                if (TextUtils.isEmpty(ip)) {
-//                    showToast("请输入密码");
-//                    return;
-//                }
-//
-//                if (!checkIp(ip)) {
-//                    showToast("ip设置不正确");
-//                    return;
-//                } else {
-//
-//                    PreferencesUtils.putString(this, Consts.SERVER_IP, ip);
-//
-//                }
-//
-//                login(username, password);
+                String ip = mServer.getText().toString().trim();
+                String username = mUserName.getText().toString().trim();
+                String password = mUserPassword.getText().toString().trim();
+
+                if (TextUtils.isEmpty(ip)) {
+                    showToast("请输入服务器地址");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(username)) {
+                    showToast("请输入用户名");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(ip)) {
+                    showToast("请输入密码");
+                    return;
+                }
+
+                if (!checkIp(ip)) {
+                    showToast("ip设置不正确");
+                    return;
+                } else {
+
+                    PreferencesUtils.putString(this, Consts.SERVER_IP, ip);
+
+                }
+
+                login(username, password);
 
                 break;
             default:
@@ -243,7 +241,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 dismissProgress();
                 String s = UnicodeUtil.decodeUnicode(response);
-
+                Log.d("RENRENREN","返回response"+response);
                 try {
                     JSONObject jsonObject = new JSONObject(s);
                     int state = (int) jsonObject.get("state");
