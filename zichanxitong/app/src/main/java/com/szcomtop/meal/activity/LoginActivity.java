@@ -95,6 +95,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         String string = PreferencesUtils.getString(this, Consts.SERVER_IP, Const.HOST_TEST.replace("http://", ""));
         mServer.setText(string);
+        if(PreferencesUtils.getString(this,"login_name")!=null){
+            mUserName.setText(""+PreferencesUtils.getString(this,"login_name"));
+        }
+        if(PreferencesUtils.getString(this,"password")!=null){
+            mUserPassword.setText(""+PreferencesUtils.getString(this,"password"));
+        }
         mServer.setSelection(string.length());
         mLogin.setOnClickListener(this);
 
@@ -197,16 +203,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         } else {
 
-
             if (PreferencesUtils.getBoolean(this, Consts.FIRST, true)) {
-
                 showToast("请先联网同步数据");
                 return;
             }
-
             loginByLocal(username, pwd);
-
-
         }
 
 
@@ -216,20 +217,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         UserInfoDao userInfoDao = new UserInfoDao(this);
         boolean confirm = userInfoDao.confirm(username, MD5Util.getMD5(MD5Util.getMD5(pwd) + Const.LOGIN_SCERET));
         if (confirm) {
-
             doLoginSucceed(false, username);
-
         } else {
             showToast("登陆失败，用户名或密码错误！");
         }
     }
 
-    private void loginByNet(final String username, String pwd) {
+    private void loginByNet(final String username, final String pwd) {
         showProgress("正在登陆");
         RestApi.login(username, pwd, new StringCallback() {
             @Override
             public void onError(Call call, Exception e) {
-
                 e.printStackTrace();
                 dismissProgress();
                 showToast("网络出错，请检查。");
@@ -240,41 +238,38 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void onResponse(String response) {
 
                 dismissProgress();
-                String s = UnicodeUtil.decodeUnicode(response);
                 Log.d("RENRENREN","返回response"+response);
                 try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    int state = (int) jsonObject.get("state");
-                    if (state == 1) {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getBoolean("result")) {
                         //TODO 登陆成功
-                        JSONObject data = (JSONObject) jsonObject.get("data");
-                        if (data != null) {
+                        JSONObject account = (JSONObject) jsonObject.get("account");
+                        if (account != null) {
+                            Log.d("RENRENREN","返回office_id= "+account.getString("office_id"));
+                            Log.d("RENRENREN","login_name= "+account.getString("login_name"));
+                            Log.d("RENRENREN","name= "+account.getString("name"));
+//                            Gson gson = new Gson();
+//                            UserInfo userInfo = gson.fromJson(data.toString(), UserInfo.class);
+//                            UHFApplication.setUserInfo(userInfo);
 
-                            Gson gson = new Gson();
-                            UserInfo userInfo = gson.fromJson(data.toString(), UserInfo.class);
-                            UHFApplication.setUserInfo(userInfo);
-
-                            String id = (String) data.get("id");
+                            String id = account.getString("id");
                             PreferencesUtils.putString(LoginActivity.this, Consts.OPERATE_ID, id);
 
-                            String office_id = (String) data.get("office_id");
+                            String office_id = account.getString("office_id");
                             PreferencesUtils.putString(LoginActivity.this, Consts.OFFICE_ID, office_id);
 
+                            String login_name = account.getString("login_name");
+                            PreferencesUtils.putString(LoginActivity.this, Consts.LOGIN_NAME, login_name);
+
+                            PreferencesUtils.putString(LoginActivity.this, Consts.PASSWORD, pwd);
                         }
                         doLoginSucceed(true, username);
-
-                    } else {
-
-                        String message = (String) jsonObject.get("message");
-                        showToast(message);
-
                     }
                 } catch (JSONException e) {
 
                     showToast("登陆出错，请检查。");
 
                 }
-
 
             }
         });
@@ -303,17 +298,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         putUsername(username);
 
         if (hasNet) {
-            //TODO 同步数据
-
-            getUsers();
-            getAssetData();
-
-        } else {
-
+            //有网登录
+//            getUsers();
+//            getAssetData();
             finish();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
+        } else {
+            //无网登录
+            finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
 
 

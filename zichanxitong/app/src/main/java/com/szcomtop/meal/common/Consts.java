@@ -16,4 +16,7 @@ public class Consts {
     public static final String OPERATE_ID = "operateId";
     public static final String UPDATE_TIME = "update_time";
     public static final String OFFICE_ID = "office_id";
+
+    public static final String LOGIN_NAME = "login_name";
+    public static final String PASSWORD = "password";
 }

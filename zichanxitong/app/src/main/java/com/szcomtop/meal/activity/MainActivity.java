@@ -16,11 +16,17 @@ import com.szcomtop.meal.model.AssetListResult;
 import com.szcomtop.meal.net.RestApi;
 import com.szcomtop.meal.utils.PreferencesUtils;
 import com.szcomtop.meal.utils.UnicodeUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 /**
@@ -74,7 +80,8 @@ public class MainActivity  extends  BaseActivity implements View.OnClickListener
 
                 showProgress("同步中");
 //                getDeleteAssetData();
-                getAssetData();
+//                getAssetData();
+                syncAssetData();
 
                 break;
 
@@ -141,6 +148,25 @@ public class MainActivity  extends  BaseActivity implements View.OnClickListener
 
             }
         });
+
+    }
+
+    /**
+    * 同步资产数据
+    */
+    private void syncAssetData(){
+        String officeId = PreferencesUtils.getString(this,"office_id");
+        RestApi.syncAssetData(officeId, "1");
+//            @Override
+//            public void onError(Call call, Exception e) {
+//                Log.e("RENRENREN","返回 onError="+call.request().body());
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//                Log.e("RENRENREN","返回 onError="+response.toString());
+//            }
+//        });
 
     }
 

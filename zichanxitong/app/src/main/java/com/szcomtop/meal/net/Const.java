@@ -41,4 +41,19 @@ public class Const {
     //以下为新接口  add by renjianhong  2017-4-6
     public static  final  String HOST_TEST = "221.131.145.100:8080";
     public static  final  String NEW_LOGIN_URL = "/service/handset/login";
+
+    /**
+    *  同步管理员用户  参数：officeId
+    */
+    public static  final  String SYNC_ACCOUNT = "/handset/synchro/account/";
+
+    /**
+     *  同步资产  参数：officeId、pageno
+     */
+    public static  final  String SYNC_ASSET = "/handset/synchro/asset/";
+
+    /**
+     *  同步资产批次  参数：officeId、pageno
+     */
+    public static  final  String SYNC_ASSET_BATCH = "/handset/synchro/assetbatch/";
 }

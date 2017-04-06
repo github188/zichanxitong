@@ -4,12 +4,17 @@ import android.util.Log;
 
 import com.iteam.supernfc.UHFApplication;
 import com.szcomtop.meal.activity.CommonOperateActivity;
+import com.szcomtop.meal.activity.MainActivity;
 import com.szcomtop.meal.utils.MD5Util;
+import com.szcomtop.meal.utils.PreferencesUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.Response;
 
 /**
  * Created by wuming on 16/11/23.
@@ -431,6 +436,29 @@ public class RestApi {
                 .addParams("timestamp",time)
                 .addParams("token", MD5Util.getMD5(time+Const.TOKEN_SCERET))
                 .build().execute(callback);
+
+    }
+
+
+    //以下为新增接口
+
+    /**
+     * 获取资产
+     * @param {officeId}
+     * @param {pageno}
+     */
+    public  static  void syncAssetData(String  officeId,String  pageno){
+
+        try {
+            Response response = OkHttpUtils.post().url(UHFApplication.getHost() +Const.SYNC_ASSET)
+                    .addParams("officeId", officeId)
+                    .addParams("pageno", pageno)
+                    .build().execute();
+            Log.e("RENRENREN","同步接口返回 response="+response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.e("RENRENREN","同步接口请求参数 url="+UHFApplication.getHost() +Const.SYNC_ASSET +" officeId ="+officeId +" pageno ="+pageno);
 
     }
 
