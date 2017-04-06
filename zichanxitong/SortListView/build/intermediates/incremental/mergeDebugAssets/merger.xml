@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\mywork\zichanxitong\SortListView\assets"/><source path="D:\mywork\zichanxitong\SortListView\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\mywork\zichanxitong\SortListView\build-types\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\mywork\zichanxitong\zichanxitong\SortListView\assets"/><source path="D:\mywork\zichanxitong\zichanxitong\SortListView\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\mywork\zichanxitong\zichanxitong\SortListView\build-types\debug\assets"/></dataSet></merger>

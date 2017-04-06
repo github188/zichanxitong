@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\mywork\\zichanxitong\\SortListView\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "outputFile": "D:\\mywork\\zichanxitong\\zichanxitong\\SortListView\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -12,7 +12,7 @@
                     "endOffset": 1174
                 },
                 "from": {
-                    "file": "D:\\mywork\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\mywork\\zichanxitong\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -32,7 +32,7 @@
                     "endOffset": 1224
                 },
                 "from": {
-                    "file": "D:\\mywork\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\mywork\\zichanxitong\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 47,
                         "startColumn": 4,
@@ -51,7 +51,7 @@
                     "endOffset": 1277
                 },
                 "from": {
-                    "file": "D:\\mywork\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\mywork\\zichanxitong\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 48,
                         "startColumn": 4,
@@ -70,7 +70,7 @@
                     "endOffset": 1328
                 },
                 "from": {
-                    "file": "D:\\mywork\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\mywork\\zichanxitong\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 49,
                         "startColumn": 4,
@@ -90,7 +90,7 @@
                     "endOffset": 1619
                 },
                 "from": {
-                    "file": "D:\\mywork\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\mywork\\zichanxitong\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 50,
                         "startColumn": 4,
@@ -111,7 +111,7 @@
                     "endOffset": 1779
                 },
                 "from": {
-                    "file": "D:\\mywork\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\mywork\\zichanxitong\\zichanxitong\\SortListView\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 57,
                         "startColumn": 4,
