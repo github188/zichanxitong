@@ -228,10 +228,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         RestApi.login(username, pwd, new StringCallback() {
             @Override
             public void onError(Call call, Exception e) {
+                Log.d("RENRENREN","返回 错误信息 error = "+call.request().body().toString());
                 e.printStackTrace();
                 dismissProgress();
                 showToast("网络出错，请检查。");
-
             }
 
             @Override
@@ -382,7 +382,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     if (data != null) {
                         AssetInfoDao assetInfoDao = new AssetInfoDao(LoginActivity.this);
                         assetInfoDao.deleteList(data);
-
                     }
 
 

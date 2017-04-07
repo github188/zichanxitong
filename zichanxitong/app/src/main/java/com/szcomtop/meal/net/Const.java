@@ -50,10 +50,10 @@ public class Const {
     /**
      *  同步资产  参数：officeId、pageno
      */
-    public static  final  String SYNC_ASSET = "/handset/synchro/asset/";
+    public static  final  String SYNC_ASSET = "/service/handset/synchro/asset/";
 
     /**
      *  同步资产批次  参数：officeId、pageno
      */
-    public static  final  String SYNC_ASSET_BATCH = "/handset/synchro/assetbatch/";
+    public static  final  String SYNC_ASSET_BATCH = "/service/handset/synchro/assetbatch/";
 }

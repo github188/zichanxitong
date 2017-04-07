@@ -447,19 +447,11 @@ public class RestApi {
      * @param {officeId}
      * @param {pageno}
      */
-    public  static  void syncAssetData(String  officeId,String  pageno){
-
-        try {
-            Response response = OkHttpUtils.post().url(UHFApplication.getHost() +Const.SYNC_ASSET)
-                    .addParams("officeId", officeId)
-                    .addParams("pageno", pageno)
-                    .build().execute();
-            Log.e("RENRENREN","同步接口返回 response="+response);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Log.e("RENRENREN","同步接口请求参数 url="+UHFApplication.getHost() +Const.SYNC_ASSET +" officeId ="+officeId +" pageno ="+pageno);
-
+    public  static  void syncAssetData(String  officeId,String  pageno,Callback callback){
+            //+"/"+officeId+"/"+pageno
+            OkHttpUtils.post().url(UHFApplication.getHost() +Const.SYNC_ASSET+"/"+officeId+"/"+pageno)
+                    .build().execute(callback);
+            Log.e("RENRENREN","同步资产请求参数 url="+UHFApplication.getHost() +Const.SYNC_ASSET +" officeId ="+officeId +" pageno ="+pageno);
     }
 
 

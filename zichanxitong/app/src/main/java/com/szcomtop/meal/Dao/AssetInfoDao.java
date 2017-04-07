@@ -47,7 +47,6 @@ public class AssetInfoDao {
                 public Object call() throws Exception {
                     Log.i("wuming","updateList:"+Thread.currentThread().getName());
 
-
                     for (AssetInfo assetInfo : assetInfos) {
 
                         Log.i("wuming",assetInfo.toString());

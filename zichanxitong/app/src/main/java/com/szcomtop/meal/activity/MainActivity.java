@@ -156,18 +156,19 @@ public class MainActivity  extends  BaseActivity implements View.OnClickListener
     */
     private void syncAssetData(){
         String officeId = PreferencesUtils.getString(this,"office_id");
-        RestApi.syncAssetData(officeId, "1");
-//            @Override
-//            public void onError(Call call, Exception e) {
-//                Log.e("RENRENREN","返回 onError="+call.request().body());
-//            }
-//
-//            @Override
-//            public void onResponse(String response) {
-//                Log.e("RENRENREN","返回 onError="+response.toString());
-//            }
-//        });
+        RestApi.syncAssetData(officeId, "1", new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e) {
+                Log.e("RENRENREN","返回 onError="+call.request().body());
+                dismissProgress();
+            }
 
+            @Override
+            public void onResponse(String response) {
+                Log.v("RENRENREN","返回 response="+response.toString());
+                dismissProgress();
+            }
+        });
     }
 
 
