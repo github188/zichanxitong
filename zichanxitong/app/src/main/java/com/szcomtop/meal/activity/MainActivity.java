@@ -11,6 +11,7 @@ import com.szcomtop.meal.Dao.AssetInfoDao;
 import com.szcomtop.meal.R;
 import com.szcomtop.meal.common.CommonConfirmDialog;
 import com.szcomtop.meal.common.Consts;
+import com.szcomtop.meal.handler.Handler_Json;
 import com.szcomtop.meal.model.AssetInfo;
 import com.szcomtop.meal.model.AssetListResult;
 import com.szcomtop.meal.net.RestApi;
@@ -19,7 +20,11 @@ import com.szcomtop.meal.utils.UnicodeUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -151,27 +156,6 @@ public class MainActivity  extends  BaseActivity implements View.OnClickListener
 
     }
 
-    /**
-    * 同步资产数据
-    */
-    private void syncAssetData(){
-        String officeId = PreferencesUtils.getString(this,"office_id");
-        RestApi.syncAssetData(officeId, "1", new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e) {
-                Log.e("RENRENREN","返回 onError="+call.request().body());
-                dismissProgress();
-            }
-
-            @Override
-            public void onResponse(String response) {
-                Log.v("RENRENREN","返回 response="+response.toString());
-                dismissProgress();
-            }
-        });
-    }
-
-
     private void getAssetData() {
 
         String update_time = PreferencesUtils.getString(this, Consts.UPDATE_TIME, "-1");
@@ -213,6 +197,42 @@ public class MainActivity  extends  BaseActivity implements View.OnClickListener
             }
         });
 
+    }
+
+    //以下接口add by 任建红
+
+    /**
+     * 同步资产数据
+     */
+    private void syncAssetData(){
+        String officeId = PreferencesUtils.getString(this,"office_id");
+        RestApi.syncAssetData(officeId, "1", new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e) {
+                Log.e("RENRENREN","返回 onError="+call.request().body());
+                dismissProgress();
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.v("RENRENREN","返回 response="+response.toString());
+                List<AssetInfo> data;
+                //解析返回的数据
+                HashMap<String, Object> map = Handler_Json.JsonToCollection(response);
+                Log.v("RENRENREN","返回 list="+map.get("list"));
+//                HashMap<Object,Object> map = (HashMap<Object, Object>) Handler_Json.JsonToHashMap(response);
+//                data = (List<AssetInfo>) map.get("list");
+//                try {
+//                    JSONObject jsonObject = new JSONObject(response);
+//                    jsonObject.get("list");
+//                    Log.v("RENRENREN","返回 data="+jsonObject.get("list"));
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+                dismissProgress();
+            }
+        });
     }
 
 

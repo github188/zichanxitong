@@ -32,7 +32,7 @@ public class AssetCountAdapter extends CommonAdapter<AssetInfo> implements View.
     public void convert(ViewHolder holder, AssetInfo assetInfo) {
 
         holder.setText(R.id.count_list_item_id,"标签ID:  "+assetInfo.rfid_code)
-                .setText(R.id.count_list_item_type,"设备类型:  "+  (StringUtils.isNull(assetInfo.cat_name) ? "未录入" :assetInfo.cat_name))
+                .setText(R.id.count_list_item_type,"设备类型:  "+  (StringUtils.isNull(assetInfo.name) ? "未录入" :assetInfo.name))
                 .setText(R.id.count_list_item_name,"设备名称:  "+(StringUtils.isNull(assetInfo.name) ? "未录入" :assetInfo.name));
         View view = holder.getView(R.id.ist_group_item_iv);
         TextView error = holder.getView(R.id.count_list_item_error);

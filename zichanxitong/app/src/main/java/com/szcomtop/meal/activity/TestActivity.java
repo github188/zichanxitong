@@ -22,7 +22,7 @@ public class TestActivity   extends   BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AssetInfo assetInfo = new AssetInfo("3412414", "笔记本", "bfahjkfa","");
+        AssetInfo assetInfo = new AssetInfo();
 
         AssetInfoDao assetInfoDao = new AssetInfoDao(this);
         assetInfoDao.add(assetInfo);

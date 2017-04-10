@@ -451,7 +451,7 @@ public class RestApi {
             //+"/"+officeId+"/"+pageno
             OkHttpUtils.post().url(UHFApplication.getHost() +Const.SYNC_ASSET+"/"+officeId+"/"+pageno)
                     .build().execute(callback);
-            Log.e("RENRENREN","同步资产请求参数 url="+UHFApplication.getHost() +Const.SYNC_ASSET +" officeId ="+officeId +" pageno ="+pageno);
+            Log.e("RENRENREN","同步资产请求参数 url="+UHFApplication.getHost() +Const.SYNC_ASSET +"/"+officeId+"/"+pageno);
     }
 
 
