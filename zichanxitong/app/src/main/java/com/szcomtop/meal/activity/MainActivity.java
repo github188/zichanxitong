@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.szcomtop.meal.Dao.AssetInfoDao;
 import com.szcomtop.meal.R;
 import com.szcomtop.meal.common.CommonConfirmDialog;
@@ -14,12 +15,14 @@ import com.szcomtop.meal.common.Consts;
 import com.szcomtop.meal.handler.Handler_Json;
 import com.szcomtop.meal.model.AssetInfo;
 import com.szcomtop.meal.model.AssetListResult;
+import com.szcomtop.meal.model.AssetListResultNew;
 import com.szcomtop.meal.net.RestApi;
 import com.szcomtop.meal.utils.PreferencesUtils;
 import com.szcomtop.meal.utils.UnicodeUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -137,7 +140,7 @@ public class MainActivity  extends  BaseActivity implements View.OnClickListener
                 String s = UnicodeUtil.decodeUnicode(response);
                 Log.i("wuming", s);
                 AssetListResult assetListResult = new Gson().fromJson(s, AssetListResult.class);
-                if (assetListResult.state == 1) {
+                if (assetListResult.pageNum == 1) {
 
                     showToast("同步数据成功");
 
@@ -179,7 +182,7 @@ public class MainActivity  extends  BaseActivity implements View.OnClickListener
                 String s = UnicodeUtil.decodeUnicode(response);
                 Log.i("wuming", s);
                 AssetListResult assetListResult = new Gson().fromJson(s, AssetListResult.class);
-                if (assetListResult.state == 1) {
+                if (assetListResult.pageNum == 1) {
 
 //                    showToast("同步数据成功");
 
@@ -215,21 +218,26 @@ public class MainActivity  extends  BaseActivity implements View.OnClickListener
 
             @Override
             public void onResponse(String response) {
+                List<AssetInfo> data = null;
                 Log.v("RENRENREN","返回 response="+response.toString());
-                List<AssetInfo> data;
-                //解析返回的数据
-                HashMap<String, Object> map = Handler_Json.JsonToCollection(response);
-                Log.v("RENRENREN","返回 list="+map.get("list"));
-//                HashMap<Object,Object> map = (HashMap<Object, Object>) Handler_Json.JsonToHashMap(response);
-//                data = (List<AssetInfo>) map.get("list");
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    jsonObject.get("list");
-//                    Log.v("RENRENREN","返回 data="+jsonObject.get("list"));
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    JSONObject json = new JSONObject(response);
+                    JSONArray json1 = json.getJSONArray("list");
+                    Log.v("RENRENREN","json1="+json1);
+                    java.lang.reflect.Type type = new TypeToken<List<AssetInfo>>(){}.getType();
+                    Gson gson = new Gson();
+                    data = gson.fromJson(json1+"",type);
+                    Log.e("RENRENREN",type+"");
+                    Log.e("RENRENREN","共几条数据："+data.size()+"第一条数据:"+data.get(0));
+                    if (data.size()>0) {
+                        AssetInfoDao assetInfoDao = new AssetInfoDao(MainActivity.this);
+                        assetInfoDao.updateList(data);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 dismissProgress();
             }
         });

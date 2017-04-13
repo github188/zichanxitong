@@ -4,7 +4,9 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.List;
 
+import static android.R.attr.data;
 import static android.R.attr.id;
 
 /**
@@ -34,25 +36,25 @@ public class AssetInfo   implements Serializable{
 
 
     @DatabaseField(columnName = "brand_id")
-    public int brand_id; //
+    public String brand_id; //
 
     @DatabaseField(columnName = "category_id")
     public String category_id ;
 
     @DatabaseField(columnName = "durable_years")
-    public int durable_years; //
+    public String durable_years; //
 
     @DatabaseField(columnName = "price")
-    public int price; //
+    public String price; //
 
     @DatabaseField(columnName = "buy_date")
-    public int buy_date; //
+    public String buy_date; //
 
     @DatabaseField(columnName = "state")
-    public int state; //
+    public String state; //
 
     @DatabaseField(columnName = "workarea_id")
-    public int workarea_id; //
+    public String workarea_id; //
 
     public String getId() {
         return id;
@@ -102,11 +104,11 @@ public class AssetInfo   implements Serializable{
         this.model_id = model_id;
     }
 
-    public int getBrand_id() {
+    public String getBrand_id() {
         return brand_id;
     }
 
-    public void setBrand_id(int brand_id) {
+    public void setBrand_id(String brand_id) {
         this.brand_id = brand_id;
     }
 
@@ -118,56 +120,56 @@ public class AssetInfo   implements Serializable{
         this.category_id = category_id;
     }
 
-    public int getDurable_years() {
+    public String getDurable_years() {
         return durable_years;
     }
 
-    public void setDurable_years(int durable_years) {
+    public void setDurable_years(String durable_years) {
         this.durable_years = durable_years;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public int getBuy_date() {
+    public String getBuy_date() {
         return buy_date;
     }
 
-    public void setBuy_date(int buy_date) {
+    public void setBuy_date(String buy_date) {
         this.buy_date = buy_date;
     }
 
-    public int getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(String state) {
         this.state = state;
     }
 
-    public int getWorkarea_id() {
+    public String getWorkarea_id() {
         return workarea_id;
     }
 
-    public void setWorkarea_id(int workarea_id) {
+    public void setWorkarea_id(String workarea_id) {
         this.workarea_id = workarea_id;
     }
 
-    public int getCreate_date() {
+    public String getCreate_date() {
         return create_date;
     }
 
-    public void setCreate_date(int create_date) {
+    public void setCreate_date(String create_date) {
         this.create_date = create_date;
     }
 
     @DatabaseField(columnName = "create_date")
-    public int create_date; //
+    public String create_date; //
 
     public boolean isSelected ;
 
@@ -175,8 +177,26 @@ public class AssetInfo   implements Serializable{
 
     public String msg ;
 
-
     public AssetInfo(){};
+
+//    public AssetInfo(String id,String batch_no,String keeper_id,String model_id,String brand_id,
+//                     String rfid_code,String category_id,String durable_years,String price,String buy_date,
+//                     String name,String workarea_id,String create_date,String state){
+//        this.id = id;
+//        this.batch_no = batch_no;
+//        this.keeper_id = keeper_id;
+//        this.model_id = model_id;
+//        this.brand_id = brand_id;
+//        this.rfid_code = rfid_code;
+//        this.category_id = category_id;
+//        this.durable_years = durable_years;
+//        this.price = price;
+//        this.buy_date = buy_date;
+//        this.name = name;
+//        this.state = state;
+//        this.workarea_id = workarea_id;
+//        this.create_date = create_date;
+//    };
 
     @Override
     public String toString() {

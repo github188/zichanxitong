@@ -2,6 +2,7 @@ package com.szcomtop.meal.Dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
@@ -20,13 +21,22 @@ import java.util.Map;
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
-    private static final String TABLE_NAME = "zcxt.db";
+    private static final String DB_NAME = "zcxt.db";
+    public static final String DATABASE_PATH = Environment
+            .getExternalStorageDirectory() + "/zcxt/zcxt.db";
+
 
 
     private Map<String, Dao> daos = new HashMap<String, Dao>();
 
 
     private static DatabaseHelper instance;
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_PATH, null, 1);
+    }
+    public DatabaseHelper(Context context, String databaseName, SQLiteDatabase.CursorFactory factory, int databaseVersion) {
+        super(context, databaseName, factory, databaseVersion);
+    }
 
     /**
      * 单例获取该Helper
@@ -47,6 +57,16 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
         return instance;
     }
+    @Override
+    public synchronized SQLiteDatabase getWritableDatabase() {
+        return SQLiteDatabase.openDatabase(DATABASE_PATH, null,
+                SQLiteDatabase.OPEN_READWRITE);
+    }
+
+    public synchronized SQLiteDatabase getReadableDatabase() {
+        return SQLiteDatabase.openDatabase(DATABASE_PATH, null,
+                SQLiteDatabase.OPEN_READONLY);
+    }
 
 
 //    private DatabaseHelper(Context context)
@@ -56,12 +76,25 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 //    }
 
 
-    private DatabaseHelper(Context context)
-    {
-        super(context, TABLE_NAME, null, 1);
+//    @Override
+//    public synchronized SQLiteDatabase getWritableDatabase() {
+//        return SQLiteDatabase.openDatabase(DATABASE_PATH, null,
+//                SQLiteDatabase.OPEN_READWRITE);
+//    }
+//
+//    public synchronized SQLiteDatabase getReadableDatabase() {
+//        return SQLiteDatabase.openDatabase(DATABASE_PATH, null,
+//                SQLiteDatabase.OPEN_READONLY);
+//    }
 
-    }
 
+
+//    private DatabaseHelper(Context context)
+//    {
+//        super(context, DB_NAME, null, 1);
+////        getWritableDatabase();
+//
+//    }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
