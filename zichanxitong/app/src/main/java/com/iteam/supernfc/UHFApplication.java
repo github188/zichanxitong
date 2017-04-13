@@ -1,6 +1,7 @@
 package com.iteam.supernfc;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -12,10 +13,13 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.iteam.supernfc.reader.server.ReaderHelper;
 import com.iteam.supernfc.utils.Tools;
+import com.szcomtop.meal.Dao.DatabaseHelper;
 import com.szcomtop.meal.common.Consts;
 import com.szcomtop.meal.model.UserInfo;
 import com.szcomtop.meal.net.Const;
@@ -52,8 +56,20 @@ public class UHFApplication extends Application {
 		
 		/*CrashHandler crashHandler = CrashHandler.getInstance();
 		crashHandler.init(getApplicationContext());*/
+		initDataBase();//初始化数据库
 	}
-	
+	private void initDataBase(){
+		File f = new File(DatabaseHelper.DATABASE_PATH);
+		Log.i("UHFApplication",DatabaseHelper.DATABASE_PATH);
+		if (!f.exists()) {//判断当前是否存在此目录 如果不存在则创建目录 及数据库
+			SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(
+					DatabaseHelper.DATABASE_PATH,null);
+			DatabaseHelper orm = new DatabaseHelper(this);
+			orm.onCreate(db);
+			db.close();
+		}
+
+	}
 	public void addActivity(Activity activity) {
 		activities.add(activity);
 	}

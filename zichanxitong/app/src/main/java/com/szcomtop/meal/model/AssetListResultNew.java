@@ -7,13 +7,7 @@ import java.util.List;
  * 未经作者书面同意，不得转发，复制，修改
  * 联系：hb.wuming@qq.com
  */
-public class AssetListResult {
-
-
-
-    public int pageNum;
-    public String pageSize;
-
+public class AssetListResultNew {
 
     public List<AssetInfo> data;
 

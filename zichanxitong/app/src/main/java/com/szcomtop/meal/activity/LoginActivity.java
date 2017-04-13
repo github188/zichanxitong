@@ -333,7 +333,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 String s = UnicodeUtil.decodeUnicode(response);
                 AssetListResult assetListResult = new Gson().fromJson(s, AssetListResult.class);
-                if (assetListResult.state == 1) {
+                if (assetListResult.pageNum == 1) {
                     List<AssetInfo> data = assetListResult.data;
                     if (data != null) {
                         AssetInfoDao assetInfoDao = new AssetInfoDao(LoginActivity.this);
@@ -374,7 +374,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 String s = UnicodeUtil.decodeUnicode(response);
                 Log.i("wuming", s);
                 AssetListResult assetListResult = new Gson().fromJson(s, AssetListResult.class);
-                if (assetListResult.state == 1) {
+                if (assetListResult.pageNum == 1) {
 
                      showToast("同步数据成功");
 
