@@ -210,8 +210,6 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
         startBtn.setOnClickListener(this);
         okBtn.setOnClickListener(this);
         clearBtn.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -636,6 +634,7 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
 
                 break;
 
+            //出库逻辑
             case TYPE_OUT:
 
                 showProgress("处理中...");
@@ -643,11 +642,9 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
                 RestApi.assetOutStorage(ids, operateId, operateCallBack);
 
                 break;
+            //领用逻辑
             case TYPE_OUT2:
-
-
                 startActivity(intent);
-
                 break;
 
             case TYPE_TRANSFER:

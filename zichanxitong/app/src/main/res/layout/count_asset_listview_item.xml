@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="标签ID:" />
+        android:text="标签RFID:" />
 
     <TextView
         android:id="@+id/count_list_item_type"

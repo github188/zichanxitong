@@ -1,6 +1,7 @@
 package com.szcomtop.meal.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,17 +20,19 @@ import java.util.List;
  */
 public class AssetCountAdapter extends CommonAdapter<AssetInfo> implements View.OnClickListener {
 
-
+    private String TAG = getClass().getName();
     private boolean mShowCheckbox;
     private boolean mIsSelectAll;
 
     public AssetCountAdapter(Context context, List datas) {
         super(context, datas, R.layout.count_asset_listview_item);
+        Log.d(TAG,"标签列表信息：datas = "+datas);
     }
 
 
     @Override
     public void convert(ViewHolder holder, AssetInfo assetInfo) {
+        Log.d(TAG,"扫描的标签信息：assetInfo = "+assetInfo);
 
         holder.setText(R.id.count_list_item_id,"标签ID:  "+assetInfo.rfid_code)
                 .setText(R.id.count_list_item_type,"设备类型:  "+  (StringUtils.isNull(assetInfo.name) ? "未录入" :assetInfo.name))
