@@ -13,6 +13,7 @@
         <item>报损</item>
         <item>退还</item>
         <item>盘点</item>
-
+        <item>查找</item>
+        <item>我的</item>
     </array>
 </resources>
