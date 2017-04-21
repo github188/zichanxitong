@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.iteam.supernfc.UHFApplication;
 
 import java.io.IOException;
@@ -270,17 +271,19 @@ public class RequestManager {
         try {
             StringBuilder tempParams = new StringBuilder();
             int pos = 0;
-            for (String key : paramsMap.keySet()) {
-                if (pos > 0) {
-                    tempParams.append("&");
-                }
-                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), "utf-8")));
-                pos++;
-            }
+//            for (String key : paramsMap.keySet()) {
+//                if (pos > 0) {
+//                    tempParams.append("&");
+//                }
+//                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), "utf-8")));
+//                pos++;
+//            }
 
-            String params = tempParams.toString();
+            String params = new Gson().toJson(paramsMap);
+
+            Log.i("RequestManager","params =" +params );
             RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, params);
-            String requestUrl = String.format("%s/%s", BASE_URL, actionUrl);
+            String requestUrl = String.format("%s%s", BASE_URL, actionUrl);
 
 
             final Request request = addHeaders().url(requestUrl).post(body).build();

@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="com.iteam.supernfc.UHFApplication"
@@ -63,6 +64,7 @@
         <activity
             android:name=".activity.AddAssetsActivity"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.FindActivity"></activity>
     </application>
 
 </manifest>

@@ -25,11 +25,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public static final String DATABASE_PATH = Environment
             .getExternalStorageDirectory() + "/zcxt.db";
 
-
-
     private Map<String, Dao> daos = new HashMap<String, Dao>();
-
-
     private static DatabaseHelper instance;
     public DatabaseHelper(Context context) {
         super(context, DATABASE_PATH, null, 1);

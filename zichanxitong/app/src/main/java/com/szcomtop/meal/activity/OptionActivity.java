@@ -290,7 +290,7 @@ public class OptionActivity extends BaseActivity implements View.OnClickListener
 
 
                     HashMap map=new HashMap();
-                    map.put("assetObj",new Gson().toJson(mSelectedInfos));
+                    map.put("assetObj",mSelectedInfos);
                     RestApi.syncAssetDataAdd(this, map, new ReqCallBack<String>() {
                         @Override
                         public void onReqSuccess(String result) {

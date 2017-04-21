@@ -85,6 +85,8 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
     public static final int TYPE_DAMAGED = 7; // 报损
     public static final int TYPE_RETURN = 8; //退还
     public static final int TYPE_STOCK = 9; //盘点
+    public static final int TYPE_FIND = 10; //查找
+    public static final int TYPE_TASK = 11; //我的任务
 
 
     public static final boolean isPhone = false;
@@ -210,8 +212,6 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
         startBtn.setOnClickListener(this);
         okBtn.setOnClickListener(this);
         clearBtn.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -636,6 +636,7 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
 
                 break;
 
+            //出库逻辑
             case TYPE_OUT:
 
                 showProgress("处理中...");
@@ -643,11 +644,9 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
                 RestApi.assetOutStorage(ids, operateId, operateCallBack);
 
                 break;
+            //领用逻辑
             case TYPE_OUT2:
-
-
                 startActivity(intent);
-
                 break;
 
             case TYPE_TRANSFER:
@@ -691,13 +690,13 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
                 intent.putExtra("data", (Serializable) selectedInfos);
                 intent.putExtra("type",type);
                 startActivity(intent);
-
+                break;
+            //我的任务
+            case TYPE_TASK:
 
                 break;
             default:
                 break;
-
-
         }
 
     }

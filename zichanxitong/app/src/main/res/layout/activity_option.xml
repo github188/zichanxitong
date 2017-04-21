@@ -6,7 +6,6 @@
               android:background="@color/ui_white_bg"
     >
 
-
     <com.szcomtop.meal.views.HeadView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -14,9 +13,7 @@
 
     </com.szcomtop.meal.views.HeadView>
 
-
     <LinearLayout
-
         android:id="@+id/pandian_num_area"
 
         android:layout_width="match_parent"

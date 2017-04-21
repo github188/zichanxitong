@@ -28,7 +28,7 @@ public class OperateActivity extends  BaseActivity implements AdapterView.OnItem
     private GridView gridView;
 
     private int[] resIds = new int[]{R.drawable.xinzeng_icon,R.drawable.chuku_icon,R.drawable.lingyong_icon
-    ,R.drawable.diaobo_icon,R.drawable.baofei_icon,R.drawable.jieyong_icon,R.drawable.baosun_icon,R.drawable.tuihuan_icon,R.drawable.pandian_icon};
+    ,R.drawable.diaobo_icon,R.drawable.baofei_icon,R.drawable.jieyong_icon,R.drawable.baosun_icon,R.drawable.tuihuan_icon,R.drawable.pandian_icon,R.drawable.find_icon,R.drawable.my_task_icon};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +73,15 @@ public class OperateActivity extends  BaseActivity implements AdapterView.OnItem
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        Intent intent = new Intent(this, CommonOperateActivity.class);
-        intent.putExtra("title",strings.get(position));
-        intent.putExtra("type",position+1);
-        startActivity(intent);
+        if(strings.get(position).equals("查找")){
+            //查找逻辑
+            startActivity(new Intent(this,FindActivity.class));
+        }else {
+            Intent intent = new Intent(this, CommonOperateActivity.class);
+            intent.putExtra("title",strings.get(position));
+            intent.putExtra("type",position+1);
+            startActivity(intent);
+        }
 
     }
 }
