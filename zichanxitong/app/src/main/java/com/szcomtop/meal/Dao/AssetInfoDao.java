@@ -4,12 +4,16 @@ import android.content.Context;
 import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 import com.szcomtop.meal.common.Consts;
 import com.szcomtop.meal.model.AssetInfo;
 import com.szcomtop.meal.model.UserInfo;
 import com.szcomtop.meal.utils.PreferencesUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -146,8 +150,31 @@ public class AssetInfoDao {
 
 
         return assetInfos;
+    }
 
 
+    /**
+     * 资产查找
+     * @param name 资产名称
+     * @param offset  = page*count
+     * @return
+     */
+    public List<AssetInfo> queryStoresByName(String name, long offset) {
+        try {
+
+            QueryBuilder pE = this.assetInfoOpe.queryBuilder();
+            pE.offset(Long.valueOf(offset)).limit(Long.valueOf(10L));
+            Where where = pE.where();
+            where.like("name", "%" + name + "%");
+            PreparedQuery pq = pE.prepare();
+            Log.e("queryStoresByName", pq.getStatement());
+            return this.assetInfoOpe.query(pq);
+        } catch (SQLException var3) {
+
+            var3.printStackTrace();
+            Log.e("queryStoresByName", var3.getMessage());
+            return new ArrayList(0);
+        }
     }
 
 }

@@ -4,11 +4,15 @@ import android.content.Context;
 import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 import com.szcomtop.meal.common.Consts;
 import com.szcomtop.meal.model.AssetInfo;
 import com.szcomtop.meal.utils.PreferencesUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -143,7 +147,6 @@ public class OldAssetInfoDao {
         {
            assetInfos = assetInfoOpe.queryForAll();
 
-
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -155,6 +158,4 @@ public class OldAssetInfoDao {
 
 
     }
-
-
 }
