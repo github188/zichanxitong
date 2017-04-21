@@ -1,12 +1,13 @@
 package com.szcomtop.meal.utils;
 
 import java.security.MessageDigest;
+import java.util.UUID;
 
 import android.annotation.SuppressLint;
 
 @SuppressLint("DefaultLocale")
-public class MD5Util {  
-      
+public class MD5Util {
+
 	public static String getMD5(String inStr) {
 		MessageDigest md5 = null;  
         try{  
@@ -29,5 +30,4 @@ public class MD5Util {
         }  
         return hexValue.toString().toLowerCase();
 	}
-
-}  
+}

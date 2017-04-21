@@ -1,5 +1,6 @@
 package com.szcomtop.meal.net;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.iteam.supernfc.UHFApplication;
@@ -11,6 +12,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -454,5 +456,15 @@ public class RestApi {
             Log.e("RENRENREN","同步资产请求参数 url="+UHFApplication.getHost() +Const.SYNC_ASSET +"/"+officeId+"/"+pageno);
     }
 
+
+    /**
+     * 获取资产
+     * @param {officeId}
+     * @param {pageno}
+     */
+    public  static  void syncAssetDataAdd(Context context, HashMap<String,String> map,  ReqCallBack<String > callBack){
+
+        RequestManager.getInstance(context).requestAsyn(Const.SYNC_ASSET_ADD,RequestManager.TYPE_POST_JSON,map,callBack);
+    }
 
 }

@@ -23,7 +23,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DB_NAME = "zcxt.db";
     public static final String DATABASE_PATH = Environment
-            .getExternalStorageDirectory() + "/zcxt/zcxt.db";
+            .getExternalStorageDirectory() + "/zcxt.db";
 
 
 

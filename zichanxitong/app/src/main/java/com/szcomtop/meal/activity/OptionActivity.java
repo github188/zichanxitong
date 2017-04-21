@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.iteam.supernfc.UHFApplication;
@@ -28,6 +30,7 @@ import com.szcomtop.meal.model.AssetInfo;
 import com.szcomtop.meal.model.ComImgTextInfo;
 import com.szcomtop.meal.model.CommonOperateResult;
 import com.szcomtop.meal.model.UserInfo;
+import com.szcomtop.meal.net.ReqCallBack;
 import com.szcomtop.meal.net.RestApi;
 import com.szcomtop.meal.utils.PreferencesUtils;
 import com.szcomtop.meal.utils.StringUtils;
@@ -43,6 +46,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Call;
@@ -71,7 +75,7 @@ public class OptionActivity extends BaseActivity implements View.OnClickListener
 
     private static final int REQUEST_BORROW = 1;
 
-
+    public static final int REQUEST_ADD = 2;
     private String mTitle;
     private LinearLayout mPandianNumArea;
     private EditText mPandianNumEt;
@@ -132,7 +136,7 @@ public class OptionActivity extends BaseActivity implements View.OnClickListener
 
         rBtn.setText("提交");
     }
-
+    AssetCountAdapter assetCountAdapter=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,8 +147,20 @@ public class OptionActivity extends BaseActivity implements View.OnClickListener
         mSelectedInfos = (List<AssetInfo>) intent.getSerializableExtra("data");
         mType = intent.getIntExtra("type", 0);
         mTitle = intent.getStringExtra("title");
+//        assetCountAdapter= new AssetCountAdapter(this, mSelectedInfos);
+        mOptionListview.setAdapter(  new AssetCountAdapter(this, mSelectedInfos));
+        mOptionListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(mType==TYPE_REGISTE) {
 
-        mOptionListview.setAdapter(new AssetCountAdapter(this, mSelectedInfos));
+                    Intent intent = new Intent(OptionActivity.this, AddAssetsActivity.class);
+                    intent.putExtra("title","信息录入");
+                    intent.putExtra("json",new Gson().toJson(mSelectedInfos.get(position)));
+                    startActivityForResult(intent,REQUEST_ADD);
+                }
+            }
+        });
         mOptionZcTv.setText(String.format("资产：共%s条数据", mSelectedInfos.size()));
 
         initView();
@@ -155,19 +171,19 @@ public class OptionActivity extends BaseActivity implements View.OnClickListener
 
             case TYPE_REGISTE:
 
-                mPandianNumArea.setVisibility(View.VISIBLE);
-                mPandianNumTv.setText("学校: ");
-                mPandianNumEt.setEnabled(false);
-                mPandianNumEt.setTextColor(Color.BLACK);
-                UserInfo userInfo = UHFApplication.getUserInfo();
-                if (userInfo!= null){
-                    List<UserInfo.School> rbac_school = userInfo.rbac_school;
-                    if (rbac_school != null && rbac_school.size() >0){
-                        String school_name = rbac_school.get(0).school_name;
-                        mPandianNumEt.setText(school_name);
-                    }
-                }
-                mPandianRefresh.setVisibility(View.INVISIBLE);
+//                mPandianNumArea.setVisibility(View.VISIBLE);
+//                mPandianNumTv.setText("学校: ");
+//                mPandianNumEt.setEnabled(false);
+//                mPandianNumEt.setTextColor(Color.BLACK);
+//                UserInfo userInfo = UHFApplication.getUserInfo();
+//                if (userInfo!= null){
+//                    List<UserInfo.School> rbac_school = userInfo.rbac_school;
+//                    if (rbac_school != null && rbac_school.size() >0){
+//                        String school_name = rbac_school.get(0).school_name;
+//                        mPandianNumEt.setText(school_name);
+//                    }
+//                }
+//                mPandianRefresh.setVisibility(View.INVISIBLE);
 
 
                 break;
@@ -231,7 +247,8 @@ public class OptionActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-
+    private List<AssetInfo> succeedData = new ArrayList<>();
+    private List<AssetInfo> failedData = new ArrayList<>();
     @Override
     public void OnRightBtnClick(View v) {
 
@@ -258,19 +275,98 @@ public class OptionActivity extends BaseActivity implements View.OnClickListener
 
                     showProgress("处理中...");
 
-                    String schoolId = "";
-                    String schoolname = mPandianNumEt.getText().toString().trim();
-                    List<UserInfo.School> rbac_school = UHFApplication.getUserInfo().rbac_school;
-                    if (rbac_school != null){
-                        for (UserInfo.School school : rbac_school) {
-                            if (school.school_name.equals(schoolname)){
-                                schoolId = school.school_id;
+//                    String schoolId = "";
+//                    String schoolname = mPandianNumEt.getText().toString().trim();
+//                    List<UserInfo.School> rbac_school = UHFApplication.getUserInfo().rbac_school;
+//                    if (rbac_school != null){
+//                        for (UserInfo.School school : rbac_school) {
+//                            if (school.school_name.equals(schoolname)){
+//                                schoolId = school.school_id;
+//                            }
+//                        }
+//                    }
+
+//                    RestApi.assetRegiste(ids, operateId,schoolId, operateCallBack);
+
+
+                    HashMap map=new HashMap();
+                    map.put("assetObj",new Gson().toJson(mSelectedInfos));
+                    RestApi.syncAssetDataAdd(this, map, new ReqCallBack<String>() {
+                        @Override
+                        public void onReqSuccess(String result) {
+                            Log.i("RestApi","result ="+result);
+
+                            String s = UnicodeUtil.decodeUnicode(result);
+
+                            Log.i("wuming", "onResponse====>" + s);
+
+                            //TODO 数据多时要开线程
+                            CommonOperateResult commonOperateResult = new Gson().fromJson(s, CommonOperateResult.class);
+                            if (commonOperateResult.state == 1) {
+                                final List<AssetInfo> data = commonOperateResult.data;
+                                if (data != null) {
+                                    succeedData.clear();
+                                    failedData.clear();
+                                    for (AssetInfo item : data) {
+
+                                        if ("1".equals(item.status)) {
+
+                                            succeedData.add(item);
+
+                                        } else {
+                                            failedData.add(item);
+                                        }
+
+                                    }
+
+                                    if (failedData.size() == 0) {
+
+                                        showToast("全部提交成功");
+                                        finish();
+
+                                    } else {
+
+                                        //TODO  数据库读取数据拼
+
+                                        final AssetInfoDao assetInfoDao = new AssetInfoDao(OptionActivity.this);
+
+
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                assetInfoDao.refreshList(data);
+                                                mOptionListview.post(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Intent intent = new Intent(OptionActivity.this, ResultActivity.class);
+                                                        intent.putExtra("succeed", (Serializable) succeedData);
+                                                        intent.putExtra("fail", (Serializable) failedData);
+                                                        startActivity(intent);
+                                                    }
+                                                });
+
+                                            }
+                                        }).start();
+
+
+                                    }
+
+
+                                }
+
+
+                            } else {
+                                showToast("网络出错，请重试！");
                             }
                         }
-                    }
 
-                    RestApi.assetRegiste(ids, operateId,schoolId, operateCallBack);
-
+                        @Override
+                        public void onReqFailed(String errorMsg) {
+                            Log.i("RestApi","errorMsg ="+errorMsg);
+                            dismissProgress();
+                        }
+                    });
                     break;
 
                 case TYPE_OUT:
@@ -655,6 +751,20 @@ public class OptionActivity extends BaseActivity implements View.OnClickListener
 
                 }
 
+            }else if(requestCode==REQUEST_ADD){
+                AssetInfo sa=new Gson().fromJson(data.getStringExtra("assetInfo"),AssetInfo.class);
+                if(mSelectedInfos!=null){
+                    for (int i=0;1<mSelectedInfos.size();i++){
+                        if(mSelectedInfos.get(i).getRfid_code().equals(sa.getRfid_code())){
+                            mSelectedInfos.remove(i);
+                            mSelectedInfos.add(i,sa);
+                        }
+
+                    }
+                }
+                Log.i(this.getLocalClassName(),data.getStringExtra("assetInfo"));
+                mOptionListview.setAdapter( new AssetCountAdapter(this, mSelectedInfos));
+//                assetCountAdapter.notifyDataSetChanged();
             }
 
         }

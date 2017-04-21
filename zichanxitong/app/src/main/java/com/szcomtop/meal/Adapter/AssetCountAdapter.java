@@ -1,11 +1,15 @@
 package com.szcomtop.meal.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iteam.supernfc.bean.IFCategory;
 import com.szcomtop.meal.R;
+import com.szcomtop.meal.activity.AddAssetsActivity;
 import com.szcomtop.meal.common.CommonAdapter;
 import com.szcomtop.meal.common.ViewHolder;
 import com.szcomtop.meal.model.AssetInfo;
@@ -35,6 +39,7 @@ public class AssetCountAdapter extends CommonAdapter<AssetInfo> implements View.
                 .setText(R.id.count_list_item_type,"设备类型:  "+  (StringUtils.isNull(assetInfo.name) ? "未录入" :assetInfo.name))
                 .setText(R.id.count_list_item_name,"设备名称:  "+(StringUtils.isNull(assetInfo.name) ? "未录入" :assetInfo.name));
         View view = holder.getView(R.id.ist_group_item_iv);
+
         TextView error = holder.getView(R.id.count_list_item_error);
         if ("1".equals(assetInfo.status)){
 
@@ -60,7 +65,13 @@ public class AssetCountAdapter extends CommonAdapter<AssetInfo> implements View.
 
 
         }
-
+//        ll_item.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
     }
 
@@ -78,6 +89,7 @@ public class AssetCountAdapter extends CommonAdapter<AssetInfo> implements View.
 
     @Override
     public void onClick(View v) {
+
 
         AssetInfo tag = (AssetInfo) v.getTag();
         tag.isSelected = !tag.isSelected ;

@@ -389,7 +389,11 @@ public abstract class StringUtils {
         return new String(buf);
     }
 
-
+    public static String getWordName()
+    {
+        int num = (int) Math.round(Math.random()*90000+1);
+        return String.valueOf(num);
+    }
     public static boolean isNull(CharSequence s) {
         return TextUtils.isEmpty(s) || s.toString().matches("\\s*") || "null".equals(s);
     }

@@ -15,7 +15,7 @@ import static android.R.attr.id;
 
 @DatabaseTable(tableName = "tb_asset")
 public class AssetInfo   implements Serializable{
-    @DatabaseField(columnName = "id" )
+    @DatabaseField(columnName = "id")
     public String id;  //客户端id
 
     @DatabaseField(columnName = "name")

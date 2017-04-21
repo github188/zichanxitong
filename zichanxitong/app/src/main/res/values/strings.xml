@@ -15,4 +15,25 @@
         <item>盘点</item>
 
     </array>
+    <string-array name="brand_list">
+        <item>品牌</item>
+        <item>brand1</item>
+        <item>brand2</item>
+        <item>brand3</item>
+        <item>brand4</item>
+    </string-array>
+    <string-array name="type_list">
+        <item>类型</item>
+        <item>type1</item>
+        <item>type2</item>
+        <item>type3</item>
+        <item>type4</item>
+    </string-array>
+    <string-array name="model_list">
+        <item>型号</item>
+        <item>model1</item>
+        <item>model2</item>
+        <item>model3</item>
+        <item>model4</item>
+    </string-array>
 </resources>

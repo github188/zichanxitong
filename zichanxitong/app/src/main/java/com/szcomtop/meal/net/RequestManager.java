@@ -5,6 +5,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 
+import com.iteam.supernfc.UHFApplication;
+
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -27,7 +29,7 @@ public class RequestManager {
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");//mdiatype 这个需要和服务端保持一致
     private static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/x-markdown; charset=utf-8");//mdiatype 这个需要和服务端保持一致
     private static final String TAG = RequestManager.class.getSimpleName();
-    private static final String BASE_URL = "http://xxx.com/openapi";//请求接口根地址
+    private static final String BASE_URL = UHFApplication.getHost();//请求接口根地址
     private static volatile RequestManager mInstance;//单利引用
     public static final int TYPE_GET = 0;//get请求
     public static final int TYPE_POST_JSON = 1;//post请求参数为json
@@ -275,10 +277,14 @@ public class RequestManager {
                 tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), "utf-8")));
                 pos++;
             }
+
             String params = tempParams.toString();
             RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, params);
             String requestUrl = String.format("%s/%s", BASE_URL, actionUrl);
+
+
             final Request request = addHeaders().url(requestUrl).post(body).build();
+            Log.i("RequestManager","request =" +request.toString() );
             final Call call = mOkHttpClient.newCall(request);
             call.enqueue(new Callback() {
                 @Override

@@ -24,32 +24,30 @@ public class AssetInfoDao {
     private Dao assetInfoOpe;
 
 
-    public   AssetInfoDao(Context context){
+    public AssetInfoDao(Context context) {
 
         this.context = context;
-        try
-        {
+        try {
             helper = DatabaseHelper.getHelper(context);
             assetInfoOpe = helper.getDao(AssetInfo.class);
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
 
-    public void updateList(final List<AssetInfo> assetInfos){
+    public void updateList(final List<AssetInfo> assetInfos) {
 
         try {
             assetInfoOpe.callBatchTasks(new Callable() {
                 @Override
                 public Object call() throws Exception {
-                    Log.i("wuming","updateList:"+Thread.currentThread().getName());
+                    Log.i("wuming", "updateList:" + Thread.currentThread().getName());
 
                     for (AssetInfo assetInfo : assetInfos) {
 
-                        Log.i("wuming",assetInfo.toString());
+                        Log.i("wuming", assetInfo.toString());
 
                         assetInfoOpe.createOrUpdate(assetInfo);
 
@@ -65,13 +63,13 @@ public class AssetInfoDao {
     }
 
 
-    public void deleteList(final List<AssetInfo> assetInfos){
+    public void deleteList(final List<AssetInfo> assetInfos) {
 
         try {
             assetInfoOpe.callBatchTasks(new Callable() {
                 @Override
                 public Object call() throws Exception {
-                    Log.i("wuming","deleteList:"+Thread.currentThread().getName());
+                    Log.i("wuming", "deleteList:" + Thread.currentThread().getName());
 
 
                     for (AssetInfo assetInfo : assetInfos) {
@@ -81,7 +79,7 @@ public class AssetInfoDao {
 
                     }
 
-                    PreferencesUtils.putString(context, Consts.UPDATE_TIME,System.currentTimeMillis()/1000+"");
+                    PreferencesUtils.putString(context, Consts.UPDATE_TIME, System.currentTimeMillis() / 1000 + "");
 
                     return null;
                 }
@@ -93,7 +91,7 @@ public class AssetInfoDao {
     }
 
 
-    public void refreshList(final List<AssetInfo> assetInfos){
+    public void refreshList(final List<AssetInfo> assetInfos) {
 
         try {
             assetInfoOpe.callBatchTasks(new Callable() {
@@ -119,43 +117,37 @@ public class AssetInfoDao {
 
     /**
      * 增加一个资产
+     *
      * @param assetInfo
      */
-    public void add(AssetInfo assetInfo)
-    {
-        try
-        {
-            assetInfoOpe.create(assetInfo);
+    public void add(AssetInfo assetInfo) {
+        try {
+//            assetInfoOpe.create(assetInfo);
+            assetInfoOpe.createOrUpdate(assetInfo);
 
-
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
 
-    public List<AssetInfo> queryAll(){
+    public List<AssetInfo> queryAll() {
 
 
-        List<AssetInfo>  assetInfos = null;
-        try
-        {
-           assetInfos = assetInfoOpe.queryForAll();
+        List<AssetInfo> assetInfos = null;
+        try {
+            assetInfos = assetInfoOpe.queryForAll();
 
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
 
-        return  assetInfos ;
-
+        return assetInfos;
 
 
     }
-
 
 }
