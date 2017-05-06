@@ -398,7 +398,6 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
 
 //        mHandler.removeCallbacks(mRefreshRunnable);
         mLoopHandler.postDelayed(mLoopRunnable, 2000);
-
     }
 
     public void stopInventory() {
@@ -656,6 +655,7 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
                 startActivity(intent);
 
                 break;
+            //报废
             case TYPE_SCRAP:
 
                 showProgress("处理中...");
@@ -709,12 +709,8 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
 
         stopInventory();
         emptyTv.setText("已停止扫描，点击开始启动扫描");
-
         startBtn.setText("开始");
-
-
     }
-
 
     @Override
     public void onDestroy() {
