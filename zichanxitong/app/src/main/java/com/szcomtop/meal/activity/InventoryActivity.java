@@ -101,7 +101,7 @@ public class InventoryActivity extends BaseActivity  implements View.OnClickList
         RestApi.getInventorytask(id, ""+1, new StringCallback() {
             @Override
             public void onError(Call call, Exception e) {
-                Log.d("RENRENREN","返回 错误信息 error = "+call.request().body().toString());
+//                Log.d("RENRENREN","返回 错误信息 error = "+call.request().body().toString());
                 e.printStackTrace();
                 dismissProgress();
                 showToast("网络出错，请检查。");
