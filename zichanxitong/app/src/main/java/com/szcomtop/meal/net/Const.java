@@ -38,8 +38,8 @@ public class Const {
 
     public static final String GET_ALL_DELETE_AASET = "/public/api/asset/getAllDelAsset";
 
-    //以下为新接口  add by renjianhong  2017-4-6
-    //  public static  final  String HOST_TEST = "xdwl.tunnel.qydev.com";
+    //以下为新接口  add by renjianhong  2017-4-6  pccg（test）  123456
+    //  public static  final  String HOST_TEST = "http://xdwl.tunnel.qydev.com";
     public static  final  String HOST_TEST = "221.131.145.100";
     public static  final  String NEW_LOGIN_URL = "/service/handset/login";
 

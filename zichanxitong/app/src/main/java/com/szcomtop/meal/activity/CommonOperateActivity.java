@@ -664,7 +664,6 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
 
                 break;
             case TYPE_BORROW:
-
                 intent.putExtra("data", (Serializable) selectedInfos);
                 intent.putExtra("type",type);
                 startActivity(intent);
