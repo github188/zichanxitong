@@ -76,7 +76,10 @@ public class OperateActivity extends  BaseActivity implements AdapterView.OnItem
         if(strings.get(position).equals("查找")){
             //查找逻辑
             startActivity(new Intent(this,FindActivity.class));
-        }else {
+        }else if(strings.get(position).equals("盘点")){
+            //盘点逻辑
+            startActivity(new Intent(this,InventoryActivity.class));
+        }else{
             Intent intent = new Intent(this, CommonOperateActivity.class);
             intent.putExtra("title",strings.get(position));
             intent.putExtra("type",position+1);

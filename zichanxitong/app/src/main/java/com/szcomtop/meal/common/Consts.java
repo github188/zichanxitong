@@ -8,6 +8,7 @@ import android.os.Environment;
 public class Consts {
 
     public static final String SERVER_IP = "server_ip";
+    public static final String ACCOUNT_ID = "account_id";
 
 
     public static final String FIRST = "first";

@@ -78,4 +78,11 @@ public class Const {
      */
     public static  final  String SYNC_ASSET_NATURE = "/service/handset/synchro/assetnature";
 
+    /**
+     *  资产盘点申请  参数：accountId、pageno
+     *  service/handset/synchro/task/inventory/{accountId}/{pageno}
+     */
+    public static  final  String GET_ASSET_INVENTORY = "/service/handset/synchro/task/inventory";
+
+
 }

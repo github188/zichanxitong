@@ -253,7 +253,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //                            UHFApplication.setUserInfo(userInfo);
 
                             String id = account.getString("id");
-                            PreferencesUtils.putString(LoginActivity.this, Consts.OPERATE_ID, id);
+                            PreferencesUtils.putString(LoginActivity.this, Consts.ACCOUNT_ID, id);
 
                             String office_id = account.getString("office_id");
                             PreferencesUtils.putString(LoginActivity.this, Consts.OFFICE_ID, office_id);

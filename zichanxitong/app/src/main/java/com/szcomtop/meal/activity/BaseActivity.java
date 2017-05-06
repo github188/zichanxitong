@@ -50,7 +50,7 @@ public class BaseActivity extends FragmentActivity implements HeadView.OnHeadIni
 
     public  void showToast(String text){
 
-        Toast.makeText(this,text,0).show();
+        Toast.makeText(this,text,Toast.LENGTH_LONG).show();
 
     }
 

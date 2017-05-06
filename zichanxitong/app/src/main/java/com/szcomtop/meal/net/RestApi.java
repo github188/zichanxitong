@@ -455,4 +455,20 @@ public class RestApi {
     }
 
 
+    /**
+     * 登陆
+     * @param accountid
+     * @param pageno
+     * @param callback
+     */
+    public static void getInventorytask(String accountid, String pageno, Callback callback){
+
+        OkHttpUtils.post().url(UHFApplication.getHost()+Const.GET_ASSET_INVENTORY)
+                .addParams("accountId",accountid)
+                .addParams("pageno", pageno)
+                .build().execute(callback);
+        Log.e("RENRENREN","盘点任务接口请求参数 url="+UHFApplication.getHost()+Const.GET_ASSET_INVENTORY+"/"+accountid+"/"+""+pageno+"");
+    }
+
+
 }
