@@ -849,9 +849,6 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
-
-
-
             CommonConfirmDialog dialog = new CommonConfirmDialog(this, "请确定", "确定要返回吗？", "取消", "确定");
             dialog.setPositiveButtonListener(new View.OnClickListener() {
                 @Override
@@ -860,7 +857,5 @@ public class CommonOperateActivity extends BaseActivity implements View.OnClickL
                 }
             });
             dialog.show();
-
-
     }
 }

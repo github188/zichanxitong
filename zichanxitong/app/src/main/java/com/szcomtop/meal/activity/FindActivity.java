@@ -66,6 +66,7 @@ public class FindActivity extends BaseActivity  implements View.OnClickListener{
                     data = resultList;
                     adapter = new MyExpandableListAdapter(this,data);
                     list_result.setAdapter(adapter);
+                    list_result.expandGroup(0);
                     adapter.notifyDataSetChanged();
                 }
                 break;
